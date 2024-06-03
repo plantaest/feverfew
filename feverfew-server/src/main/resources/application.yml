@@ -1,0 +1,44 @@
+quarkus:
+  analytics:
+    disabled: true
+  http:
+    port: 8000
+    cors:
+      ~: true
+      origins:
+        - https://web.postman.co
+  smallrye-openapi:
+    info-title: Feverfew API Docs
+    info-version: 1.0.0
+    info-contact-name: Plantaest
+    info-contact-url: https://plantaest.github.io
+    info-contact-email: plantaest@gmail.com
+    info-license-name: Apache 2.0
+    info-license-url: https://www.apache.org/licenses/LICENSE-2.0.html
+    operation-id-strategy: METHOD
+  swagger-ui:
+    theme: original
+    path: /api-docs
+    always-include: true
+    title: Feverfew API Docs
+    operations-sorter: method
+    tags-sorter: alpha
+    doc-expansion: none
+    display-request-duration: true
+    show-extensions: true
+    show-common-extensions: true
+    default-model-expand-depth: 10
+    default-models-expand-depth: 10
+
+"%dev":
+  quarkus:
+    log:
+      category:
+        WebApplicationException:
+          level: DEBUG
+        "org.jboss.resteasy.reactive.server.handlers.ParameterHandler":
+          level: DEBUG
+        "org.jboss.resteasy.reactive.common.core.AbstractResteasyReactiveContext":
+          level: DEBUG
+        "io.github.plantaest.feverfew.config.logging.LoggingFilter":
+          level: DEBUG

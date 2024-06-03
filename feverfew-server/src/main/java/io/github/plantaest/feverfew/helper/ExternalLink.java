@@ -7,41 +7,23 @@ import jakarta.annotation.Nullable;
 public record ExternalLink(
         String anchorHref,
         String anchorId,
-        UriSpec uriSpec,
+        @Nullable
+        String uriScheme,
+        String uriHost,
+        @Nullable
+        Integer uriPort,
+        @Nullable
+        String uriPath,
+        @Nullable
+        String uriQuery,
+        @Nullable
+        String uriFragment,
         Boolean isIPv4Host,
         Boolean isIPv6Host,
         @Nullable
         String tld,
         @Nullable
-        String cleanedText,
+        String text,
         @Nullable
-        String fileType,
-        @Nullable
-        String sectionTitle,
-        @Nullable
-        String sectionTitleId,
-        @Nullable
-        String nearestLevelTwoTitle,
-        @Nullable
-        String nearestLevelTwoTitleId
-) {
-
-    @Builder
-    record UriSpec(
-            @Nullable
-            String scheme,
-            @Nullable
-            String userinfo,
-            String host,
-            @Nullable
-            String port,
-            String authority,
-            @Nullable
-            String path,
-            @Nullable
-            String query,
-            @Nullable
-            String fragment
-    ) {}
-
-}
+        String fileType
+) {}

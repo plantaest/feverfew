@@ -1,7 +1,15 @@
 package io.github.plantaest.feverfew.helper;
 
 import jakarta.enterprise.context.ApplicationScoped;
+import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.validator.routines.DomainValidator;
+import org.apache.commons.validator.routines.InetAddressValidator;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,11 +17,68 @@ import java.util.List;
 public class LinkHelper {
 
     public List<ExternalLink> extractExternalLinks(String pageHtmlContent) {
-        List<ExternalLink> externalLinks = new ArrayList<>();
+        try {
+            List<ExternalLink> externalLinks = new ArrayList<>();
 
-        // TODO: Implement this function
+            Document document = Jsoup.parse(pageHtmlContent);
+            Elements anchorElements = document.select("a[rel='mw:ExtLink nofollow']");
 
-        return externalLinks;
+            for (Element anchor : anchorElements) {
+                String anchorHref = anchor.attr("href");
+                String anchorId = anchor.id();
+                URI uri = new URI(anchorHref);
+
+                var externalLink = ExternalLinkBuilder.builder()
+                        .anchorHref(anchorHref)
+                        .anchorId(anchorId)
+                        .uriScheme(uri.getScheme())
+                        .uriHost(uri.getHost())
+                        .uriPort(uri.getPort() == -1 ? null : uri.getPort())
+                        .uriPath(uri.getPath())
+                        .uriQuery(uri.getQuery())
+                        .uriFragment(uri.getFragment())
+                        .isIPv4Host(isValidIPv4(uri.getHost()))
+                        .isIPv6Host(isValidIPv6(uri.getHost()))
+                        .tld(getTLD(uri.getHost()))
+                        .text(anchor.text().isBlank() ? null : anchor.text())
+                        .fileType(getExtension(uri.getPath()))
+                        .build();
+
+                externalLinks.add(externalLink);
+            }
+
+            return externalLinks;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public boolean isValidIPv4(String host) {
+        InetAddressValidator validator = InetAddressValidator.getInstance();
+        return validator.isValidInet4Address(host);
+    }
+
+    public boolean isValidIPv6(String host) {
+        InetAddressValidator validator = InetAddressValidator.getInstance();
+        return validator.isValidInet6Address(host);
+    }
+
+    public String getTLD(String domain) {
+        DomainValidator validator = DomainValidator.getInstance();
+
+        if (validator.isValid(domain)) {
+            String[] domainParts = domain.split("\\.");
+            if (domainParts.length > 1) {
+                return domainParts[domainParts.length - 1];
+            }
+        }
+
+        return null;
+    }
+
+    public String getExtension(String path) {
+        var extension = FilenameUtils.getExtension(path);
+        return extension.isBlank() ? null : extension;
     }
 
 }

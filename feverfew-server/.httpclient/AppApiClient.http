@@ -6,7 +6,7 @@ POST {{host}}/api/v1/checks
 Content-Type: application/json
 
 {
-  "wikiId": "viwiki",
-  "pageTitle": "A",
+  "wikiId": "enwiki",
+  "pageTitle": "DKSH",
   "revisionId": null
 }

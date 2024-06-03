@@ -1,5 +1,7 @@
 package io.github.plantaest.feverfew.service;
 
+import io.github.plantaest.composite.Wiki;
+import io.github.plantaest.composite.Wikis;
 import io.github.plantaest.feverfew.dto.common.AppResponse;
 import io.github.plantaest.feverfew.dto.request.CreateCheckRequest;
 import io.github.plantaest.feverfew.dto.response.CreateCheckResponse;
@@ -21,12 +23,19 @@ public class CheckService {
     @Inject
     LinkHelper linkHelper;
 
+    @Inject
+    Wikis wikis;
+
     public AppResponse<CreateCheckResponse> createCheck(CreateCheckRequest request) {
+        Wiki wiki = wikis.getWiki(request.wikiId());
+
         // Step 1. Get page content
-        String pageHtmlContent = "This is page HTML content.";
+        String pageHtmlContent = wiki.page(request.pageTitle()).html();
 
         // Step 2. Extract links
         List<ExternalLink> externalLinks = linkHelper.extractExternalLinks(pageHtmlContent);
+
+        // Step 3. Call & collect link information
 
         Check check = checkMapper.toEntity(request);
         CreateCheckResponse response = checkMapper.toResponse(check);

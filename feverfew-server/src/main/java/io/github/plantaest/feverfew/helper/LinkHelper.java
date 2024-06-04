@@ -24,21 +24,21 @@ public class LinkHelper {
             Elements anchorElements = document.select("a[rel='mw:ExtLink nofollow']");
 
             for (Element anchor : anchorElements) {
-                String anchorHref = anchor.attr("href");
                 String anchorId = anchor.id();
+                String anchorHref = anchor.attr("href");
                 URI uri = new URI(anchorHref);
 
                 var externalLink = ExternalLinkBuilder.builder()
-                        .anchorHref(anchorHref)
-                        .anchorId(anchorId)
-                        .uriScheme(uri.getScheme())
-                        .uriHost(uri.getHost())
-                        .uriPort(uri.getPort() == -1 ? null : uri.getPort())
-                        .uriPath(uri.getPath())
-                        .uriQuery(uri.getQuery())
-                        .uriFragment(uri.getFragment())
-                        .isIPv4Host(isValidIPv4(uri.getHost()))
-                        .isIPv6Host(isValidIPv6(uri.getHost()))
+                        .id(anchorId)
+                        .href(anchorHref)
+                        .scheme(uri.getScheme())
+                        .host(uri.getHost())
+                        .port(uri.getPort() == -1 ? null : uri.getPort())
+                        .path(uri.getPath())
+                        .query(uri.getQuery())
+                        .fragment(uri.getFragment())
+                        .isIPv4(isValidIPv4(uri.getHost()))
+                        .isIPv6(isValidIPv6(uri.getHost()))
                         .tld(getTLD(uri.getHost()))
                         .text(anchor.text().isBlank() ? null : anchor.text())
                         .fileType(getExtension(uri.getPath()))

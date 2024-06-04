@@ -5,21 +5,21 @@ import jakarta.annotation.Nullable;
 
 @Builder
 public record ExternalLink(
-        String anchorHref,
-        String anchorId,
+        String id,
+        String href,
         @Nullable
-        String uriScheme,
-        String uriHost,
+        String scheme,
+        String host,
         @Nullable
-        Integer uriPort,
+        Integer port,
         @Nullable
-        String uriPath,
+        String path,
         @Nullable
-        String uriQuery,
+        String query,
         @Nullable
-        String uriFragment,
-        Boolean isIPv4Host,
-        Boolean isIPv6Host,
+        String fragment,
+        Boolean isIPv4,
+        Boolean isIPv6,
         @Nullable
         String tld,
         @Nullable

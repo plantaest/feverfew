@@ -36,6 +36,8 @@ quarkus:
       category:
         WebApplicationException:
           level: DEBUG
+        "io.github.plantaest.feverfew":
+          level: DEBUG
         "org.jboss.resteasy.reactive.server.handlers.ParameterHandler":
           level: DEBUG
         "org.jboss.resteasy.reactive.common.core.AbstractResteasyReactiveContext":

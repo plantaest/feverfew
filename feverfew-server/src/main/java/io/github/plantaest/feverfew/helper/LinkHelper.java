@@ -25,6 +25,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
@@ -184,8 +185,10 @@ public class LinkHelper {
                 futures.add(future);
             }
             for (var future : futures) {
-                results.add(future.get());
-                Log.debugf("Added request result of link: %s", future.get().requestUrl());
+                RequestResult result = future.get();
+                results.add(result);
+                Log.debugf("Added request result of link: %s %sms %s",
+                        result.type(), result.requestDuration(), result.requestUrl());
             }
         } catch (InterruptedException | ExecutionException e) {
             Log.errorf("Unable to request links: %s", e.getMessage());

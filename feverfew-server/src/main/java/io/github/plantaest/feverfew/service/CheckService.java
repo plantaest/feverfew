@@ -8,6 +8,7 @@ import io.github.plantaest.feverfew.dto.response.CreateCheckResponse;
 import io.github.plantaest.feverfew.entity.Check;
 import io.github.plantaest.feverfew.helper.ExternalLink;
 import io.github.plantaest.feverfew.helper.LinkHelper;
+import io.github.plantaest.feverfew.helper.RequestResult;
 import io.github.plantaest.feverfew.mapper.CheckMapper;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -36,6 +37,7 @@ public class CheckService {
         List<ExternalLink> externalLinks = linkHelper.extractExternalLinks(pageHtmlContent);
 
         // Step 3. Call & collect link information
+        List<RequestResult> requestResults = linkHelper.requestLinks(externalLinks);
 
         Check check = checkMapper.toEntity(request);
         CreateCheckResponse response = checkMapper.toResponse(check);

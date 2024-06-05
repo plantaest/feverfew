@@ -12,4 +12,8 @@ public class TimeHelper {
                 .doubleValue();
     }
 
+    public static double durationInMillis(long startTime) {
+        return TimeHelper.durationInMillis(startTime, System.nanoTime());
+    }
+
 }

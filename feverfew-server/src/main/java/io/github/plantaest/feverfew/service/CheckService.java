@@ -10,10 +10,12 @@ import io.github.plantaest.feverfew.helper.ExternalLink;
 import io.github.plantaest.feverfew.helper.LinkHelper;
 import io.github.plantaest.feverfew.helper.RequestResult;
 import io.github.plantaest.feverfew.mapper.CheckMapper;
+import io.quarkus.logging.Log;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @ApplicationScoped
 public class CheckService {
@@ -38,6 +40,13 @@ public class CheckService {
 
         // Step 3. Call & collect link information
         List<RequestResult> requestResults = linkHelper.requestLinks(externalLinks);
+        Log.debugf("Sorted durations: %s", requestResults.stream()
+                .mapToDouble(RequestResult::requestDuration)
+                .sorted()
+                .mapToObj(String::valueOf)
+                .collect(Collectors.joining(" ")));
+
+        // Step 4. Categorize links
 
         Check check = checkMapper.toEntity(request);
         CreateCheckResponse response = checkMapper.toResponse(check);

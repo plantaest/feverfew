@@ -3,7 +3,6 @@ package io.github.plantaest.feverfew.helper;
 import io.quarkus.logging.Log;
 import jakarta.enterprise.context.ApplicationScoped;
 import kong.unirest.core.RawResponse;
-import kong.unirest.core.Unirest;
 import kong.unirest.core.UnirestInstance;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.validator.routines.DomainValidator;
@@ -20,12 +19,10 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import java.util.UUID;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
@@ -170,31 +167,50 @@ public class LinkHelper {
     public List<RequestResult> requestLinks(List<ExternalLink> links) {
         List<RequestResult> results = new ArrayList<>();
 
-        UnirestInstance httpClient = Unirest.spawnInstance();
-        httpClient.config()
-                .connectTimeout(5000)
-                .requestTimeout(8000)
-                .connectionTTL(8000, TimeUnit.MICROSECONDS)
-                .followRedirects(false)
-                .verifySsl(false);
+        try (var httpClient = CloseableUnirest.spawnInstance();
+             var executor = Executors.newVirtualThreadPerTaskExecutor()) {
+            httpClient.config()
+                    .connectTimeout(12000)
+                    .requestTimeout(25000)
+                    .connectionTTL(25000, TimeUnit.MILLISECONDS)
+                    .followRedirects(false)
+                    .verifySsl(false);
 
-        try (ExecutorService executor = Executors.newVirtualThreadPerTaskExecutor()) {
-            List<Future<RequestResult>> futures = new ArrayList<>();
-            for (var link : links) {
-                Future<RequestResult> future = executor.submit(() -> executeLink(httpClient, link));
-                futures.add(future);
+            var tasks = links.stream().<Callable<RequestResult>>map(link -> () -> executeLink(httpClient, link)).toList();
+            long startTime = System.nanoTime();
+            List<Future<RequestResult>> futures = executor.invokeAll(tasks, 25000, TimeUnit.MILLISECONDS);
+
+            for (int i = 0; i < futures.size(); i++) {
+                var future = futures.get(i);
+                AtomicReference<RequestResult> result = new AtomicReference<>();
+
+                try {
+                    var r = future.get();
+                    result.set(r);
+                } catch (Exception e) {
+                    var requestUrl = links.get(i).href();
+                    Log.errorf("Unable to request link: %s", requestUrl);
+                    var r = RequestResultBuilder.builder()
+                            .type(RequestResult.Type.ERROR)
+                            .requestUrl(requestUrl)
+                            .requestDuration(TimeHelper.durationInMillis(startTime))
+                            .responseStatus(0)
+                            .contentType(null)
+                            .contentLength(0)
+                            .containsPageNotFoundWords(false)
+                            .containsPaywallWords(false)
+                            .containsDomainExpiredWords(false)
+                            .redirects(List.of())
+                            .build();
+                    result.set(r);
+                }
+
+                results.add(result.get());
+                Log.debugf("Added request result: %s", result.get());
             }
-            for (var future : futures) {
-                RequestResult result = future.get();
-                results.add(result);
-                Log.debugf("Added request result of link: %s %sms %s",
-                        result.type(), result.requestDuration(), result.requestUrl());
-            }
-        } catch (InterruptedException | ExecutionException e) {
-            Log.errorf("Unable to request links: %s", e.getMessage());
+        } catch (InterruptedException e) {
+            Log.errorf("Cannot invoke all links: %s", e.getMessage());
         }
-
-        httpClient.close();
 
         return results;
     }

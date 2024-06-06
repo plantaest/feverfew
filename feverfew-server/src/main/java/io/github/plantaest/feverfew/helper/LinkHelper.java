@@ -48,11 +48,12 @@ public class LinkHelper {
 
             for (Element anchor : anchorElements) {
                 String anchorId = anchor.id();
-                String anchorHref = anchor.attr("href");
+                String rawAnchorHref = anchor.attr("href");
+                String anchorHref = rawAnchorHref.startsWith("//") ? "https:" + rawAnchorHref : rawAnchorHref;
                 URI uri = new URI(anchorHref);
 
-                if (anchorHref.startsWith("//")) {
-                    anchorHref = "https:" + anchorHref;
+                if (!List.of("http", "https").contains(uri.getScheme())) {
+                    continue;
                 }
 
                 var externalLink = ExternalLinkBuilder.builder()
@@ -90,11 +91,11 @@ public class LinkHelper {
         return validator.isValidInet6Address(host);
     }
 
-    private String getTLD(String domain) {
+    private String getTLD(String host) {
         DomainValidator validator = DomainValidator.getInstance();
 
-        if (validator.isValid(domain)) {
-            String[] domainParts = domain.split("\\.");
+        if (validator.isValid(host)) {
+            String[] domainParts = host.split("\\.");
             if (domainParts.length > 1) {
                 return domainParts[domainParts.length - 1];
             }
@@ -116,7 +117,8 @@ public class LinkHelper {
             "return to",
             "oops",
             "not exist",
-            "try again"
+            "try again",
+            "something went wrong"
     );
 
     private static final List<String> PAYWALL_WORDS = List.of(
@@ -168,7 +170,7 @@ public class LinkHelper {
             "ui.adsabs.harvard.edu" // Bibcode
     );
 
-    public List<RequestResult> requestLinks(List<ExternalLink> links) {
+    public List<RequestResult> requestLinks(List<String> links) {
         List<RequestResult> results = new ArrayList<>();
 
         try (var httpClient = CloseableUnirest.spawnInstance();
@@ -192,7 +194,7 @@ public class LinkHelper {
                     var r = future.get();
                     result.set(r);
                 } catch (Exception e) {
-                    var requestUrl = links.get(i).href();
+                    var requestUrl = links.get(i);
                     Log.errorf("Unable to request link: %s", requestUrl);
                     var r = RequestResultBuilder.builder()
                             .type(RequestResult.Type.ERROR)
@@ -205,6 +207,7 @@ public class LinkHelper {
                             .containsPaywallWords(false)
                             .containsDomainExpiredWords(false)
                             .redirects(List.of())
+                            .redirectToHomepage(false)
                             .build();
                     result.set(r);
                 }
@@ -219,33 +222,39 @@ public class LinkHelper {
         return results;
     }
 
-    private RequestResult executeLink(UnirestInstance httpClient, ExternalLink link) {
-        var requestUrl = link.href();
-        var scheme = link.scheme();
-        var host = link.host();
+    public List<RequestResult> requestExternalLinks(List<ExternalLink> links) {
+        return requestLinks(links.stream().map(ExternalLink::href).toList());
+    }
+
+    private RequestResult executeLink(UnirestInstance httpClient, String link) {
         long startTime = System.nanoTime();
 
-        if (IGNORED_HOSTS.stream().anyMatch(host::contains)) {
-            return RequestResultBuilder.builder()
-                    .type(RequestResult.Type.IGNORED)
-                    .requestUrl(requestUrl)
-                    .requestDuration(0.0)
-                    .responseStatus(0)
-                    .contentType(null)
-                    .contentLength(0)
-                    .containsPageNotFoundWords(false)
-                    .containsPaywallWords(false)
-                    .containsDomainExpiredWords(false)
-                    .redirects(List.of())
-                    .redirectToHomepage(false)
-                    .build();
-        }
-
         try {
+            var uri = new URI(link);
+            var scheme = uri.getScheme();
+            var host = uri.getHost();
+            var path = uri.getPath();
+
+            if (!List.of("http", "https").contains(scheme) || IGNORED_HOSTS.stream().anyMatch(host::contains)) {
+                return RequestResultBuilder.builder()
+                        .type(RequestResult.Type.IGNORED)
+                        .requestUrl(link)
+                        .requestDuration(0.0)
+                        .responseStatus(0)
+                        .contentType(null)
+                        .contentLength(0)
+                        .containsPageNotFoundWords(false)
+                        .containsPaywallWords(false)
+                        .containsDomainExpiredWords(false)
+                        .redirects(List.of())
+                        .redirectToHomepage(false)
+                        .build();
+            }
+
             List<RawResponse> responses = new ArrayList<>();
             Random random = new Random();
             AtomicInteger nextStatus = new AtomicInteger();
-            AtomicReference<String> nextLink = new AtomicReference<>(requestUrl);
+            AtomicReference<String> nextLink = new AtomicReference<>(link);
             Set<String> locations = new HashSet<>();
             AtomicBoolean stop = new AtomicBoolean(false);
 
@@ -307,7 +316,7 @@ public class LinkHelper {
 
             return RequestResultBuilder.builder()
                     .type(RequestResult.Type.SUCCESS)
-                    .requestUrl(requestUrl)
+                    .requestUrl(link)
                     .requestDuration(requestDurationInMillis)
                     .responseStatus(responses.getLast().getStatus())
                     .contentType(contentType.isBlank() ? null : contentType)
@@ -320,20 +329,20 @@ public class LinkHelper {
                     .redirects(redirects)
                     .redirectToHomepage(isRedirectToHomepage(
                             !redirects.isEmpty(),
-                            link.path() != null,
+                            path != null,
                             responses.getLast().getRequestSummary().getUrl(),
-                            link.host()
+                            host
                     ))
                     .build();
         } catch (Exception e) {
-            Log.errorf("Unable to execute link [%s]: %s", requestUrl, e.getMessage());
+            Log.errorf("Unable to execute link [%s]: %s", link, e.getMessage());
 
             long endTime = System.nanoTime();
             var requestDurationInMillis = TimeHelper.durationInMillis(startTime, endTime);
 
             return RequestResultBuilder.builder()
                     .type(RequestResult.Type.ERROR)
-                    .requestUrl(requestUrl)
+                    .requestUrl(link)
                     .requestDuration(requestDurationInMillis)
                     .responseStatus(0)
                     .contentType(null)
@@ -366,39 +375,6 @@ public class LinkHelper {
                 .replaceAll("http://|https://", "")
                 .replaceAll("/", "")
                 .equalsIgnoreCase(host);
-    }
-
-    public List<ExternalLink> convertRawLinksToExternalLinks(List<String> rawLinks) {
-        try {
-            List<ExternalLink> externalLinks = new ArrayList<>();
-
-            for (int i = 0; i < rawLinks.size(); i++) {
-                var href = rawLinks.get(i);
-                URI uri = new URI(href);
-
-                var externalLink = ExternalLinkBuilder.builder()
-                        .id(String.valueOf(i))
-                        .href(href)
-                        .scheme(uri.getScheme())
-                        .host(uri.getHost())
-                        .port(uri.getPort() == -1 ? null : uri.getPort())
-                        .path(uri.getPath())
-                        .query(uri.getQuery())
-                        .fragment(uri.getFragment())
-                        .isIPv4(isValidIPv4(uri.getHost()))
-                        .isIPv6(isValidIPv6(uri.getHost()))
-                        .tld(getTLD(uri.getHost()))
-                        .text(null)
-                        .fileType(getExtension(uri.getPath()))
-                        .build();
-
-                externalLinks.add(externalLink);
-            }
-
-            return externalLinks;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
     }
 
 }

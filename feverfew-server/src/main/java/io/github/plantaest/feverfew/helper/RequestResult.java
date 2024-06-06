@@ -9,16 +9,16 @@ import java.util.List;
 public record RequestResult(
         Type type,
         String requestUrl,
-        Double requestDuration,
-        Integer responseStatus,
+        double requestDuration,
+        int responseStatus,
         @Nullable
         String contentType,
-        Integer contentLength,
-        Boolean containsPageNotFoundWords,
-        Boolean containsPaywallWords,
-        Boolean containsDomainExpiredWords,
+        int contentLength,
+        boolean containsPageNotFoundWords,
+        boolean containsPaywallWords,
+        boolean containsDomainExpiredWords,
         List<Redirect> redirects,
-        Boolean redirectToHomepage
+        boolean redirectToHomepage
 ) {
 
     public enum Type {
@@ -31,7 +31,7 @@ public record RequestResult(
     public record Redirect(
             String requestUrl,
             String location,
-            Integer responseStatus
+            int responseStatus
     ) {}
 
 }

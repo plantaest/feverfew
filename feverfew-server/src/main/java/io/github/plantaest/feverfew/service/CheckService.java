@@ -9,7 +9,6 @@ import io.github.plantaest.feverfew.dto.request.ExportFeaturesAsCsvRequest;
 import io.github.plantaest.feverfew.dto.response.CreateCheckResponse;
 import io.github.plantaest.feverfew.entity.Check;
 import io.github.plantaest.feverfew.helper.ExternalLink;
-import io.github.plantaest.feverfew.helper.ExternalLinkBuilder;
 import io.github.plantaest.feverfew.helper.LinkHelper;
 import io.github.plantaest.feverfew.helper.RequestResult;
 import io.github.plantaest.feverfew.mapper.CheckMapper;
@@ -17,7 +16,6 @@ import io.quarkus.logging.Log;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
-import java.io.IOException;
 import java.io.StringWriter;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -44,7 +42,7 @@ public class CheckService {
         List<ExternalLink> externalLinks = linkHelper.extractExternalLinks(pageHtmlContent);
 
         // Step 3. Call & collect link information
-        List<RequestResult> requestResults = linkHelper.requestLinks(externalLinks);
+        List<RequestResult> requestResults = linkHelper.requestExternalLinks(externalLinks);
         Log.debugf("Sorted durations: %s", requestResults.stream()
                 .mapToDouble(RequestResult::requestDuration)
                 .sorted()
@@ -59,11 +57,8 @@ public class CheckService {
     }
 
     public String exportFeaturesAsCsv(ExportFeaturesAsCsvRequest request) {
-        // Convert raw link to ExternalLink object
-        List<ExternalLink> links = linkHelper.convertRawLinksToExternalLinks(request.links());
-
         // Call & collect link information
-        List<RequestResult> requestResults = linkHelper.requestLinks(links);
+        List<RequestResult> requestResults = linkHelper.requestLinks(request.links());
 
         // Build CSV
         var sw = new StringWriter();
@@ -87,14 +82,14 @@ public class CheckService {
             csv.writeRecord(
                     result.requestUrl(),
                     result.type().toString(),
-                    result.requestDuration().toString(),
-                    result.responseStatus().toString(),
-                    result.contentLength().toString(),
-                    result.containsPageNotFoundWords().toString(),
-                    result.containsPaywallWords().toString(),
-                    result.containsDomainExpiredWords().toString(),
+                    String.valueOf(result.requestDuration()),
+                    String.valueOf(result.responseStatus()),
+                    String.valueOf(result.contentLength()),
+                    String.valueOf(result.containsPageNotFoundWords()),
+                    String.valueOf(result.containsPaywallWords()),
+                    String.valueOf(result.containsDomainExpiredWords()),
                     String.valueOf(result.redirects().size()),
-                    result.redirectToHomepage().toString()
+                    String.valueOf(result.redirectToHomepage())
             );
         }
 

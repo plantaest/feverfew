@@ -3,6 +3,7 @@ package io.github.plantaest.feverfew.resource;
 import io.github.plantaest.feverfew.config.exception.AppError;
 import io.github.plantaest.feverfew.dto.common.AppResponse;
 import io.github.plantaest.feverfew.dto.request.CreateCheckRequest;
+import io.github.plantaest.feverfew.dto.request.ExportFeaturesAsCsvRequest;
 import io.github.plantaest.feverfew.dto.response.CreateCheckResponse;
 import io.github.plantaest.feverfew.service.CheckService;
 import jakarta.inject.Inject;
@@ -20,7 +21,7 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.jboss.resteasy.reactive.ResponseStatus;
 
-@Path("/api/v1/checks")
+@Path("/api/v1/check")
 @Tag(name = "Check")
 public class CheckResource {
 
@@ -28,6 +29,7 @@ public class CheckResource {
     CheckService checkService;
 
     @POST
+    @Path(("/create"))
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @ResponseStatus(201)
@@ -43,6 +45,16 @@ public class CheckResource {
     })
     public AppResponse<CreateCheckResponse> createCheck(@Valid CreateCheckRequest request) {
         return checkService.createCheck(request);
+    }
+
+    @POST
+    @Path("/export/features/csv")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
+    @ResponseStatus(200)
+    @Operation(summary = "Export link features in CSV format")
+    public String exportFeaturesAsCsv(@Valid ExportFeaturesAsCsvRequest request) {
+        return checkService.exportFeaturesAsCsv(request);
     }
 
 }

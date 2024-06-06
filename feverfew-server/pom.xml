@@ -22,6 +22,7 @@
         <jsoup.version>1.17.2</jsoup.version>
         <commons-validator.version>1.9.0</commons-validator.version>
         <commons-io.version>2.16.1</commons-io.version>
+        <fastcsv.version>3.1.0</fastcsv.version>
     </properties>
 
     <dependencyManagement>
@@ -135,6 +136,11 @@
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
             <version>${commons-io.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>de.siegmar</groupId>
+            <artifactId>fastcsv</artifactId>
+            <version>${fastcsv.version}</version>
         </dependency>
     </dependencies>
 

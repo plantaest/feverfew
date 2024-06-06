@@ -128,7 +128,11 @@ public class LinkHelper {
             "best value",
             "join today",
             "try free",
-            "for free"
+            "for free",
+            "become a subscriber",
+            "already a subscriber",
+            "subscribers only",
+            "subscribe now"
     );
 
     private static final List<String> DOMAIN_EXPIRED_WORDS = List.of(
@@ -225,7 +229,7 @@ public class LinkHelper {
             return RequestResultBuilder.builder()
                     .type(RequestResult.Type.IGNORED)
                     .requestUrl(requestUrl)
-                    .requestDuration(0)
+                    .requestDuration(0.0)
                     .responseStatus(0)
                     .contentType(null)
                     .contentLength(0)
@@ -233,6 +237,7 @@ public class LinkHelper {
                     .containsPaywallWords(false)
                     .containsDomainExpiredWords(false)
                     .redirects(List.of())
+                    .redirectToHomepage(false)
                     .build();
         }
 
@@ -287,6 +292,18 @@ public class LinkHelper {
 
             long endTime = System.nanoTime();
             var requestDurationInMillis = TimeHelper.durationInMillis(startTime, endTime);
+            var redirects = responses.stream()
+                    .limit(responses.size() - 1)
+                    .map((response) -> RequestResultRedirectBuilder.builder()
+                            .requestUrl(response.getRequestSummary().getUrl())
+                            .location(improveLocation(
+                                    response.getHeaders().getFirst("Location"),
+                                    scheme,
+                                    host
+                            ))
+                            .responseStatus(response.getStatus())
+                            .build())
+                    .toList();
 
             return RequestResultBuilder.builder()
                     .type(RequestResult.Type.SUCCESS)
@@ -300,18 +317,13 @@ public class LinkHelper {
                     .containsPageNotFoundWords(PAGE_NOT_FOUND_WORDS.stream().anyMatch(bodyText::contains))
                     .containsPaywallWords(PAYWALL_WORDS.stream().anyMatch(bodyText::contains))
                     .containsDomainExpiredWords(DOMAIN_EXPIRED_WORDS.stream().anyMatch(bodyText::contains))
-                    .redirects(responses.stream()
-                            .limit(responses.size() - 1)
-                            .map((response) -> RequestResultRedirectBuilder.builder()
-                                    .requestUrl(response.getRequestSummary().getUrl())
-                                    .location(improveLocation(
-                                            response.getHeaders().getFirst("Location"),
-                                            scheme,
-                                            host
-                                    ))
-                                    .responseStatus(response.getStatus())
-                                    .build())
-                            .toList())
+                    .redirects(redirects)
+                    .redirectToHomepage(isRedirectToHomepage(
+                            !redirects.isEmpty(),
+                            link.path() != null,
+                            responses.getLast().getRequestSummary().getUrl(),
+                            link.host()
+                    ))
                     .build();
         } catch (Exception e) {
             Log.errorf("Unable to execute link [%s]: %s", requestUrl, e.getMessage());
@@ -330,6 +342,7 @@ public class LinkHelper {
                     .containsPaywallWords(false)
                     .containsDomainExpiredWords(false)
                     .redirects(List.of())
+                    .redirectToHomepage(false)
                     .build();
         }
     }
@@ -343,6 +356,48 @@ public class LinkHelper {
             return location;
         } else {
             return scheme + "://" + host + (location.startsWith("/") ? location : "/" + location);
+        }
+    }
+
+    private boolean isRedirectToHomepage(boolean hasRedirects, boolean hasPath, String lastRequestUrl, String host) {
+        return hasRedirects
+                && hasPath
+                && lastRequestUrl
+                .replaceAll("http://|https://", "")
+                .replaceAll("/", "")
+                .equalsIgnoreCase(host);
+    }
+
+    public List<ExternalLink> convertRawLinksToExternalLinks(List<String> rawLinks) {
+        try {
+            List<ExternalLink> externalLinks = new ArrayList<>();
+
+            for (int i = 0; i < rawLinks.size(); i++) {
+                var href = rawLinks.get(i);
+                URI uri = new URI(href);
+
+                var externalLink = ExternalLinkBuilder.builder()
+                        .id(String.valueOf(i))
+                        .href(href)
+                        .scheme(uri.getScheme())
+                        .host(uri.getHost())
+                        .port(uri.getPort() == -1 ? null : uri.getPort())
+                        .path(uri.getPath())
+                        .query(uri.getQuery())
+                        .fragment(uri.getFragment())
+                        .isIPv4(isValidIPv4(uri.getHost()))
+                        .isIPv6(isValidIPv6(uri.getHost()))
+                        .tld(getTLD(uri.getHost()))
+                        .text(null)
+                        .fileType(getExtension(uri.getPath()))
+                        .build();
+
+                externalLinks.add(externalLink);
+            }
+
+            return externalLinks;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 

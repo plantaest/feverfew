@@ -25,5 +25,9 @@ public record ExternalLink(
         @Nullable
         String text,
         @Nullable
-        String fileType
+        String fileType,
+        @Nullable
+        Integer refIndex,
+        @Nullable
+        String refName
 ) {}

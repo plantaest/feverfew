@@ -16,6 +16,7 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
 import java.util.UUID;
@@ -26,6 +27,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @ApplicationScoped
 public class LinkHelper {
@@ -46,6 +49,10 @@ public class LinkHelper {
             // Select external anchors
             Elements anchorElements = document.select("a[rel='mw:ExtLink nofollow']");
 
+            // For extracting refIndex, refName
+            String regex = "cite_note-((?<refName>.+)-|)(?<refIndex>\\d+)";
+            Pattern pattern = Pattern.compile(regex);
+
             for (Element anchor : anchorElements) {
                 String anchorId = anchor.id();
                 String rawAnchorHref = anchor.attr("href");
@@ -54,6 +61,22 @@ public class LinkHelper {
 
                 if (!List.of("http", "https").contains(uri.getScheme())) {
                     continue;
+                }
+
+                Element li = findNearestCiteNoteLi(anchor);
+                Integer refIndex = null;
+                String refName = null;
+
+                if (li != null) {
+                    Matcher matcher = pattern.matcher(li.id());
+                    if (matcher.matches()) {
+                        refIndex = Optional.ofNullable(matcher.group("refIndex"))
+                                .map(Integer::parseInt)
+                                .orElse(null);
+                        refName = Optional.ofNullable(matcher.group("refName"))
+                                .map(rn -> rn.replaceAll("_", " "))
+                                .orElse(null);
+                    }
                 }
 
                 var externalLink = ExternalLinkBuilder.builder()
@@ -70,6 +93,8 @@ public class LinkHelper {
                         .tld(getTLD(uri.getHost()))
                         .text(anchor.text().isBlank() ? null : anchor.text())
                         .fileType(getExtension(uri.getPath()))
+                        .refIndex(refIndex)
+                        .refName(refName)
                         .build();
 
                 externalLinks.add(externalLink);
@@ -79,6 +104,17 @@ public class LinkHelper {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private Element findNearestCiteNoteLi(Element anchor) {
+        Element parent = anchor.parent();
+        while (parent != null && !parent.tagName().equals("section")) {
+            if (parent.tagName().equals("li") && parent.id().startsWith("cite_note")) {
+                return parent;
+            }
+            parent = parent.parent();
+        }
+        return null;
     }
 
     private boolean isValidIPv4(String host) {

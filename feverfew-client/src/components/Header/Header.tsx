@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ActionIcon, Container, Group, Menu, Text } from '@mantine/core';
+import { ActionIcon, Container, Group, Menu } from '@mantine/core';
 import { IconGridDots } from '@tabler/icons-react';
 import classes from './Header.module.css';
 import { ColorSchemeToggle } from '@/components/ColorSchemeToggle/ColorSchemeToggle';
@@ -44,16 +44,10 @@ export function Header() {
   return (
     <header className={classes.header}>
       <Container size="xl" className={classes.inner}>
-        <Group gap="xs">
-          <Text fz={24} fw={600} ff="var(--mantine-alt-font-family)">
-            Feverfew
-          </Text>
-          <ColorSchemeToggle />
-        </Group>
         <Group gap={6} visibleFrom="sm">
           {items}
         </Group>
-        <Menu width={200} shadow="md">
+        <Menu width={200} shadow="md" position="bottom-start">
           <Menu.Target>
             <ActionIcon hiddenFrom="sm" variant="light" aria-label="Menu" color="gray">
               <IconGridDots
@@ -71,6 +65,9 @@ export function Header() {
             ))}
           </Menu.Dropdown>
         </Menu>
+        <Group gap="xs">
+          <ColorSchemeToggle />
+        </Group>
       </Container>
     </header>
   );

@@ -17,6 +17,5 @@ public record Check(
         Long updatedBy,
         String wikiId,
         String pageTitle,
-        Long pageRevisionId,
-        CheckStatus status
+        Long pageRevisionId
 ) {}

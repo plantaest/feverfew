@@ -8,7 +8,6 @@ import java.util.List;
 @Builder
 public record RequestResult(
         Type type,
-        String requestUrl,
         double requestDuration,
         int responseStatus,
         @Nullable

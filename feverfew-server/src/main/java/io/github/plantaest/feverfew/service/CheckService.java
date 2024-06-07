@@ -1,5 +1,6 @@
 package io.github.plantaest.feverfew.service;
 
+import com.github.f4b6a3.tsid.TsidFactory;
 import de.siegmar.fastcsv.writer.CsvWriter;
 import io.github.plantaest.composite.Wiki;
 import io.github.plantaest.composite.Wikis;
@@ -7,7 +8,11 @@ import io.github.plantaest.feverfew.dto.common.AppResponse;
 import io.github.plantaest.feverfew.dto.request.CreateCheckRequest;
 import io.github.plantaest.feverfew.dto.request.ExportFeaturesAsCsvRequest;
 import io.github.plantaest.feverfew.dto.response.CreateCheckResponse;
-import io.github.plantaest.feverfew.entity.Check;
+import io.github.plantaest.feverfew.dto.response.CreateCheckResponseBuilder;
+import io.github.plantaest.feverfew.helper.ClassificationResult;
+import io.github.plantaest.feverfew.helper.Classifier;
+import io.github.plantaest.feverfew.helper.EvaluationResult;
+import io.github.plantaest.feverfew.helper.EvaluationResultBuilder;
 import io.github.plantaest.feverfew.helper.ExternalLink;
 import io.github.plantaest.feverfew.helper.LinkHelper;
 import io.github.plantaest.feverfew.helper.RequestResult;
@@ -17,6 +22,8 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
 import java.io.StringWriter;
+import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,6 +35,12 @@ public class CheckService {
 
     @Inject
     LinkHelper linkHelper;
+
+    @Inject
+    Classifier classifier;
+
+    @Inject
+    TsidFactory tsidFactory;
 
     @Inject
     Wikis wikis;
@@ -50,9 +63,32 @@ public class CheckService {
                 .collect(Collectors.joining(" ")));
 
         // Step 4. Categorize links
+        List<ClassificationResult> classificationResults = classifier.classify(requestResults);
 
-        Check check = checkMapper.toEntity(request);
-        CreateCheckResponse response = checkMapper.toResponse(check);
+        // Step 5. Return response
+        List<EvaluationResult> evaluationResults = new ArrayList<>();
+
+        for (int i = 0; i < externalLinks.size(); i++) {
+            var evaluationResult = EvaluationResultBuilder.builder()
+                    .link(externalLinks.get(i))
+                    .requestResult(requestResults.get(i))
+                    .classificationResult(classificationResults.get(i))
+                    .build();
+            evaluationResults.add(evaluationResult);
+        }
+
+        var now = Instant.now();
+        var response = CreateCheckResponseBuilder.builder()
+                .id(String.valueOf(tsidFactory.create().toLong()))
+                .createdAt(now)
+                .updatedAt(now)
+                .wikiId(request.wikiId())
+                .pageTitle(request.pageTitle())
+                .pageRevisionId(request.pageRevisionId())
+                .totalLinks(evaluationResults.size())
+                .results(evaluationResults)
+                .build();
+
         return AppResponse.created(response);
     }
 
@@ -78,9 +114,10 @@ public class CheckService {
                 "redirect_to_homepage"
         );
 
-        for (var result : requestResults) {
+        for (int i = 0; i < requestResults.size(); i++) {
+            var result = requestResults.get(i);
             csv.writeRecord(
-                    result.requestUrl(),
+                    request.links().get(i),
                     result.type().toString(),
                     String.valueOf(result.requestDuration()),
                     String.valueOf(result.responseStatus()),

@@ -23,6 +23,7 @@
         <commons-validator.version>1.9.0</commons-validator.version>
         <commons-io.version>2.16.1</commons-io.version>
         <fastcsv.version>3.1.0</fastcsv.version>
+        <onnxruntime.version>1.18.0</onnxruntime.version>
     </properties>
 
     <dependencyManagement>
@@ -141,6 +142,11 @@
             <groupId>de.siegmar</groupId>
             <artifactId>fastcsv</artifactId>
             <version>${fastcsv.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.microsoft.onnxruntime</groupId>
+            <artifactId>onnxruntime</artifactId>
+            <version>${onnxruntime.version}</version>
         </dependency>
     </dependencies>
 

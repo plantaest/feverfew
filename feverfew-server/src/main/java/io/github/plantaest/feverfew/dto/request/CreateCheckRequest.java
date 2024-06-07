@@ -13,5 +13,5 @@ public record CreateCheckRequest(
         String pageTitle,
         @Nullable
         @Schema(nullable = true)
-        Long revisionId
+        Long pageRevisionId
 ) {}

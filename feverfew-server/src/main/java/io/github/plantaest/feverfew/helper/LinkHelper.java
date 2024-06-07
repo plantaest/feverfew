@@ -188,17 +188,16 @@ public class LinkHelper {
 
             for (int i = 0; i < futures.size(); i++) {
                 var future = futures.get(i);
+                var link = links.get(i);
                 AtomicReference<RequestResult> result = new AtomicReference<>();
 
                 try {
                     var r = future.get();
                     result.set(r);
                 } catch (Exception e) {
-                    var requestUrl = links.get(i);
-                    Log.errorf("Unable to request link: %s", requestUrl);
+                    Log.errorf("Unable to request link: %s", link);
                     var r = RequestResultBuilder.builder()
                             .type(RequestResult.Type.ERROR)
-                            .requestUrl(requestUrl)
                             .requestDuration(TimeHelper.durationInMillis(startTime))
                             .responseStatus(0)
                             .contentType(null)
@@ -213,7 +212,7 @@ public class LinkHelper {
                 }
 
                 results.add(result.get());
-                Log.debugf("Added request result: %s", result.get());
+                Log.debugf("Added request result of link [%s]: %s", link, result.get());
             }
         } catch (InterruptedException e) {
             Log.errorf("Cannot invoke all links: %s", e.getMessage());
@@ -238,7 +237,6 @@ public class LinkHelper {
             if (!List.of("http", "https").contains(scheme) || IGNORED_HOSTS.stream().anyMatch(host::contains)) {
                 return RequestResultBuilder.builder()
                         .type(RequestResult.Type.IGNORED)
-                        .requestUrl(link)
                         .requestDuration(0.0)
                         .responseStatus(0)
                         .contentType(null)
@@ -316,7 +314,6 @@ public class LinkHelper {
 
             return RequestResultBuilder.builder()
                     .type(RequestResult.Type.SUCCESS)
-                    .requestUrl(link)
                     .requestDuration(requestDurationInMillis)
                     .responseStatus(responses.getLast().getStatus())
                     .contentType(contentType.isBlank() ? null : contentType)
@@ -342,7 +339,6 @@ public class LinkHelper {
 
             return RequestResultBuilder.builder()
                     .type(RequestResult.Type.ERROR)
-                    .requestUrl(link)
                     .requestDuration(requestDurationInMillis)
                     .responseStatus(0)
                     .contentType(null)

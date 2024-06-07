@@ -30,7 +30,6 @@ public class CheckMapper {
                 .wikiId(request.wikiId())
                 .pageTitle(request.pageTitle())
                 .pageRevisionId(0L)
-                .status(CheckStatus.SUCCESS)
                 .build();
     }
 
@@ -39,7 +38,6 @@ public class CheckMapper {
                 .id(check.id().toString())
                 .createdAt(check.createdAt())
                 .updatedAt(check.updatedAt())
-                .totalLinks(10)
                 .build();
     }
 

@@ -1,0 +1,414 @@
+{
+  "status": 201,
+  "data": {
+    "id": "1249372364991504106",
+    "createdAt": "2024-06-09T14:39:44.030Z",
+    "updatedAt": "2024-06-09T14:39:44.030Z",
+    "wikiId": "viwiki",
+    "pageTitle": "DKSH",
+    "pageRevisionId": 71433373,
+    "durationInMillis": 6908.58,
+    "totalLinks": 10,
+    "totalIgnoredLinks": 1,
+    "totalSuccessLinks": 7,
+    "totalErrorLinks": 2,
+    "totalWorkingLinks": 4,
+    "totalBrokenLinks": 5,
+    "results": [
+      {
+        "index": 1,
+        "link": {
+          "id": "mwWw",
+          "href": "http://www.six-swiss-exchange.com/search/quotes_en.html?security=DKSH",
+          "scheme": "http",
+          "host": "www.six-swiss-exchange.com",
+          "port": null,
+          "path": "/search/quotes_en.html",
+          "query": "security=DKSH",
+          "fragment": null,
+          "isIPv4": false,
+          "isIPv6": false,
+          "tld": "com",
+          "text": "DKSH",
+          "fileType": "html",
+          "refIndex": null,
+          "refName": null
+        },
+        "requestResult": {
+          "type": "ERROR",
+          "requestDuration": 1460.81,
+          "responseStatus": 0,
+          "contentType": null,
+          "contentLength": 0,
+          "containsPageNotFoundWords": false,
+          "containsPaywallWords": false,
+          "containsDomainExpiredWords": false,
+          "redirects": [],
+          "redirectToHomepage": false
+        },
+        "classificationResult": {
+          "label": 1,
+          "probability": 0.9340397
+        }
+      },
+      {
+        "index": 2,
+        "link": {
+          "id": "mwkA",
+          "href": "https://www.dksh.com/",
+          "scheme": "https",
+          "host": "www.dksh.com",
+          "port": null,
+          "path": "/",
+          "query": null,
+          "fragment": null,
+          "isIPv4": false,
+          "isIPv6": false,
+          "tld": "com",
+          "text": "www.dksh.com",
+          "fileType": null,
+          "refIndex": null,
+          "refName": null
+        },
+        "requestResult": {
+          "type": "SUCCESS",
+          "requestDuration": 3251.28,
+          "responseStatus": 200,
+          "contentType": "text/html; charset=UTF-8",
+          "contentLength": 105469,
+          "containsPageNotFoundWords": false,
+          "containsPaywallWords": false,
+          "containsDomainExpiredWords": false,
+          "redirects": [
+            {
+              "requestUrl": "https://www.dksh.com/",
+              "location": "https://www.dksh.com/global-en/home",
+              "responseStatus": 301
+            }
+          ],
+          "redirectToHomepage": false
+        },
+        "classificationResult": {
+          "label": 0,
+          "probability": 0.11348456
+        }
+      },
+      {
+        "index": 3,
+        "link": {
+          "id": "mwJA",
+          "href": "https://web.archive.org/web/20101108143053/http://www.asiaone.com/Business/News/Story/A1Story20100325-206746.html",
+          "scheme": "https",
+          "host": "web.archive.org",
+          "port": null,
+          "path": "/web/20101108143053/http://www.asiaone.com/Business/News/Story/A1Story20100325-206746.html",
+          "query": null,
+          "fragment": null,
+          "isIPv4": false,
+          "isIPv6": false,
+          "tld": "org",
+          "text": "“Bản sao đã lưu trữ”",
+          "fileType": "html",
+          "refIndex": 1,
+          "refName": null
+        },
+        "requestResult": {
+          "type": "IGNORED",
+          "requestDuration": 0.0,
+          "responseStatus": 0,
+          "contentType": null,
+          "contentLength": 0,
+          "containsPageNotFoundWords": false,
+          "containsPaywallWords": false,
+          "containsDomainExpiredWords": false,
+          "redirects": [],
+          "redirectToHomepage": false
+        },
+        "classificationResult": {
+          "label": 0,
+          "probability": 0.0
+        }
+      },
+      {
+        "index": 4,
+        "link": {
+          "id": "mwJQ",
+          "href": "http://www.asiaone.com/Business/News/Story/A1Story20100325-206746.html",
+          "scheme": "http",
+          "host": "www.asiaone.com",
+          "port": null,
+          "path": "/Business/News/Story/A1Story20100325-206746.html",
+          "query": null,
+          "fragment": null,
+          "isIPv4": false,
+          "isIPv6": false,
+          "tld": "com",
+          "text": "Bản gốc",
+          "fileType": "html",
+          "refIndex": 1,
+          "refName": null
+        },
+        "requestResult": {
+          "type": "SUCCESS",
+          "requestDuration": 185.95,
+          "responseStatus": 404,
+          "contentType": "text/html; charset=utf-8",
+          "contentLength": 12348,
+          "containsPageNotFoundWords": true,
+          "containsPaywallWords": false,
+          "containsDomainExpiredWords": false,
+          "redirects": [
+            {
+              "requestUrl": "http://www.asiaone.com/Business/News/Story/A1Story20100325-206746.html",
+              "location": "https://www.asiaone.com/Business/News/Story/A1Story20100325-206746.html",
+              "responseStatus": 301
+            }
+          ],
+          "redirectToHomepage": false
+        },
+        "classificationResult": {
+          "label": 1,
+          "probability": 0.8932621
+        }
+      },
+      {
+        "index": 5,
+        "link": {
+          "id": "mwLA",
+          "href": "http://www.presseportal.ch/de/pm/100008254/100509630/dksh_holding_ltd",
+          "scheme": "http",
+          "host": "www.presseportal.ch",
+          "port": null,
+          "path": "/de/pm/100008254/100509630/dksh_holding_ltd",
+          "query": null,
+          "fragment": null,
+          "isIPv4": false,
+          "isIPv6": false,
+          "tld": "ch",
+          "text": "“Medienmitteilung DKSH Holding Ltd”",
+          "fileType": null,
+          "refIndex": 2,
+          "refName": null
+        },
+        "requestResult": {
+          "type": "SUCCESS",
+          "requestDuration": 3293.27,
+          "responseStatus": 200,
+          "contentType": "text/html; charset=utf-8",
+          "contentLength": 64862,
+          "containsPageNotFoundWords": false,
+          "containsPaywallWords": false,
+          "containsDomainExpiredWords": false,
+          "redirects": [
+            {
+              "requestUrl": "http://www.presseportal.ch/de/pm/100008254/100509630/dksh_holding_ltd",
+              "location": "https://www.presseportal.ch/de/pm/100008254/100509630/dksh_holding_ltd",
+              "responseStatus": 302
+            },
+            {
+              "requestUrl": "https://www.presseportal.ch/de/pm/100008254/100509630/dksh_holding_ltd",
+              "location": "http://www.presseportal.ch/pm/100008254/100509630",
+              "responseStatus": 301
+            },
+            {
+              "requestUrl": "http://www.presseportal.ch/pm/100008254/100509630",
+              "location": "https://www.presseportal.ch/pm/100008254/100509630",
+              "responseStatus": 302
+            }
+          ],
+          "redirectToHomepage": false
+        },
+        "classificationResult": {
+          "label": 1,
+          "probability": 0.53774446
+        }
+      },
+      {
+        "index": 6,
+        "link": {
+          "id": "mwMw",
+          "href": "http://www.nzz.ch/nachrichten/kultur/buchrezensionen/zwischen_himmel_und_hoelle_in_asien_1.4093119.html",
+          "scheme": "http",
+          "host": "www.nzz.ch",
+          "port": null,
+          "path": "/nachrichten/kultur/buchrezensionen/zwischen_himmel_und_hoelle_in_asien_1.4093119.html",
+          "query": null,
+          "fragment": null,
+          "isIPv4": false,
+          "isIPv6": false,
+          "tld": "ch",
+          "text": "“Zwischen Himmel und Hölle in Asien”",
+          "fileType": "html",
+          "refIndex": 3,
+          "refName": null
+        },
+        "requestResult": {
+          "type": "ERROR",
+          "requestDuration": 9.91,
+          "responseStatus": 0,
+          "contentType": null,
+          "contentLength": 0,
+          "containsPageNotFoundWords": false,
+          "containsPaywallWords": false,
+          "containsDomainExpiredWords": false,
+          "redirects": [],
+          "redirectToHomepage": false
+        },
+        "classificationResult": {
+          "label": 1,
+          "probability": 0.96063834
+        }
+      },
+      {
+        "index": 7,
+        "link": {
+          "id": "mwOg",
+          "href": "http://www.bilanz.ch/edition/artikel.asp?session=%3C&AssetID=1094",
+          "scheme": "http",
+          "host": "www.bilanz.ch",
+          "port": null,
+          "path": "/edition/artikel.asp",
+          "query": "session=<&AssetID=1094",
+          "fragment": null,
+          "isIPv4": false,
+          "isIPv6": false,
+          "tld": "ch",
+          "text": "“Bilanz.ch”",
+          "fileType": "asp",
+          "refIndex": 4,
+          "refName": null
+        },
+        "requestResult": {
+          "type": "SUCCESS",
+          "requestDuration": 6071.06,
+          "responseStatus": 404,
+          "contentType": "text/html; charset=utf-8",
+          "contentLength": 71576,
+          "containsPageNotFoundWords": false,
+          "containsPaywallWords": false,
+          "containsDomainExpiredWords": false,
+          "redirects": [
+            {
+              "requestUrl": "http://www.bilanz.ch/edition/artikel.asp?session=%3C&AssetID=1094",
+              "location": "https://www.handelszeitung.ch/bilanz/edition/artikel.asp",
+              "responseStatus": 301
+            }
+          ],
+          "redirectToHomepage": false
+        },
+        "classificationResult": {
+          "label": 1,
+          "probability": 0.87736
+        }
+      },
+      {
+        "index": 8,
+        "link": {
+          "id": "mwSA",
+          "href": "https://www.dksh.com/global-en/home",
+          "scheme": "https",
+          "host": "www.dksh.com",
+          "port": null,
+          "path": "/global-en/home",
+          "query": null,
+          "fragment": null,
+          "isIPv4": false,
+          "isIPv6": false,
+          "tld": "com",
+          "text": "DKSH Global",
+          "fileType": null,
+          "refIndex": null,
+          "refName": null
+        },
+        "requestResult": {
+          "type": "SUCCESS",
+          "requestDuration": 188.74,
+          "responseStatus": 200,
+          "contentType": "text/html; charset=UTF-8",
+          "contentLength": 105675,
+          "containsPageNotFoundWords": false,
+          "containsPaywallWords": false,
+          "containsDomainExpiredWords": false,
+          "redirects": [],
+          "redirectToHomepage": false
+        },
+        "classificationResult": {
+          "label": 0,
+          "probability": 0.038289666
+        }
+      },
+      {
+        "index": 9,
+        "link": {
+          "id": "mwSg",
+          "href": "https://www.dksh.com/vn-vi/home",
+          "scheme": "https",
+          "host": "www.dksh.com",
+          "port": null,
+          "path": "/vn-vi/home",
+          "query": null,
+          "fragment": null,
+          "isIPv4": false,
+          "isIPv6": false,
+          "tld": "com",
+          "text": "DKSH Vietnam",
+          "fileType": null,
+          "refIndex": null,
+          "refName": null
+        },
+        "requestResult": {
+          "type": "SUCCESS",
+          "requestDuration": 264.73,
+          "responseStatus": 200,
+          "contentType": "text/html; charset=UTF-8",
+          "contentLength": 99390,
+          "containsPageNotFoundWords": false,
+          "containsPaywallWords": false,
+          "containsDomainExpiredWords": false,
+          "redirects": [],
+          "redirectToHomepage": false
+        },
+        "classificationResult": {
+          "label": 0,
+          "probability": 0.038289666
+        }
+      },
+      {
+        "index": 10,
+        "link": {
+          "id": "mwTA",
+          "href": "https://tecshop.dksh.vn/",
+          "scheme": "https",
+          "host": "tecshop.dksh.vn",
+          "port": null,
+          "path": "/",
+          "query": null,
+          "fragment": null,
+          "isIPv4": false,
+          "isIPv6": false,
+          "tld": "vn",
+          "text": "DKSH Online Shopping Vietnam",
+          "fileType": null,
+          "refIndex": null,
+          "refName": null
+        },
+        "requestResult": {
+          "type": "SUCCESS",
+          "requestDuration": 168.91,
+          "responseStatus": 200,
+          "contentType": "text/html; charset=utf-8",
+          "contentLength": 101902,
+          "containsPageNotFoundWords": false,
+          "containsPaywallWords": false,
+          "containsDomainExpiredWords": false,
+          "redirects": [],
+          "redirectToHomepage": false
+        },
+        "classificationResult": {
+          "label": 0,
+          "probability": 0.090779364
+        }
+      }
+    ]
+  }
+}

@@ -4,6 +4,7 @@ import com.github.f4b6a3.tsid.TsidFactory;
 import de.siegmar.fastcsv.writer.CsvWriter;
 import io.github.plantaest.composite.Wiki;
 import io.github.plantaest.composite.Wikis;
+import io.github.plantaest.composite.type.PageHtmlResult;
 import io.github.plantaest.feverfew.dto.common.AppResponse;
 import io.github.plantaest.feverfew.dto.request.CreateCheckRequest;
 import io.github.plantaest.feverfew.dto.request.ExportFeaturesAsCsvRequest;
@@ -16,6 +17,7 @@ import io.github.plantaest.feverfew.helper.EvaluationResultBuilder;
 import io.github.plantaest.feverfew.helper.ExternalLink;
 import io.github.plantaest.feverfew.helper.LinkHelper;
 import io.github.plantaest.feverfew.helper.RequestResult;
+import io.github.plantaest.feverfew.helper.TimeHelper;
 import io.github.plantaest.feverfew.mapper.CheckMapper;
 import io.quarkus.logging.Log;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -46,13 +48,16 @@ public class CheckService {
     Wikis wikis;
 
     public AppResponse<CreateCheckResponse> createCheck(CreateCheckRequest request) {
+        Log.infof("Request body of createCheck: %s", request);
+
+        long startTime = System.nanoTime();
         Wiki wiki = wikis.getWiki(request.wikiId());
 
         // Step 1. Get page content
-        String pageHtmlContent = wiki.page(request.pageTitle()).html();
+        PageHtmlResult pageHtmlResult = wiki.page(request.pageTitle()).html();
 
         // Step 2. Extract links
-        List<ExternalLink> externalLinks = linkHelper.extractExternalLinks(pageHtmlContent);
+        List<ExternalLink> externalLinks = linkHelper.extractExternalLinks(pageHtmlResult.html());
 
         // Step 3. Call & collect link information
         List<RequestResult> requestResults = linkHelper.requestExternalLinks(externalLinks);
@@ -70,6 +75,7 @@ public class CheckService {
 
         for (int i = 0; i < externalLinks.size(); i++) {
             var evaluationResult = EvaluationResultBuilder.builder()
+                    .index(i + 1)
                     .link(externalLinks.get(i))
                     .requestResult(requestResults.get(i))
                     .classificationResult(classificationResults.get(i))
@@ -77,15 +83,41 @@ public class CheckService {
             evaluationResults.add(evaluationResult);
         }
 
+        var totalIgnoredLinks = evaluationResults.stream()
+                .filter(r -> r.requestResult().type() == RequestResult.Type.IGNORED)
+                .count();
+        var totalSuccessLinks = evaluationResults.stream()
+                .filter(r -> r.requestResult().type() == RequestResult.Type.SUCCESS)
+                .count();
+        var totalErrorLinks = evaluationResults.stream()
+                .filter(r -> r.requestResult().type() == RequestResult.Type.ERROR)
+                .count();
+
+        var nonIgnoredLinks = evaluationResults.stream()
+                .filter(r -> r.requestResult().type() != RequestResult.Type.IGNORED)
+                .toList();
+        var totalWorkingLinks = nonIgnoredLinks.stream()
+                .filter(r -> r.classificationResult().label() == 0L)
+                .count();
+        var totalBrokenLinks = nonIgnoredLinks.stream()
+                .filter(r -> r.classificationResult().label() == 1L)
+                .count();
+
         var now = Instant.now();
         var response = CreateCheckResponseBuilder.builder()
                 .id(String.valueOf(tsidFactory.create().toLong()))
                 .createdAt(now)
                 .updatedAt(now)
                 .wikiId(request.wikiId())
-                .pageTitle(request.pageTitle())
-                .pageRevisionId(request.pageRevisionId())
+                .pageTitle(pageHtmlResult.title())
+                .pageRevisionId(pageHtmlResult.revisionId())
+                .durationInMillis(TimeHelper.durationInMillis(startTime))
                 .totalLinks(evaluationResults.size())
+                .totalIgnoredLinks(Math.toIntExact(totalIgnoredLinks))
+                .totalSuccessLinks(Math.toIntExact(totalSuccessLinks))
+                .totalErrorLinks(Math.toIntExact(totalErrorLinks))
+                .totalWorkingLinks(Math.toIntExact(totalWorkingLinks))
+                .totalBrokenLinks(Math.toIntExact(totalBrokenLinks))
                 .results(evaluationResults)
                 .build();
 

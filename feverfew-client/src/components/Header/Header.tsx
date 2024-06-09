@@ -1,50 +1,46 @@
-import { useState } from 'react';
 import { ActionIcon, Container, Group, Menu } from '@mantine/core';
 import { IconGridDots } from '@tabler/icons-react';
+import { Link, useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import classes from './Header.module.css';
 import { ColorSchemeToggle } from '@/components/ColorSchemeToggle/ColorSchemeToggle';
+import { DirectionToggle } from '@/components/DirectionToggle/DirectionToggle';
+import { LanguageToggle } from '@/components/LanguageToggle/LanguageToggle';
 
 const links = [
   {
     link: '/',
-    label: 'Home',
+    label: 'core:ui.header.home',
   },
   {
-    link: '/result',
-    label: 'Result',
+    link: '/check',
+    label: 'core:ui.header.result',
   },
   {
     link: '/stats',
-    label: 'Stats',
-  },
-  {
-    link: '/user',
-    label: 'User',
+    label: 'core:ui.header.stats',
   },
 ];
 
 export function Header() {
-  const [active, setActive] = useState(links[0].link);
+  const location = useLocation();
+  const { t } = useTranslation();
 
   const items = links.map((link) => (
-    <a
+    <Link
       key={link.label}
-      href={link.link}
+      to={link.link}
       className={classes.link}
-      data-active={active === link.link}
-      onClick={(event) => {
-        event.preventDefault();
-        setActive(link.link);
-      }}
+      data-active={location.pathname === link.link}
     >
-      {link.label}
-    </a>
+      {t(link.label)}
+    </Link>
   ));
 
   return (
     <header className={classes.header}>
       <Container size="xl" className={classes.inner}>
-        <Group gap={6} visibleFrom="sm">
+        <Group gap="xs" visibleFrom="sm">
           {items}
         </Group>
         <Menu width={200} shadow="md" position="bottom-start">
@@ -61,12 +57,21 @@ export function Header() {
           </Menu.Target>
           <Menu.Dropdown>
             {links.map((link) => (
-              <Menu.Item key={link.label}>{link.label}</Menu.Item>
+              <Menu.Item
+                key={link.label}
+                component={Link}
+                to={link.link}
+                c={location.pathname === link.link ? 'blue' : 'default'}
+              >
+                {t(link.label)}
+              </Menu.Item>
             ))}
           </Menu.Dropdown>
         </Menu>
         <Group gap="xs">
           <ColorSchemeToggle />
+          <DirectionToggle />
+          <LanguageToggle />
         </Group>
       </Container>
     </header>

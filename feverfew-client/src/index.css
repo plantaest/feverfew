@@ -6,3 +6,7 @@
   --mantine-alt-font-family: 'Montserrat', var(--mantine-font-family);
   --mantine-alt-font-monospace: 'JetBrains Mono', var(--mantine-font-family-monospace);
 }
+
+body {
+  background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-7));
+}

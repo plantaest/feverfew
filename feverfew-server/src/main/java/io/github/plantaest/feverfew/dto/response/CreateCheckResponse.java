@@ -16,6 +16,12 @@ public record CreateCheckResponse(
         String pageTitle,
         @Nullable
         Long pageRevisionId,
+        double durationInMillis,
         int totalLinks,
+        int totalIgnoredLinks,
+        int totalSuccessLinks,
+        int totalErrorLinks,
+        int totalWorkingLinks,
+        int totalBrokenLinks,
         List<EvaluationResult> results
 ) {}

@@ -6,7 +6,8 @@ quarkus:
     cors:
       ~: true
       origins:
-        - https://web.postman.co
+        - http://localhost:8020
+        - https://feverfew.toolforge.org
   smallrye-openapi:
     info-title: Feverfew API Docs
     info-version: 1.0.0

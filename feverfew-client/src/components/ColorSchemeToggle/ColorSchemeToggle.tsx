@@ -1,10 +1,12 @@
 import { ActionIcon, useMantineColorScheme } from '@mantine/core';
 import { IconDeviceDesktop, IconMoon, IconSun } from '@tabler/icons-react';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const colorSchemeValues = ['auto', 'light', 'dark'] as const;
 
 export function ColorSchemeToggle() {
+  const { t } = useTranslation();
   const { colorScheme, setColorScheme } = useMantineColorScheme();
   const initialColorSchemeValueIndex = colorSchemeValues.findIndex(
     (value) => value === colorScheme
@@ -23,7 +25,8 @@ export function ColorSchemeToggle() {
   return (
     <ActionIcon
       variant="light"
-      aria-label="Color scheme toggle"
+      aria-label={t('core:ui.header.changeColorScheme')}
+      title={t('core:ui.header.changeColorScheme')}
       color="gray"
       onClick={handleToggleColorSchemeButton}
     >

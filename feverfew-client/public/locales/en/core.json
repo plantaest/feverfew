@@ -1,0 +1,58 @@
+{
+  "@metadata": {
+    "authors": [
+      "Plantaest"
+    ]
+  },
+  "common": {
+    "create": "Create",
+    "update": "Update",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "default": "Default",
+    "welcome": "Welcome",
+    "loading": "Loading",
+    "back": "Go back",
+    "forward": "Go forward",
+    "save": "Save",
+    "confirm": "Confirm",
+    "select": "Select",
+    "reset": "Reset",
+    "add": "Add",
+    "wiki": "Wiki",
+    "notification": "Notification"
+  },
+  "ui": {
+    "header": {
+      "home": "Home",
+      "result": "Result",
+      "stats": "Stats",
+      "changeColorScheme": "Change color scheme",
+      "changeDirection": "Change direction",
+      "changeLanguage": "Change language"
+    },
+    "home": {
+      "selectWiki": "Select wiki",
+      "enterPageTitle": "Enter page title",
+      "check": "Check"
+    },
+    "result": {
+      "note": "Checked at {time}, {date}, in {duration} second(s)",
+      "checkLinkTitle": "Archived link for this check",
+      "wikiPageLinkTitle": "Link of the checked wiki page",
+      "shareTitle": "Share",
+      "total": "Total",
+      "ignored": "Ignored",
+      "working": "Working",
+      "broken": "Broken",
+      "errorMessage": "Something went wrong",
+      "redirectTitle": "{redirectNumber, plural, =1 {1 redirect} other {# redirects}}"
+    }
+  },
+  "query": {
+    "defaultErrorMessage": "Unable to call the API"
+  },
+  "errorMessage": {
+    "notEmpty": "This field must not be left empty"
+  }
+}

@@ -23,6 +23,10 @@ public class Classifier {
         try {
             List<ClassificationResult> classificationResults = new ArrayList<>();
 
+            if (requestResults.isEmpty()) {
+                return classificationResults;
+            }
+
             var env = OrtEnvironment.getEnvironment();
             var session = env.createSession(feverfewNextModel.getInstance(), new OrtSession.SessionOptions());
             var featureValueRows = requestResults.stream()

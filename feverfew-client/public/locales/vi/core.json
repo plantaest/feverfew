@@ -1,0 +1,58 @@
+{
+  "@metadata": {
+    "authors": [
+      "Plantaest"
+    ]
+  },
+  "common": {
+    "create": "Tạo",
+    "update": "Cập nhật",
+    "delete": "Xóa",
+    "cancel": "Hủy",
+    "default": "Mặc định",
+    "welcome": "Chào mừng",
+    "loading": "Đang tải",
+    "back": "Trở về",
+    "forward": "Kế tiếp",
+    "save": "Lưu",
+    "confirm": "Xác nhận",
+    "select": "Chọn",
+    "reset": "Đặt lại",
+    "add": "Thêm",
+    "wiki": "Wiki",
+    "notification": "Thông báo"
+  },
+  "ui": {
+    "header": {
+      "home": "Trang chủ",
+      "result": "Kết quả",
+      "stats": "Thống kê",
+      "changeColorScheme": "Thay đổi chế độ màu",
+      "changeDirection": "Thay đổi hướng đọc",
+      "changeLanguage": "Thay đổi ngôn ngữ"
+    },
+    "home": {
+      "selectWiki": "Chọn wiki",
+      "enterPageTitle": "Nhập tiêu đề trang",
+      "check": "Kiểm tra"
+    },
+    "result": {
+      "note": "Đã kiểm tra lúc {time}, {date}, trong {duration} giây",
+      "checkLinkTitle": "Liên kết lưu trữ cho lần kiểm tra này",
+      "wikiPageLinkTitle": "Liên kết của trang wiki",
+      "shareTitle": "Chia sẻ",
+      "total": "Tổng",
+      "ignored": "Bỏ qua",
+      "working": "Hoạt động",
+      "broken": "Hỏng",
+      "errorMessage": "Đã có lỗi xảy ra",
+      "redirectTitle": "{redirectNumber} lần chuyển hướng"
+    }
+  },
+  "query": {
+    "defaultErrorMessage": "Không thể gọi được API"
+  },
+  "errorMessage": {
+    "notEmpty": "Trường này không được để trống"
+  }
+}

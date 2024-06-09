@@ -41,9 +41,9 @@ public class LinkHelper {
             Document document = Jsoup.parse(pageHtmlContent);
 
             // Remove authority boxes
-            Elements authorityBoxElements = document.select("div.navbox.authority-control");
-            for (Element authorityBoxElement : authorityBoxElements) {
-                authorityBoxElement.remove();
+            Elements navigationDivs = document.select("div[role='navigation']");
+            for (Element navigationDiv : navigationDivs) {
+                navigationDiv.remove();
             }
 
             // Select external anchors
@@ -154,7 +154,13 @@ public class LinkHelper {
             "oops",
             "not exist",
             "try again",
-            "something went wrong"
+            "something went wrong",
+            "no longer available",
+            "fatal error",
+            "error occurred",
+            "currently unavailable",
+            "access denied",
+            "have been moved or deleted"
     );
 
     private static final List<String> PAYWALL_WORDS = List.of(
@@ -162,15 +168,14 @@ public class LinkHelper {
             "unlimited",
             "miss out",
             "anytime",
-            "subscription",
             "best value",
             "join today",
             "try free",
-            "for free",
             "become a subscriber",
             "already a subscriber",
             "subscribers only",
-            "subscribe now"
+            "subscribe now",
+            "get full access"
     );
 
     private static final List<String> DOMAIN_EXPIRED_WORDS = List.of(
@@ -199,11 +204,15 @@ public class LinkHelper {
             "archive.md",
             "archive.ph",
             "archive.vn",
+            "archive.wikiwix.com",
+            "ghostarchive.org",
+            "webcitation.org",
             "worldcat.org",
             "doi.org",
             "ncbi.nlm.nih.gov", // PMC
             "pubmed.ncbi.nlm.nih.gov", // PMID
-            "ui.adsabs.harvard.edu" // Bibcode
+            "ui.adsabs.harvard.edu", // Bibcode
+            "jstor.org"
     );
 
     public List<RequestResult> requestLinks(List<String> links) {
@@ -312,7 +321,7 @@ public class LinkHelper {
                             }
                             locations.add(improvedLocation);
                         });
-            } while (List.of(301, 302).contains(nextStatus.get())
+            } while (List.of(301, 302, 303, 307, 308).contains(nextStatus.get())
                     // Infinite redirect: http://csus-dspace.calstate.edu/handle/10211.3/124990
                     && !stop.get());
 

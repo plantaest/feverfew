@@ -21,7 +21,7 @@
   font-size: var(--mantine-font-size-sm);
   font-weight: 500;
 
-  &:hover {
+  &:not([data-active="true"]):hover {
     background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-6));
   }
 

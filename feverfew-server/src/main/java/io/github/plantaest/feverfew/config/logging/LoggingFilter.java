@@ -27,9 +27,8 @@ public class LoggingFilter implements ContainerRequestFilter, ContainerResponseF
         final String method = requestContext.getMethod();
         final String path = uriInfo.getPath();
         final int length = requestContext.getLength();
-        final String address = httpServerRequest.remoteAddress().toString();
 
-        Log.infof("Request %s %s (%s bytes) from %s", method, path, length, address);
+        Log.infof("Request %s %s (%s bytes)", method, path, length);
         Log.debugf("Request Headers: %s", requestContext.getHeaders());
         Optional.ofNullable(requestContext.getMediaType())
                 .map(MediaType::toString)

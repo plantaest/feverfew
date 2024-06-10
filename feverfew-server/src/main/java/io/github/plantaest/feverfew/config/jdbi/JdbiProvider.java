@@ -14,7 +14,9 @@ public class JdbiProvider {
     @Singleton
     @Produces
     public Jdbi jdbi() {
-        return Jdbi.create(defaultDataSource);
+        Jdbi jdbi = Jdbi.create(defaultDataSource);
+        jdbi.registerRowMapper(new RecordAndAnnotatedConstructorMapper());
+        return jdbi;
     }
 
 }

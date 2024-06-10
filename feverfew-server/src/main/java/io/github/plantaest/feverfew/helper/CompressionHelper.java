@@ -26,10 +26,26 @@ public class CompressionHelper {
         return mapper.convertValue(evaluationResults, new TypeReference<>() {});
     }
 
+    public List<EvaluationResult> schemaToTarget(List<EvaluationResultSchemaV1> evaluationResultSchemaV1s) {
+        ObjectMapper mapper = JsonMapper.builder()
+                .configure(MapperFeature.USE_ANNOTATIONS, false)
+                .build();
+        return mapper.convertValue(evaluationResultSchemaV1s, new TypeReference<>() {});
+    }
+
     public byte[] compressJson(Object object) {
         try {
             byte[] raw = objectMapper.writeValueAsBytes(object);
             return compressGzip(raw);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public <T> T decompressJson(byte[] compressedData, TypeReference<T> typeReference) {
+        try {
+            byte[] decompressed = decompressGzip(compressedData);
+            return objectMapper.readValue(decompressed, typeReference);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

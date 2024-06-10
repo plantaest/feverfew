@@ -2,16 +2,23 @@ package io.github.plantaest.feverfew.resource;
 
 import io.github.plantaest.feverfew.config.exception.AppError;
 import io.github.plantaest.feverfew.dto.common.AppResponse;
+import io.github.plantaest.feverfew.dto.common.ListResponse;
 import io.github.plantaest.feverfew.dto.request.CreateCheckRequest;
 import io.github.plantaest.feverfew.dto.request.ExportFeaturesAsCsvRequest;
 import io.github.plantaest.feverfew.dto.response.CreateCheckResponse;
+import io.github.plantaest.feverfew.dto.response.GetListCheckResponse;
+import io.github.plantaest.feverfew.dto.response.GetOneCheckResponse;
 import io.github.plantaest.feverfew.service.CheckService;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DefaultValue;
+import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
@@ -55,6 +62,44 @@ public class CheckResource {
     @Operation(summary = "Export link features in CSV format")
     public String exportFeaturesAsCsv(@Valid ExportFeaturesAsCsvRequest request) {
         return checkService.exportFeaturesAsCsv(request);
+    }
+
+    @GET
+    @Path("/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @ResponseStatus(200)
+    @Operation(summary = "Get a check")
+    @APIResponses(value = {
+            @APIResponse(responseCode = "200", description = "OK",
+                    content = @Content(schema = @Schema(
+                            implementation = CheckResourceSchema.AppResponse$GetOneCheckResponse.class))),
+            @APIResponse(responseCode = "400", description = "Bad Request",
+                    content = @Content(schema = @Schema(implementation = AppError.class))),
+            @APIResponse(responseCode = "500", description = "Internal Server Error",
+                    content = @Content(schema = @Schema(implementation = AppError.class)))
+    })
+    public AppResponse<GetOneCheckResponse> getOneCheck(@PathParam("id") Long id) {
+        return checkService.getOneCheck(id);
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @ResponseStatus(200)
+    @Operation(summary = "Get a list of checks")
+    @APIResponses(value = {
+            @APIResponse(responseCode = "200", description = "OK",
+                    content = @Content(schema = @Schema(
+                            implementation = CheckResourceSchema.AppResponse$ListResponse$GetListCheckResponse.class))),
+            @APIResponse(responseCode = "400", description = "Bad Request",
+                    content = @Content(schema = @Schema(implementation = AppError.class))),
+            @APIResponse(responseCode = "500", description = "Internal Server Error",
+                    content = @Content(schema = @Schema(implementation = AppError.class)))
+    })
+    public AppResponse<ListResponse<GetListCheckResponse>> getListCheck(
+            @QueryParam("page") @DefaultValue("1") Integer page,
+            @QueryParam("size") @DefaultValue("5") Integer size
+    ) {
+        return checkService.getListCheck(page, size);
     }
 
 }

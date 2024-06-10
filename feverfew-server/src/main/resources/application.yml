@@ -43,8 +43,6 @@ quarkus:
           level: DEBUG
         "org.jboss.resteasy.reactive.common.core.AbstractResteasyReactiveContext":
           level: DEBUG
-        "io.github.plantaest.feverfew.config.logging.LoggingFilter":
-          level: DEBUG
     datasource:
       db-kind: mariadb
       username: root

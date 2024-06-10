@@ -7,9 +7,13 @@ import io.github.plantaest.composite.Wikis;
 import io.github.plantaest.composite.type.PageHtmlResult;
 import io.github.plantaest.feverfew.config.AppConfig;
 import io.github.plantaest.feverfew.dto.common.AppResponse;
+import io.github.plantaest.feverfew.dto.common.ListResponse;
 import io.github.plantaest.feverfew.dto.request.CreateCheckRequest;
 import io.github.plantaest.feverfew.dto.request.ExportFeaturesAsCsvRequest;
 import io.github.plantaest.feverfew.dto.response.CreateCheckResponse;
+import io.github.plantaest.feverfew.dto.response.GetListCheckResponse;
+import io.github.plantaest.feverfew.dto.response.GetOneCheckResponse;
+import io.github.plantaest.feverfew.entity.Check;
 import io.github.plantaest.feverfew.entity.CheckBuilder;
 import io.github.plantaest.feverfew.helper.ClassificationResult;
 import io.github.plantaest.feverfew.helper.Classifier;
@@ -19,6 +23,7 @@ import io.github.plantaest.feverfew.helper.EvaluationResultBuilder;
 import io.github.plantaest.feverfew.helper.ExternalLink;
 import io.github.plantaest.feverfew.helper.HashingHelper;
 import io.github.plantaest.feverfew.helper.LinkHelper;
+import io.github.plantaest.feverfew.helper.Pagination;
 import io.github.plantaest.feverfew.helper.RequestResult;
 import io.github.plantaest.feverfew.helper.TimeHelper;
 import io.github.plantaest.feverfew.mapper.CheckMapper;
@@ -27,12 +32,14 @@ import io.quarkus.logging.Log;
 import io.vertx.core.http.HttpServerRequest;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.ws.rs.NotFoundException;
 import jakarta.ws.rs.core.Context;
 
 import java.io.StringWriter;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @ApplicationScoped
@@ -132,7 +139,8 @@ public class CheckService {
 
         checkRepository.create(check);
 
-        var response = checkMapper.toResponse(check, wiki.config().serverName(), evaluationResults);
+        Log.infof("Successfully created check with id: %s", check.id());
+        var response = checkMapper.toCreateResponse(check, wiki.config().serverName(), evaluationResults);
         return AppResponse.created(response);
     }
 
@@ -175,6 +183,23 @@ public class CheckService {
         }
 
         return sw.toString();
+    }
+
+    public AppResponse<GetOneCheckResponse> getOneCheck(Long id) {
+        Log.infof("Request path params of getOneCheck: %s", Map.of("id", id));
+        Check check = checkRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Unable to retrieve check with id: " + id));
+        var response = checkMapper.toGetOneResponse(check);
+        return AppResponse.ok(response);
+    }
+
+    public AppResponse<ListResponse<GetListCheckResponse>> getListCheck(Integer page, Integer size) {
+        Log.infof("Request query params of getListCheck: %s", Map.of("page", page, "size", size));
+        long totalItems = checkRepository.count();
+        var pagination = Pagination.of(page, size, totalItems);
+        List<Check> checks = checkRepository.findAll(pagination.limit(), pagination.offset());
+        List<GetListCheckResponse> responses = checks.stream().map(checkMapper::toGetListResponse).toList();
+        return AppResponse.ok(ListResponse.of(responses, pagination));
     }
 
 }

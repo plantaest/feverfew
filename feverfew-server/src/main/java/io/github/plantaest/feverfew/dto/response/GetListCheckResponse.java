@@ -1,16 +1,16 @@
-package io.github.plantaest.feverfew.entity;
+package io.github.plantaest.feverfew.dto.response;
 
 import io.github.plantaest.feverfew.config.recordbuilder.Builder;
-import jakarta.annotation.Nullable;
 
 import java.time.Instant;
 
 @Builder
-public record Check(
-        long id,
+public record GetListCheckResponse(
+        String id,
         Instant createdAt,
         long createdBy,
         String wikiId,
+        String wikiServerName,
         String pageTitle,
         long pageRevisionId,
         double durationInMillis,
@@ -19,8 +19,5 @@ public record Check(
         int totalSuccessLinks,
         int totalErrorLinks,
         int totalWorkingLinks,
-        int totalBrokenLinks,
-        int resultSchemaVersion,
-        @Nullable
-        byte[] results
+        int totalBrokenLinks
 ) {}

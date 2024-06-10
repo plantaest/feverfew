@@ -1,5 +1,6 @@
 package io.github.plantaest.feverfew.config.logging;
 
+import io.github.plantaest.feverfew.helper.HashingHelper;
 import io.quarkus.logging.Log;
 import io.vertx.core.http.HttpServerRequest;
 import jakarta.ws.rs.container.ContainerRequestContext;
@@ -27,8 +28,9 @@ public class LoggingFilter implements ContainerRequestFilter, ContainerResponseF
         final String method = requestContext.getMethod();
         final String path = uriInfo.getPath();
         final int length = requestContext.getLength();
+        final String address = httpServerRequest.remoteAddress().host();
 
-        Log.infof("Request %s %s (%s bytes)", method, path, length);
+        Log.infof("Request %s %s (%s bytes) from %s", method, path, length, HashingHelper.hashIP(address));
         Log.debugf("Request Headers: %s", requestContext.getHeaders());
         Optional.ofNullable(requestContext.getMediaType())
                 .map(MediaType::toString)

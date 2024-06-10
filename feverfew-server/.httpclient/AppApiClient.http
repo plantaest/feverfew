@@ -11,6 +11,17 @@ Content-Type: application/json
   "pageRevisionId": null
 }
 
+### getOneCheck
+// @no-log
+@id = 1249757160510985407
+GET {{host}}/api/v1/check/{{id}}
+Content-Type: */*
+
+### getListCheck
+// @no-log
+GET {{host}}/api/v1/check
+Content-Type: */*
+
 ### exportFeaturesAsCsv
 // @no-log
 POST {{host}}/api/v1/check/export/features/csv

@@ -316,7 +316,7 @@ export function ResultPage() {
                           <Badge
                             tt="none"
                             radius="sm"
-                            variant="light"
+                            variant="filled"
                             color={result.link.refIndex % 2 === 0 ? 'orange' : 'violet'}
                             leftSection={<IconBookmark size="0.75rem" stroke={3} />}
                           >

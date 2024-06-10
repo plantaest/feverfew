@@ -23,6 +23,7 @@ import { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import {
   IconAlertTriangle,
+  IconArchive,
   IconArrowLoopLeft2,
   IconArrowLoopRight2,
   IconBookmark,
@@ -42,6 +43,7 @@ import classes from './Result.page.module.css';
 import { useCreateCheck } from '@/hooks/useCreateCheck';
 import { numberFormat } from '@/utils/numberFormat';
 import { MwHelper } from '@/utils/MwHelper';
+import { archiveHosts } from '@/utils/archiveHosts';
 
 const responseStatusColor = (status: string): MantineColor =>
   status.startsWith('2') ? 'teal' : status.startsWith('3') ? 'indigo' : 'pink';
@@ -278,6 +280,8 @@ export function ResultPage() {
                         }
                       )}
                     >
+                      {result.requestResult.type === RequestResultType.IGNORED &&
+                        archiveHosts.includes(result.link.host) && <IconArchive stroke={1.5} />}
                       {result.requestResult.type !== RequestResultType.IGNORED && (
                         <Text fw={600}>
                           {Math.round(result.classificationResult.probability * 100)}%

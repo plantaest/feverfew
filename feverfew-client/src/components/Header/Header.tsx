@@ -1,6 +1,6 @@
-import { ActionIcon, Container, Group, Menu } from '@mantine/core';
+import { ActionIcon, Container, Group, Menu, Text, UnstyledButton } from '@mantine/core';
 import { IconGridDots } from '@tabler/icons-react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import classes from './Header.module.css';
 import { ColorSchemeToggle } from '@/components/ColorSchemeToggle/ColorSchemeToggle';
@@ -24,6 +24,7 @@ const links = [
 
 export function Header() {
   const location = useLocation();
+  const navigate = useNavigate();
   const { t } = useTranslation();
 
   const items = links.map((link) => (
@@ -44,7 +45,7 @@ export function Header() {
   return (
     <header className={classes.header}>
       <Container size="xl" className={classes.inner}>
-        <Group gap="xs" visibleFrom="sm">
+        <Group gap="xs" visibleFrom="sm" flex={1}>
           {items}
         </Group>
         <Menu width={200} shadow="md" position="bottom-start">
@@ -72,7 +73,27 @@ export function Header() {
             ))}
           </Menu.Dropdown>
         </Menu>
-        <Group gap="xs">
+        {location.pathname !== '/' && (
+          <UnstyledButton onClick={() => navigate('/')}>
+            <Text
+              ff="var(--mantine-alt-font-family)"
+              fw={600}
+              fz={20}
+              flex={{
+                base: 0,
+                md: 1,
+              }}
+              ms={{
+                base: 'xs',
+                md: 0,
+              }}
+              ta="center"
+            >
+              Feverfew
+            </Text>
+          </UnstyledButton>
+        )}
+        <Group gap="xs" flex={1} justify="flex-end">
           <ColorSchemeToggle />
           <DirectionToggle />
           <LanguageToggle />

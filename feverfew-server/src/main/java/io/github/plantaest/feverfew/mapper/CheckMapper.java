@@ -45,9 +45,10 @@ public class CheckMapper {
     }
 
     public GetOneCheckResponse toGetOneResponse(Check check) {
-        List<EvaluationResult> evaluationResults = compressionHelper.schemaToTarget(
-                compressionHelper.decompressJson(check.results(), new TypeReference<>() {})
-        );
+        List<EvaluationResult> evaluationResults = check.results() == null
+                ? List.of()
+                : compressionHelper.schemaToTarget(compressionHelper
+                .decompressJson(check.results(), new TypeReference<>() {}));
 
         return GetOneCheckResponseBuilder.builder()
                 .id(String.valueOf(check.id()))

@@ -13,7 +13,7 @@ Content-Type: application/json
 
 ### getOneCheck
 // @no-log
-@id = 1249757160510985407
+@id = 1249789994160233937
 GET {{host}}/api/v1/check/{{id}}
 Content-Type: */*
 

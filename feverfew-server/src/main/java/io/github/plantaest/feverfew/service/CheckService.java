@@ -134,7 +134,9 @@ public class CheckService {
                 .totalWorkingLinks(Math.toIntExact(totalWorkingLinks))
                 .totalBrokenLinks(Math.toIntExact(totalBrokenLinks))
                 .resultSchemaVersion(AppConfig.CURRENT_RESULT_SCHEMA_VERSION)
-                .results(compressionHelper.compressJson(compressionHelper.convertToSchema(evaluationResults)))
+                .results(evaluationResults.isEmpty()
+                        ? null
+                        : compressionHelper.compressJson(compressionHelper.convertToSchema(evaluationResults)))
                 .build();
 
         checkRepository.create(check);

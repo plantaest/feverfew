@@ -18,6 +18,6 @@ CREATE TABLE IF NOT EXISTS `check`
     total_working_links   SMALLINT     NOT NULL,
     total_broken_links    SMALLINT     NOT NULL,
     result_schema_version TINYINT      NOT NULL,
-    results               MEDIUMBLOB   NOT NULL,
+    results               MEDIUMBLOB   NULL,
     CONSTRAINT pk_check PRIMARY KEY (id)
 )

@@ -148,13 +148,7 @@ export function ResultPage() {
                       stroke={1.5}
                     />
                   </ActionIcon>
-                  <Popover
-                    width={300}
-                    position="bottom-end"
-                    shadow="md"
-                    radius="md"
-                    transitionProps={{ transition: 'fade-up' }}
-                  >
+                  <Popover width={300} position="bottom-end" shadow="md" radius="md">
                     <Popover.Target>
                       <ActionIcon
                         variant="subtle"

@@ -48,7 +48,7 @@ export function Header() {
         <Group gap="xs" visibleFrom="sm" flex={1}>
           {items}
         </Group>
-        <Menu width={200} shadow="md" position="bottom-start">
+        <Menu width={200} shadow="md" position="bottom-start" radius="md">
           <Menu.Target>
             <ActionIcon hiddenFrom="sm" variant="light" aria-label="Menu" color="gray">
               <IconGridDots

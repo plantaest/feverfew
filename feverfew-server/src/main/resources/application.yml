@@ -10,12 +10,12 @@ quarkus:
         - https://feverfew.toolforge.org
   smallrye-openapi:
     info-title: Feverfew API Docs
-    info-version: 1.0.0
+    info-version: 0.1.0-alpha.1
     info-contact-name: Plantaest
-    info-contact-url: https://plantaest.github.io
+    info-contact-url: https://meta.wikimedia.org/wiki/User:Plantaest
     info-contact-email: plantaest@gmail.com
-    info-license-name: Apache 2.0
-    info-license-url: https://www.apache.org/licenses/LICENSE-2.0.html
+    info-license-name: GNU Affero General Public License version 3
+    info-license-url: https://www.gnu.org/licenses/agpl-3.0.html
     operation-id-strategy: METHOD
   swagger-ui:
     theme: original

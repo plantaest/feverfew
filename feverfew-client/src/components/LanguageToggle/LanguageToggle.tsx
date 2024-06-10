@@ -2,7 +2,16 @@ import { ActionIcon, Menu } from '@mantine/core';
 import { IconWorld } from '@tabler/icons-react';
 import { useTranslation } from 'react-i18next';
 
-const langs = ['en', 'vi'];
+const langs = [
+  {
+    value: 'en',
+    label: 'English',
+  },
+  {
+    value: 'vi',
+    label: 'Tiếng Việt',
+  },
+];
 
 export function LanguageToggle() {
   const { t, i18n } = useTranslation();
@@ -12,7 +21,7 @@ export function LanguageToggle() {
   };
 
   return (
-    <Menu width={200} shadow="md" position="bottom-end">
+    <Menu width={200} shadow="md" position="bottom-end" radius="md">
       <Menu.Target>
         <ActionIcon
           variant="light"
@@ -32,11 +41,11 @@ export function LanguageToggle() {
       <Menu.Dropdown>
         {langs.map((lang) => (
           <Menu.Item
-            key={lang}
-            c={lang === i18n.language ? 'blue' : 'default'}
-            onClick={() => handleChangeLanguage(lang)}
+            key={lang.value}
+            c={lang.value === i18n.language ? 'blue' : 'default'}
+            onClick={() => handleChangeLanguage(lang.value)}
           >
-            {lang}
+            {lang.label}
           </Menu.Item>
         ))}
       </Menu.Dropdown>

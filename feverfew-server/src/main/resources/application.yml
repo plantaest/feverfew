@@ -45,3 +45,9 @@ quarkus:
           level: DEBUG
         "io.github.plantaest.feverfew.config.logging.LoggingFilter":
           level: DEBUG
+    datasource:
+      db-kind: mariadb
+      username: root
+      password: 12345
+      jdbc:
+        url: jdbc:mariadb://localhost:8002/feverfew

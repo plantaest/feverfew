@@ -6,9 +6,19 @@ import java.time.Instant;
 
 @Builder
 public record Check(
-        Long id,
+        long id,
         Instant createdAt,
+        long createdBy,
         String wikiId,
         String pageTitle,
-        Long pageRevisionId
+        long pageRevisionId,
+        double durationInMillis,
+        int totalLinks,
+        int totalIgnoredLinks,
+        int totalSuccessLinks,
+        int totalErrorLinks,
+        int totalWorkingLinks,
+        int totalBrokenLinks,
+        int resultSchemaVersion,
+        byte[] results
 ) {}

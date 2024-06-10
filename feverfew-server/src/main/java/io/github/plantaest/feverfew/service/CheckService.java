@@ -5,23 +5,29 @@ import de.siegmar.fastcsv.writer.CsvWriter;
 import io.github.plantaest.composite.Wiki;
 import io.github.plantaest.composite.Wikis;
 import io.github.plantaest.composite.type.PageHtmlResult;
+import io.github.plantaest.feverfew.config.AppConfig;
 import io.github.plantaest.feverfew.dto.common.AppResponse;
 import io.github.plantaest.feverfew.dto.request.CreateCheckRequest;
 import io.github.plantaest.feverfew.dto.request.ExportFeaturesAsCsvRequest;
 import io.github.plantaest.feverfew.dto.response.CreateCheckResponse;
-import io.github.plantaest.feverfew.dto.response.CreateCheckResponseBuilder;
+import io.github.plantaest.feverfew.entity.CheckBuilder;
 import io.github.plantaest.feverfew.helper.ClassificationResult;
 import io.github.plantaest.feverfew.helper.Classifier;
+import io.github.plantaest.feverfew.helper.CompressionHelper;
 import io.github.plantaest.feverfew.helper.EvaluationResult;
 import io.github.plantaest.feverfew.helper.EvaluationResultBuilder;
 import io.github.plantaest.feverfew.helper.ExternalLink;
+import io.github.plantaest.feverfew.helper.HashingHelper;
 import io.github.plantaest.feverfew.helper.LinkHelper;
 import io.github.plantaest.feverfew.helper.RequestResult;
 import io.github.plantaest.feverfew.helper.TimeHelper;
 import io.github.plantaest.feverfew.mapper.CheckMapper;
+import io.github.plantaest.feverfew.repository.CheckRepository;
 import io.quarkus.logging.Log;
+import io.vertx.core.http.HttpServerRequest;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.ws.rs.core.Context;
 
 import java.io.StringWriter;
 import java.time.Instant;
@@ -33,19 +39,21 @@ import java.util.stream.Collectors;
 public class CheckService {
 
     @Inject
+    CheckRepository checkRepository;
+    @Inject
     CheckMapper checkMapper;
-
     @Inject
     LinkHelper linkHelper;
-
     @Inject
     Classifier classifier;
-
     @Inject
     TsidFactory tsidFactory;
-
     @Inject
     Wikis wikis;
+    @Inject
+    CompressionHelper compressionHelper;
+    @Context
+    HttpServerRequest httpServerRequest;
 
     public AppResponse<CreateCheckResponse> createCheck(CreateCheckRequest request) {
         Log.infof("Request body of createCheck: %s", request);
@@ -103,11 +111,12 @@ public class CheckService {
                 .filter(r -> r.classificationResult().label() == 1L)
                 .count();
 
-        var response = CreateCheckResponseBuilder.builder()
-                .id(String.valueOf(tsidFactory.create().toLong()))
+        // Step 6: Create record & return response
+        var check = CheckBuilder.builder()
+                .id(tsidFactory.create().toLong())
                 .createdAt(Instant.now())
+                .createdBy(HashingHelper.hashIP(httpServerRequest.remoteAddress().host()))
                 .wikiId(request.wikiId())
-                .wikiServerName(wiki.config().serverName())
                 .pageTitle(pageHtmlResult.title())
                 .pageRevisionId(pageHtmlResult.revisionId())
                 .durationInMillis(TimeHelper.durationInMillis(startTime))
@@ -117,9 +126,13 @@ public class CheckService {
                 .totalErrorLinks(Math.toIntExact(totalErrorLinks))
                 .totalWorkingLinks(Math.toIntExact(totalWorkingLinks))
                 .totalBrokenLinks(Math.toIntExact(totalBrokenLinks))
-                .results(evaluationResults)
+                .resultSchemaVersion(AppConfig.CURRENT_RESULT_SCHEMA_VERSION)
+                .results(compressionHelper.compressJson(compressionHelper.convertToSchema(evaluationResults)))
                 .build();
 
+        checkRepository.create(check);
+
+        var response = checkMapper.toResponse(check, wiki.config().serverName(), evaluationResults);
         return AppResponse.created(response);
     }
 

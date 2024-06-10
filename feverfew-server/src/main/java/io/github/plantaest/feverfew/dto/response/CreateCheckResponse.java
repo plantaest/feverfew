@@ -2,7 +2,6 @@ package io.github.plantaest.feverfew.dto.response;
 
 import io.github.plantaest.feverfew.config.recordbuilder.Builder;
 import io.github.plantaest.feverfew.helper.EvaluationResult;
-import jakarta.annotation.Nullable;
 
 import java.time.Instant;
 import java.util.List;
@@ -11,11 +10,11 @@ import java.util.List;
 public record CreateCheckResponse(
         String id,
         Instant createdAt,
+        long createdBy,
         String wikiId,
         String wikiServerName,
         String pageTitle,
-        @Nullable
-        Long pageRevisionId,
+        long pageRevisionId,
         double durationInMillis,
         int totalLinks,
         int totalIgnoredLinks,

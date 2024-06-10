@@ -1,13 +1,14 @@
 {
   "status": 201,
   "data": {
-    "id": "1249556846965035660",
-    "createdAt": "2024-06-10T02:52:47.960Z",
+    "id": "1249741810180431855",
+    "createdAt": "2024-06-10T15:07:46.627Z",
+    "createdBy": 3619153832,
     "wikiId": "viwiki",
     "wikiServerName": "vi.wikipedia.org",
     "pageTitle": "DKSH",
     "pageRevisionId": 71438477,
-    "durationInMillis": 9032.5,
+    "durationInMillis": 7271.31,
     "totalLinks": 10,
     "totalIgnoredLinks": 1,
     "totalSuccessLinks": 7,
@@ -36,7 +37,7 @@
         },
         "requestResult": {
           "type": "ERROR",
-          "requestDuration": 1528.48,
+          "requestDuration": 2037.23,
           "responseStatus": 0,
           "contentType": null,
           "contentLength": 0,
@@ -48,7 +49,7 @@
         },
         "classificationResult": {
           "label": 1,
-          "probability": 0.9340397
+          "probability": 0.93384725
         }
       },
       {
@@ -72,10 +73,10 @@
         },
         "requestResult": {
           "type": "SUCCESS",
-          "requestDuration": 3277.12,
+          "requestDuration": 347.45,
           "responseStatus": 200,
           "contentType": "text/html; charset=UTF-8",
-          "contentLength": 105469,
+          "contentLength": 106572,
           "containsPageNotFoundWords": false,
           "containsPaywallWords": false,
           "containsDomainExpiredWords": false,
@@ -90,7 +91,7 @@
         },
         "classificationResult": {
           "label": 0,
-          "probability": 0.2705745
+          "probability": 0.038469315
         }
       },
       {
@@ -150,7 +151,7 @@
         },
         "requestResult": {
           "type": "SUCCESS",
-          "requestDuration": 177.61,
+          "requestDuration": 178.34,
           "responseStatus": 404,
           "contentType": "text/html; charset=utf-8",
           "contentLength": 12048,
@@ -192,10 +193,10 @@
         },
         "requestResult": {
           "type": "SUCCESS",
-          "requestDuration": 2579.29,
+          "requestDuration": 3906.4,
           "responseStatus": 200,
           "contentType": "text/html; charset=utf-8",
-          "contentLength": 64862,
+          "contentLength": 64852,
           "containsPageNotFoundWords": false,
           "containsPaywallWords": false,
           "containsDomainExpiredWords": false,
@@ -220,7 +221,7 @@
         },
         "classificationResult": {
           "label": 0,
-          "probability": 0.3165139
+          "probability": 0.20189536
         }
       },
       {
@@ -244,7 +245,7 @@
         },
         "requestResult": {
           "type": "ERROR",
-          "requestDuration": 14.94,
+          "requestDuration": 14.08,
           "responseStatus": 0,
           "contentType": null,
           "contentLength": 0,
@@ -280,10 +281,10 @@
         },
         "requestResult": {
           "type": "SUCCESS",
-          "requestDuration": 8089.83,
+          "requestDuration": 6561.84,
           "responseStatus": 404,
           "contentType": "text/html; charset=utf-8",
-          "contentLength": 71522,
+          "contentLength": 71592,
           "containsPageNotFoundWords": false,
           "containsPaywallWords": false,
           "containsDomainExpiredWords": false,
@@ -322,10 +323,10 @@
         },
         "requestResult": {
           "type": "SUCCESS",
-          "requestDuration": 158.71,
+          "requestDuration": 346.84,
           "responseStatus": 200,
           "contentType": "text/html; charset=UTF-8",
-          "contentLength": 105675,
+          "contentLength": 106572,
           "containsPageNotFoundWords": false,
           "containsPaywallWords": false,
           "containsDomainExpiredWords": false,
@@ -334,7 +335,7 @@
         },
         "classificationResult": {
           "label": 0,
-          "probability": 0.090779364
+          "probability": 0.037336886
         }
       },
       {
@@ -358,7 +359,7 @@
         },
         "requestResult": {
           "type": "SUCCESS",
-          "requestDuration": 147.91,
+          "requestDuration": 3836.28,
           "responseStatus": 200,
           "contentType": "text/html; charset=UTF-8",
           "contentLength": 99390,
@@ -370,7 +371,7 @@
         },
         "classificationResult": {
           "label": 0,
-          "probability": 0.090779364
+          "probability": 0.07252568
         }
       },
       {
@@ -394,7 +395,7 @@
         },
         "requestResult": {
           "type": "SUCCESS",
-          "requestDuration": 324.76,
+          "requestDuration": 448.6,
           "responseStatus": 200,
           "contentType": "text/html; charset=utf-8",
           "contentLength": 101902,
@@ -406,7 +407,7 @@
         },
         "classificationResult": {
           "label": 0,
-          "probability": 0.037336886
+          "probability": 0.02368021
         }
       }
     ]

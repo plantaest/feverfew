@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.github.plantaest</groupId>
     <artifactId>feverfew</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>0.1.0-alpha.1</version>
 
     <properties>
         <compiler-plugin.version>3.12.1</compiler-plugin.version>
@@ -24,6 +24,7 @@
         <commons-io.version>2.16.1</commons-io.version>
         <fastcsv.version>3.1.0</fastcsv.version>
         <onnxruntime.version>1.18.0</onnxruntime.version>
+        <quarkus-jdbi.version>1.4.0</quarkus-jdbi.version>
     </properties>
 
     <dependencyManagement>
@@ -89,6 +90,11 @@
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-arc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkiverse.jdbi</groupId>
+            <artifactId>quarkus-jdbi</artifactId>
+            <version>${quarkus-jdbi.version}</version>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>

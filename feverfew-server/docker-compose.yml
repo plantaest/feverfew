@@ -1,0 +1,41 @@
+version: '3.8'
+
+name: feverfew
+
+services:
+  feverfew-database:
+    container_name: feverfew-database
+    image: mariadb:10.4.29 # Using the same MariaDB version as on Toolforge
+    restart: unless-stopped
+    environment:
+      MARIADB_ROOT_PASSWORD: 12345
+    volumes:
+      - feverfew-database-data:/var/lib/mysql
+      - ./database:/docker-entrypoint-initdb.d
+    ports:
+      - '8002:3306'
+    networks:
+      - feverfew-network
+    healthcheck:
+      test: mysqladmin ping -h localhost -uroot -p12345
+
+  feverfew-redis:
+    container_name: feverfew-redis
+    image: redis:6.0.16-alpine # Using the same Redis version as on Toolforge
+    restart: unless-stopped
+    ports:
+      - '8004:6379'
+    volumes:
+      - feverfew-redis-data:/data
+    networks:
+      - feverfew-network
+
+volumes:
+  feverfew-database-data:
+    driver: local
+  feverfew-redis-data:
+    driver: local
+
+networks:
+  feverfew-network:
+    driver: bridge

@@ -7,10 +7,11 @@ export interface CreateCheckRequest {
 export interface CreateCheckResponse {
   id: string;
   createdAt: string;
+  createdBy: number;
   wikiId: string;
   wikiServerName: string;
   pageTitle: string;
-  pageRevisionId: number | null;
+  pageRevisionId: number;
   durationInMillis: number;
   totalLinks: number;
   totalIgnoredLinks: number;

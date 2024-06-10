@@ -14,6 +14,7 @@ import {
   Skeleton,
   Stack,
   Text,
+  TextInput,
   UnstyledButton,
   useDirection,
 } from '@mantine/core';
@@ -40,6 +41,7 @@ import { CreateCheckResponse, Redirect, RequestResultType } from '@/types/api/Ch
 import classes from './Result.page.module.css';
 import { useCreateCheck } from '@/hooks/useCreateCheck';
 import { numberFormat } from '@/utils/numberFormat';
+import { MwHelper } from '@/utils/MwHelper';
 
 const responseStatusColor = (status: string): MantineColor =>
   status.startsWith('2') ? 'teal' : status.startsWith('3') ? 'indigo' : 'pink';
@@ -83,14 +85,22 @@ export function ResultPage() {
   return (
     <Container size="xl">
       {createCheckApi.isSuccess && response ? (
-        <Stack my="md">
+        <Stack my="md" gap="sm">
           <Card radius="md" px="lg" py="sm" withBorder>
             <Flex direction="column">
-              <Group justify="space-between" gap="sm">
-                <Text fz="xl" fw={600}>
+              <Group justify="space-between" gap="xs" wrap="nowrap">
+                <Text
+                  fz="xl"
+                  fw={600}
+                  style={{
+                    whiteSpace: 'nowrap',
+                    textOverflow: 'ellipsis',
+                    overflow: 'hidden',
+                  }}
+                >
                   {response.pageTitle}
                 </Text>
-                <Text fw={600} ff="var(--mantine-alt-font-monospace)" tt="lowercase" c="blue">
+                <Text fw={600} ff="var(--mantine-alt-font-monospace)" tt="none" c="blue">
                   {response.wikiId}
                 </Text>
               </Group>
@@ -126,6 +136,9 @@ export function ResultPage() {
                     variant="subtle"
                     aria-label={t('core:ui.result.wikiPageLinkTitle')}
                     title={t('core:ui.result.wikiPageLinkTitle')}
+                    component="a"
+                    href={MwHelper.createPageUri(response.wikiServerName, response.pageTitle)}
+                    target="_blank"
                   >
                     <IconExternalLink
                       style={{
@@ -135,19 +148,62 @@ export function ResultPage() {
                       stroke={1.5}
                     />
                   </ActionIcon>
-                  <ActionIcon
-                    variant="subtle"
-                    aria-label={t('core:ui.result.shareTitle')}
-                    title={t('core:ui.result.shareTitle')}
+                  <Popover
+                    width={300}
+                    position="bottom-end"
+                    shadow="md"
+                    radius="md"
+                    transitionProps={{ transition: 'fade-up' }}
                   >
-                    <IconShare
-                      style={{
-                        width: '70%',
-                        height: '70%',
-                      }}
-                      stroke={1.5}
-                    />
-                  </ActionIcon>
+                    <Popover.Target>
+                      <ActionIcon
+                        variant="subtle"
+                        aria-label={t('core:ui.result.shareTitle')}
+                        title={t('core:ui.result.shareTitle')}
+                      >
+                        <IconShare
+                          style={{
+                            width: '70%',
+                            height: '70%',
+                          }}
+                          stroke={1.5}
+                        />
+                      </ActionIcon>
+                    </Popover.Target>
+                    <Popover.Dropdown>
+                      <TextInput
+                        styles={{
+                          input: {
+                            fontSize: 'var(--mantine-font-size-xs)',
+                            fontFamily: 'var(--mantine-alt-font-monospace)',
+                          },
+                        }}
+                        label={t('core:ui.result.checkLinkTitle')}
+                        defaultValue={`${window.location.protocol}//${window.location.host}/check/archive/${response.id}`}
+                        rightSection={
+                          <CopyButton
+                            value={`${window.location.protocol}//${window.location.host}/check/archive/${response.id}`}
+                          >
+                            {({ copied, copy }) => (
+                              <IconCopy
+                                style={{
+                                  minWidth: '0.85rem',
+                                  cursor: 'pointer',
+                                }}
+                                size="0.85rem"
+                                color={
+                                  copied
+                                    ? 'var(--mantine-color-teal-5)'
+                                    : 'var(--mantine-color-blue-5)'
+                                }
+                                onClick={copy}
+                              />
+                            )}
+                          </CopyButton>
+                        }
+                      />
+                    </Popover.Dropdown>
+                  </Popover>
                 </Group>
               </Group>
             </Flex>
@@ -181,9 +237,14 @@ export function ResultPage() {
 
           <Stack gap="xs">
             {response.results.map((result) => (
-              <UnstyledButton key={result.link.id} className={classes.result}>
+              <UnstyledButton
+                component="div"
+                tabIndex={0}
+                key={result.link.id}
+                className={classes.result}
+              >
                 <Group wrap="nowrap" gap="xs" align="stretch" justify="space-between">
-                  <Group wrap="nowrap" gap="xs" align="stretch">
+                  <Group wrap="nowrap" gap="xs" align="stretch" miw={0}>
                     <Flex className={classes.index}>
                       <Text ff="var(--mantine-alt-font-monospace)" fz="lg">
                         {result.index}
@@ -230,15 +291,15 @@ export function ResultPage() {
                       )}
                     </Flex>
 
-                    <Stack gap={5}>
+                    <Stack gap={5} miw={0}>
                       <Group gap={8}>
-                        <Badge tt="lowercase" radius="sm" variant="light">
+                        <Badge tt="none" radius="sm" variant="light">
                           {result.link.host}
                         </Badge>
                         {result.requestResult.type !== RequestResultType.IGNORED && (
                           <>
                             <Badge
-                              tt="lowercase"
+                              tt="none"
                               radius="sm"
                               variant="filled"
                               color={responseStatusColor(
@@ -247,26 +308,26 @@ export function ResultPage() {
                             >
                               {result.requestResult.responseStatus >= 100
                                 ? result.requestResult.responseStatus
-                                : '?'}
+                                : 'ERR'}
                             </Badge>
-                            <Badge tt="lowercase" radius="sm" variant="light">
+                            <Badge tt="none" radius="sm" variant="light">
                               {numberFormat.format(result.requestResult.requestDuration)} ms
                             </Badge>
-                            <Badge tt="lowercase" radius="sm" variant="light">
+                            <Badge tt="none" radius="sm" variant="light">
                               {numberFormat.format(result.requestResult.contentLength)} byte(s)
                             </Badge>
-                            {result.link.refName && result.link.refIndex && (
-                              <Badge
-                                tt="lowercase"
-                                radius="sm"
-                                variant="light"
-                                color={result.link.refIndex % 2 === 0 ? 'orange' : 'violet'}
-                                leftSection={<IconBookmark size="0.75rem" stroke={3} />}
-                              >
-                                {result.link.refName}
-                              </Badge>
-                            )}
                           </>
+                        )}
+                        {result.link.refName && result.link.refIndex && (
+                          <Badge
+                            tt="none"
+                            radius="sm"
+                            variant="light"
+                            color={result.link.refIndex % 2 === 0 ? 'orange' : 'violet'}
+                            leftSection={<IconBookmark size="0.75rem" stroke={3} />}
+                          >
+                            {result.link.refName}
+                          </Badge>
                         )}
                       </Group>
 
@@ -342,7 +403,7 @@ export function ResultPage() {
 
 function ResultSkeleton() {
   return (
-    <Stack my="md">
+    <Stack my="md" gap="sm">
       <Skeleton height={85} radius="md" />
 
       <SimpleGrid
@@ -375,7 +436,7 @@ function ResultError() {
 
   return (
     <Stack mt={80} mb="md" c="pink" align="center">
-      <IconAlertTriangle size="10rem" stroke={1} />
+      <IconAlertTriangle size="8rem" stroke={1} />
       <Text fw={600} fz="xl" ff="var(--mantine-alt-font-family)">
         {t('core:ui.result.errorMessage')}
       </Text>
@@ -424,7 +485,7 @@ function ResultRedirect({ redirects }: ResultRedirectProps) {
       <Popover.Dropdown>
         <Stack gap="xs">
           {redirects.map((redirect, index) => (
-            <Group gap="sm" wrap="nowrap" align="start">
+            <Group key={index} gap="sm" wrap="nowrap" align="start">
               <Avatar variant="filled" color="blue" radius="xl" size="sm">
                 {index + 1}
               </Avatar>

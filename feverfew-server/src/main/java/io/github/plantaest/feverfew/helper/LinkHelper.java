@@ -160,7 +160,8 @@ public class LinkHelper {
             "error occurred",
             "currently unavailable",
             "access denied",
-            "have been moved or deleted"
+            "have been moved or deleted",
+            "no results found"
     );
 
     private static final List<String> PAYWALL_WORDS = List.of(

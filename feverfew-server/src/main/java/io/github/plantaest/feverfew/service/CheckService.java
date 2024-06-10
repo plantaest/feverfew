@@ -103,12 +103,11 @@ public class CheckService {
                 .filter(r -> r.classificationResult().label() == 1L)
                 .count();
 
-        var now = Instant.now();
         var response = CreateCheckResponseBuilder.builder()
                 .id(String.valueOf(tsidFactory.create().toLong()))
-                .createdAt(now)
-                .updatedAt(now)
+                .createdAt(Instant.now())
                 .wikiId(request.wikiId())
+                .wikiServerName(wiki.config().serverName())
                 .pageTitle(pageHtmlResult.title())
                 .pageRevisionId(pageHtmlResult.revisionId())
                 .durationInMillis(TimeHelper.durationInMillis(startTime))

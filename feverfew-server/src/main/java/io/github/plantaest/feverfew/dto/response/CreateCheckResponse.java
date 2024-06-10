@@ -11,8 +11,8 @@ import java.util.List;
 public record CreateCheckResponse(
         String id,
         Instant createdAt,
-        Instant updatedAt,
         String wikiId,
+        String wikiServerName,
         String pageTitle,
         @Nullable
         Long pageRevisionId,

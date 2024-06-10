@@ -31,7 +31,11 @@ export function Header() {
       key={link.label}
       to={link.link}
       className={classes.link}
-      data-active={location.pathname === link.link}
+      data-active={
+        link.link === '/'
+          ? location.pathname === link.link
+          : location.pathname.startsWith(link.link)
+      }
     >
       {t(link.label)}
     </Link>

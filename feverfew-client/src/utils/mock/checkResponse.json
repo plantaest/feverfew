@@ -1,24 +1,24 @@
 {
   "status": 201,
   "data": {
-    "id": "1249372364991504106",
-    "createdAt": "2024-06-09T14:39:44.030Z",
-    "updatedAt": "2024-06-09T14:39:44.030Z",
+    "id": "1249556846965035660",
+    "createdAt": "2024-06-10T02:52:47.960Z",
     "wikiId": "viwiki",
+    "wikiServerName": "vi.wikipedia.org",
     "pageTitle": "DKSH",
-    "pageRevisionId": 71433373,
-    "durationInMillis": 6908.58,
+    "pageRevisionId": 71438477,
+    "durationInMillis": 9032.5,
     "totalLinks": 10,
     "totalIgnoredLinks": 1,
     "totalSuccessLinks": 7,
     "totalErrorLinks": 2,
-    "totalWorkingLinks": 4,
-    "totalBrokenLinks": 5,
+    "totalWorkingLinks": 5,
+    "totalBrokenLinks": 4,
     "results": [
       {
         "index": 1,
         "link": {
-          "id": "mwWw",
+          "id": "mwbw",
           "href": "http://www.six-swiss-exchange.com/search/quotes_en.html?security=DKSH",
           "scheme": "http",
           "host": "www.six-swiss-exchange.com",
@@ -36,7 +36,7 @@
         },
         "requestResult": {
           "type": "ERROR",
-          "requestDuration": 1460.81,
+          "requestDuration": 1528.48,
           "responseStatus": 0,
           "contentType": null,
           "contentLength": 0,
@@ -54,7 +54,7 @@
       {
         "index": 2,
         "link": {
-          "id": "mwkA",
+          "id": "mwpA",
           "href": "https://www.dksh.com/",
           "scheme": "https",
           "host": "www.dksh.com",
@@ -72,7 +72,7 @@
         },
         "requestResult": {
           "type": "SUCCESS",
-          "requestDuration": 3251.28,
+          "requestDuration": 3277.12,
           "responseStatus": 200,
           "contentType": "text/html; charset=UTF-8",
           "contentLength": 105469,
@@ -90,13 +90,13 @@
         },
         "classificationResult": {
           "label": 0,
-          "probability": 0.11348456
+          "probability": 0.2705745
         }
       },
       {
         "index": 3,
         "link": {
-          "id": "mwJA",
+          "id": "mwJg",
           "href": "https://web.archive.org/web/20101108143053/http://www.asiaone.com/Business/News/Story/A1Story20100325-206746.html",
           "scheme": "https",
           "host": "web.archive.org",
@@ -132,7 +132,7 @@
       {
         "index": 4,
         "link": {
-          "id": "mwJQ",
+          "id": "mwJw",
           "href": "http://www.asiaone.com/Business/News/Story/A1Story20100325-206746.html",
           "scheme": "http",
           "host": "www.asiaone.com",
@@ -150,10 +150,10 @@
         },
         "requestResult": {
           "type": "SUCCESS",
-          "requestDuration": 185.95,
+          "requestDuration": 177.61,
           "responseStatus": 404,
           "contentType": "text/html; charset=utf-8",
-          "contentLength": 12348,
+          "contentLength": 12048,
           "containsPageNotFoundWords": true,
           "containsPaywallWords": false,
           "containsDomainExpiredWords": false,
@@ -168,13 +168,13 @@
         },
         "classificationResult": {
           "label": 1,
-          "probability": 0.8932621
+          "probability": 0.93961895
         }
       },
       {
         "index": 5,
         "link": {
-          "id": "mwLA",
+          "id": "mwLg",
           "href": "http://www.presseportal.ch/de/pm/100008254/100509630/dksh_holding_ltd",
           "scheme": "http",
           "host": "www.presseportal.ch",
@@ -192,7 +192,7 @@
         },
         "requestResult": {
           "type": "SUCCESS",
-          "requestDuration": 3293.27,
+          "requestDuration": 2579.29,
           "responseStatus": 200,
           "contentType": "text/html; charset=utf-8",
           "contentLength": 64862,
@@ -219,14 +219,14 @@
           "redirectToHomepage": false
         },
         "classificationResult": {
-          "label": 1,
-          "probability": 0.53774446
+          "label": 0,
+          "probability": 0.3165139
         }
       },
       {
         "index": 6,
         "link": {
-          "id": "mwMw",
+          "id": "mwNQ",
           "href": "http://www.nzz.ch/nachrichten/kultur/buchrezensionen/zwischen_himmel_und_hoelle_in_asien_1.4093119.html",
           "scheme": "http",
           "host": "www.nzz.ch",
@@ -244,7 +244,7 @@
         },
         "requestResult": {
           "type": "ERROR",
-          "requestDuration": 9.91,
+          "requestDuration": 14.94,
           "responseStatus": 0,
           "contentType": null,
           "contentLength": 0,
@@ -262,7 +262,7 @@
       {
         "index": 7,
         "link": {
-          "id": "mwOg",
+          "id": "mwPA",
           "href": "http://www.bilanz.ch/edition/artikel.asp?session=%3C&AssetID=1094",
           "scheme": "http",
           "host": "www.bilanz.ch",
@@ -280,10 +280,10 @@
         },
         "requestResult": {
           "type": "SUCCESS",
-          "requestDuration": 6071.06,
+          "requestDuration": 8089.83,
           "responseStatus": 404,
           "contentType": "text/html; charset=utf-8",
-          "contentLength": 71576,
+          "contentLength": 71522,
           "containsPageNotFoundWords": false,
           "containsPaywallWords": false,
           "containsDomainExpiredWords": false,
@@ -304,7 +304,7 @@
       {
         "index": 8,
         "link": {
-          "id": "mwSA",
+          "id": "mwSg",
           "href": "https://www.dksh.com/global-en/home",
           "scheme": "https",
           "host": "www.dksh.com",
@@ -322,7 +322,7 @@
         },
         "requestResult": {
           "type": "SUCCESS",
-          "requestDuration": 188.74,
+          "requestDuration": 158.71,
           "responseStatus": 200,
           "contentType": "text/html; charset=UTF-8",
           "contentLength": 105675,
@@ -334,13 +334,13 @@
         },
         "classificationResult": {
           "label": 0,
-          "probability": 0.038289666
+          "probability": 0.090779364
         }
       },
       {
         "index": 9,
         "link": {
-          "id": "mwSg",
+          "id": "mwTA",
           "href": "https://www.dksh.com/vn-vi/home",
           "scheme": "https",
           "host": "www.dksh.com",
@@ -358,7 +358,7 @@
         },
         "requestResult": {
           "type": "SUCCESS",
-          "requestDuration": 264.73,
+          "requestDuration": 147.91,
           "responseStatus": 200,
           "contentType": "text/html; charset=UTF-8",
           "contentLength": 99390,
@@ -370,13 +370,13 @@
         },
         "classificationResult": {
           "label": 0,
-          "probability": 0.038289666
+          "probability": 0.090779364
         }
       },
       {
         "index": 10,
         "link": {
-          "id": "mwTA",
+          "id": "mwTg",
           "href": "https://tecshop.dksh.vn/",
           "scheme": "https",
           "host": "tecshop.dksh.vn",
@@ -394,7 +394,7 @@
         },
         "requestResult": {
           "type": "SUCCESS",
-          "requestDuration": 168.91,
+          "requestDuration": 324.76,
           "responseStatus": 200,
           "contentType": "text/html; charset=utf-8",
           "contentLength": 101902,
@@ -406,7 +406,7 @@
         },
         "classificationResult": {
           "label": 0,
-          "probability": 0.090779364
+          "probability": 0.037336886
         }
       }
     ]

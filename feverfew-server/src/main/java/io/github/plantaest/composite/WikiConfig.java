@@ -1,8 +1,9 @@
 package io.github.plantaest.composite;
 
 public record WikiConfig(
-        String serverName,
-        String userAgent
+        String userAgent,
+        String wikiId,
+        String serverName
 ) {
 
     public static Builder builder() {
@@ -10,21 +11,27 @@ public record WikiConfig(
     }
 
     public static class Builder {
-        private String serverName;
         private String userAgent;
-
-        public Builder serverName(String serverName) {
-            this.serverName = serverName;
-            return this;
-        }
+        private String wikiId;
+        private String serverName;
 
         public Builder userAgent(String userAgent) {
             this.userAgent = userAgent;
             return this;
         }
 
+        public Builder wikiId(String wikiId) {
+            this.wikiId = wikiId;
+            return this;
+        }
+
+        public Builder serverName(String serverName) {
+            this.serverName = serverName;
+            return this;
+        }
+
         public WikiConfig build() {
-            return new WikiConfig(serverName, userAgent);
+            return new WikiConfig(userAgent, wikiId, serverName);
         }
     }
 

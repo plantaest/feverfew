@@ -6,7 +6,6 @@ import io.github.plantaest.feverfew.dto.response.CreateCheckResponse;
 import io.github.plantaest.feverfew.dto.response.CreateCheckResponseBuilder;
 import io.github.plantaest.feverfew.entity.Check;
 import io.github.plantaest.feverfew.entity.CheckBuilder;
-import io.github.plantaest.feverfew.enumeration.CheckStatus;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
@@ -24,9 +23,6 @@ public class CheckMapper {
         return CheckBuilder.builder()
                 .id(tsidFactory.create().toLong())
                 .createdAt(now)
-                .updatedAt(now)
-                .createdBy(null)
-                .updatedBy(null)
                 .wikiId(request.wikiId())
                 .pageTitle(request.pageTitle())
                 .pageRevisionId(0L)
@@ -37,7 +33,6 @@ public class CheckMapper {
         return CreateCheckResponseBuilder.builder()
                 .id(check.id().toString())
                 .createdAt(check.createdAt())
-                .updatedAt(check.updatedAt())
                 .build();
     }
 

@@ -7,8 +7,8 @@ export interface CreateCheckRequest {
 export interface CreateCheckResponse {
   id: string;
   createdAt: string;
-  updatedAt: string;
   wikiId: string;
+  wikiServerName: string;
   pageTitle: string;
   pageRevisionId: number | null;
   durationInMillis: number;

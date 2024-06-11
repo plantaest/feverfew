@@ -1,7 +1,6 @@
 import {
   ActionIcon,
   Anchor,
-  Avatar,
   Badge,
   Card,
   Container,
@@ -11,25 +10,18 @@ import {
   MantineColor,
   Popover,
   SimpleGrid,
-  Skeleton,
   Stack,
   Text,
   TextInput,
   UnstyledButton,
-  useDirection,
 } from '@mantine/core';
 import { useSearchParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import {
-  IconAlertTriangle,
   IconArchive,
-  IconArrowLoopLeft2,
-  IconArrowLoopRight2,
   IconBookmark,
   IconCopy,
-  IconCornerDownLeft,
-  IconCornerDownRight,
   IconExternalLink,
   IconLink,
   IconShare,
@@ -37,13 +29,16 @@ import {
 import { useDocumentTitle } from '@mantine/hooks';
 import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
-import { NotFoundPage } from '@/pages/NotFound.page';
-import { CreateCheckResponse, Redirect, RequestResultType } from '@/types/api/Check';
-import classes from './Result.page.module.css';
+import { CreateCheckResponse, RequestResultType } from '@/types/api/Check';
+import classes from './ResultPage.module.css';
 import { useCreateCheck } from '@/hooks/useCreateCheck';
 import { numberFormat } from '@/utils/numberFormat';
 import { MwHelper } from '@/utils/MwHelper';
 import { archiveHosts } from '@/utils/archiveHosts';
+import { ResultRedirect } from './ResultRedirect';
+import { ResultError } from './ResultError';
+import { ResultSkeleton } from './ResultSkeleton';
+import { ResultList } from './ResultList';
 
 const responseStatusColor = (status: string): MantineColor =>
   status.startsWith('2') ? 'teal' : status.startsWith('3') ? 'indigo' : 'pink';
@@ -52,8 +47,8 @@ export function ResultPage() {
   const { t } = useTranslation();
   const [searchParams] = useSearchParams();
 
-  const wikiId = searchParams.get('wiki') || null;
-  const pageTitle = searchParams.get('page')?.replaceAll('_', ' ') || null;
+  const wikiId = searchParams.get('wiki')?.trim() || null;
+  const pageTitle = searchParams.get('page')?.replaceAll('_', ' ').trim() || null;
 
   const shouldCheck = wikiId && pageTitle;
 
@@ -81,7 +76,7 @@ export function ResultPage() {
   }, [shouldCheck]);
 
   if (!shouldCheck) {
-    return <NotFoundPage />;
+    return <ResultList />;
   }
 
   return (
@@ -102,7 +97,7 @@ export function ResultPage() {
                 >
                   {response.pageTitle}
                 </Text>
-                <Text fw={600} ff="var(--mantine-alt-font-monospace)" tt="none" c="blue">
+                <Text fw={600} ff="var(--mantine-alt-font-monospace)" c="blue">
                   {response.wikiId}
                 </Text>
               </Group>
@@ -396,128 +391,5 @@ export function ResultPage() {
         <ResultSkeleton />
       )}
     </Container>
-  );
-}
-
-function ResultSkeleton() {
-  return (
-    <Stack my="md" gap="sm">
-      <Skeleton height={85} radius="md" />
-
-      <SimpleGrid
-        cols={{
-          base: 2,
-          md: 4,
-        }}
-        spacing="sm"
-        verticalSpacing="sm"
-      >
-        <Skeleton height={50} radius="md" />
-        <Skeleton height={50} radius="md" />
-        <Skeleton height={50} radius="md" />
-        <Skeleton height={50} radius="md" />
-      </SimpleGrid>
-
-      <Stack gap="xs">
-        {Array(4)
-          .fill(0)
-          .map((_, index) => (
-            <Skeleton key={index} height={82} radius="md" />
-          ))}
-      </Stack>
-    </Stack>
-  );
-}
-
-function ResultError() {
-  const { t } = useTranslation();
-
-  return (
-    <Stack mt={80} mb="md" c="pink" align="center">
-      <IconAlertTriangle size="8rem" stroke={1} />
-      <Text fw={600} fz="xl" ff="var(--mantine-alt-font-family)">
-        {t('core:ui.result.errorMessage')}
-      </Text>
-    </Stack>
-  );
-}
-
-interface ResultRedirectProps {
-  redirects: Redirect[];
-}
-
-function ResultRedirect({ redirects }: ResultRedirectProps) {
-  const { t } = useTranslation();
-  const { dir } = useDirection();
-  const [opened, setOpened] = useState(false);
-
-  const IconArrowLoop = dir === 'rtl' ? IconArrowLoopLeft2 : IconArrowLoopRight2;
-  const IconCorner = dir === 'rtl' ? IconCornerDownLeft : IconCornerDownRight;
-
-  return (
-    <Popover
-      width={500}
-      position="left-start"
-      transitionProps={{ transition: 'fade-up' }}
-      shadow="md"
-      radius="md"
-      opened={opened}
-      onChange={setOpened}
-    >
-      <Popover.Target>
-        <UnstyledButton
-          className={classes.redirect}
-          onClick={() => setOpened(!opened)}
-          data-opened={opened}
-          aria-label={t('core:ui.result.redirectTitle', {
-            redirectNumber: redirects.length,
-          })}
-          title={t('core:ui.result.redirectTitle', {
-            redirectNumber: redirects.length,
-          })}
-        >
-          <Text fw={600}>{redirects.length}</Text>
-          <IconArrowLoop size="1rem" />
-        </UnstyledButton>
-      </Popover.Target>
-      <Popover.Dropdown>
-        <Stack gap="xs">
-          {redirects.map((redirect, index) => (
-            <Group key={index} gap="sm" wrap="nowrap" align="start">
-              <Avatar variant="filled" color="blue" radius="xl" size="sm">
-                {index + 1}
-              </Avatar>
-              <Stack gap={6}>
-                <Anchor
-                  href={redirect.requestUrl}
-                  target="_blank"
-                  size="xs"
-                  ff="var(--mantine-alt-font-monospace)"
-                  w="fit-content"
-                  lh={1}
-                  style={{ wordBreak: 'break-all' }}
-                >
-                  {redirect.requestUrl}
-                </Anchor>
-                <Group gap={6} wrap="nowrap">
-                  <IconCorner size="1rem" stroke={1.5} style={{ minWidth: '1rem' }} />
-                  <Anchor
-                    href={redirect.location}
-                    target="_blank"
-                    size="xs"
-                    ff="var(--mantine-alt-font-monospace)"
-                    w="fit-content"
-                    lh={1}
-                    style={{ wordBreak: 'break-all' }}
-                  >
-                    {redirect.location}
-                  </Anchor>
-                </Group>
-              </Stack>
-            </Group>
-          ))}
-        </Stack>
-      </Popover.Dropdown>
-    </Popover>
   );
 }

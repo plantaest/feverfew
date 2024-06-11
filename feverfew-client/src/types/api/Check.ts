@@ -1,3 +1,6 @@
+/**
+ * createCheck
+ */
 export interface CreateCheckRequest {
   wikiId: string;
   pageTitle: string;
@@ -75,4 +78,45 @@ export interface Redirect {
 export interface ClassificationResult {
   label: number;
   probability: number;
+}
+
+/**
+ * getListCheck
+ */
+export interface GetListCheckResponse {
+  id: string;
+  createdAt: string;
+  createdBy: number;
+  wikiId: string;
+  wikiServerName: string;
+  pageTitle: string;
+  pageRevisionId: number;
+  durationInMillis: number;
+  totalLinks: number;
+  totalIgnoredLinks: number;
+  totalSuccessLinks: number;
+  totalErrorLinks: number;
+  totalWorkingLinks: number;
+  totalBrokenLinks: number;
+}
+
+/**
+ * getOneCheck
+ */
+export interface GetOneCheckResponse {
+  id: string;
+  createdAt: string;
+  createdBy: number;
+  wikiId: string;
+  wikiServerName: string;
+  pageTitle: string;
+  pageRevisionId: number;
+  durationInMillis: number;
+  totalLinks: number;
+  totalIgnoredLinks: number;
+  totalSuccessLinks: number;
+  totalErrorLinks: number;
+  totalWorkingLinks: number;
+  totalBrokenLinks: number;
+  results: EvaluationResult[];
 }

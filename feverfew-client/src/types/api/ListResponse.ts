@@ -1,8 +1,8 @@
 export interface ListResponse<T> {
-  currentItemCount: number;
+  pageIndex: number;
   itemsPerPage: number;
   totalItems: number;
-  pageIndex: number;
   totalPages: number;
+  currentItemCount: number;
   items: T[];
 }

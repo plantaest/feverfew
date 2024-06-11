@@ -1,0 +1,92 @@
+{
+  "status": 200,
+  "data": {
+    "pageIndex": 1,
+    "itemsPerPage": 5,
+    "totalItems": 13,
+    "totalPages": 3,
+    "currentItemCount": 5,
+    "items": [
+      {
+        "id": "1249949450722483854",
+        "createdAt": "2024-06-11T04:52:51.000Z",
+        "createdBy": 3619153832,
+        "wikiId": "viwiki",
+        "wikiServerName": "vi.wikipedia.org",
+        "pageTitle": "Hoa Kỳ",
+        "pageRevisionId": 71415533,
+        "durationInMillis": 29464.61,
+        "totalLinks": 547,
+        "totalIgnoredLinks": 139,
+        "totalSuccessLinks": 378,
+        "totalErrorLinks": 30,
+        "totalWorkingLinks": 242,
+        "totalBrokenLinks": 166
+      },
+      {
+        "id": "1249796033089773066",
+        "createdAt": "2024-06-10T18:43:14.000Z",
+        "createdBy": 3619153832,
+        "wikiId": "viwiki",
+        "wikiServerName": "vi.wikipedia.org",
+        "pageTitle": "C",
+        "pageRevisionId": 71272901,
+        "durationInMillis": 1266.4,
+        "totalLinks": 0,
+        "totalIgnoredLinks": 0,
+        "totalSuccessLinks": 0,
+        "totalErrorLinks": 0,
+        "totalWorkingLinks": 0,
+        "totalBrokenLinks": 0
+      },
+      {
+        "id": "1249793987863253645",
+        "createdAt": "2024-06-10T18:35:06.000Z",
+        "createdBy": 3619153832,
+        "wikiId": "viwiki",
+        "wikiServerName": "vi.wikipedia.org",
+        "pageTitle": "O",
+        "pageRevisionId": 71304029,
+        "durationInMillis": 1344.94,
+        "totalLinks": 0,
+        "totalIgnoredLinks": 0,
+        "totalSuccessLinks": 0,
+        "totalErrorLinks": 0,
+        "totalWorkingLinks": 0,
+        "totalBrokenLinks": 0
+      },
+      {
+        "id": "1249789994160233937",
+        "createdAt": "2024-06-10T18:19:14.000Z",
+        "createdBy": 3619153832,
+        "wikiId": "viwiki",
+        "wikiServerName": "vi.wikipedia.org",
+        "pageTitle": ".vn",
+        "pageRevisionId": 71339420,
+        "durationInMillis": 3324.32,
+        "totalLinks": 7,
+        "totalIgnoredLinks": 0,
+        "totalSuccessLinks": 7,
+        "totalErrorLinks": 0,
+        "totalWorkingLinks": 6,
+        "totalBrokenLinks": 1
+      },
+      {
+        "id": "1249788108124328212",
+        "createdAt": "2024-06-10T18:11:44.000Z",
+        "createdBy": 3619153832,
+        "wikiId": "viwiki",
+        "wikiServerName": "vi.wikipedia.org",
+        "pageTitle": "Chuối",
+        "pageRevisionId": 71340842,
+        "durationInMillis": 8751.67,
+        "totalLinks": 16,
+        "totalIgnoredLinks": 5,
+        "totalSuccessLinks": 10,
+        "totalErrorLinks": 1,
+        "totalWorkingLinks": 6,
+        "totalBrokenLinks": 5
+      }
+    ]
+  }
+}

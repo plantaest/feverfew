@@ -46,7 +46,10 @@
       "working": "Hoạt động",
       "broken": "Hỏng",
       "errorMessage": "Đã có lỗi xảy ra",
-      "redirectTitle": "{redirectNumber} lần chuyển hướng"
+      "redirectTitle": "{redirectNumber} lần chuyển hướng",
+      "list": {
+        "title": "Lượt kiểm tra gần đây"
+      }
     }
   },
   "query": {

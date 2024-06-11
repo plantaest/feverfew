@@ -1,8 +1,8 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { HomePage } from './pages/Home.page';
-import { ResultPage } from '@/pages/Result.page';
-import { IndexPage } from '@/pages/Index.page';
-import { NotFoundPage } from '@/pages/NotFound.page';
+import { HomePage } from './pages/HomePage';
+import { ResultPage } from '@/pages/ResultPage/ResultPage';
+import { IndexPage } from '@/pages/IndexPage';
+import { NotFoundPage } from '@/pages/NotFoundPage';
 
 const router = createBrowserRouter([
   {

@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { AppResponse } from '@/types/api/AppResponse';
 import { CreateCheckRequest, CreateCheckResponse } from '@/types/api/Check';
 import { AppError } from '@/types/api/AppError';
@@ -26,8 +26,15 @@ const createCheck = async (
 };
 
 export function useCreateCheck() {
+  const queryClient = useQueryClient();
+
   return useMutation<AppResponse<CreateCheckResponse>, AppError, CreateCheckRequest>({
     mutationKey: ['check', 'create'],
     mutationFn: (request) => createCheck(request),
+    onSuccess: () =>
+      queryClient.invalidateQueries({
+        queryKey: ['check', 'getList'],
+        refetchType: 'all',
+      }),
   });
 }

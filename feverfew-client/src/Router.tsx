@@ -3,6 +3,7 @@ import { HomePage } from './pages/HomePage';
 import { ResultPage } from '@/pages/ResultPage/ResultPage';
 import { IndexPage } from '@/pages/IndexPage';
 import { NotFoundPage } from '@/pages/NotFoundPage';
+import { ResultArchivePage } from '@/pages/ResultPage/ResultArchivePage';
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
       {
         path: '/check',
         element: <ResultPage />,
+      },
+      {
+        path: '/check/archive/:id',
+        element: <ResultArchivePage />,
       },
     ],
   },

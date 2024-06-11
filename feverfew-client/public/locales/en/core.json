@@ -39,8 +39,7 @@
     "result": {
       "note": "Checked at {time}, {date}, in {duration} second(s)",
       "checkLinkTitle": "Archived link for this check",
-      "wikiPageLinkTitle": "Link of the checked wiki page",
-      "shareTitle": "Share",
+      "revisionLinkTitle": "Link of the checked revision",
       "total": "Total",
       "ignored": "Ignored",
       "working": "Working",

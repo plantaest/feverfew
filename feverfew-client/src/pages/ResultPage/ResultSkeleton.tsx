@@ -23,7 +23,7 @@ export function ResultSkeleton() {
         {Array(4)
           .fill(0)
           .map((_, index) => (
-            <Skeleton key={index} height={82} radius="md" />
+            <Skeleton key={index} height={85} radius="md" />
           ))}
       </Stack>
     </Stack>

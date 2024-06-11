@@ -1,6 +1,6 @@
 import { underscoreTitle } from '@/utils/underscoreTitle';
 
 export namespace MwHelper {
-  export const createPageUri = (serverName: string, pageTitle: string) =>
-    `//${serverName}/wiki/${underscoreTitle(pageTitle)}`;
+  export const createRevisionUri = (serverName: string, pageTitle: string, revisionId: number) =>
+    `//${serverName}/w/index.php?title=${underscoreTitle(pageTitle)}&oldid=${revisionId}`;
 }

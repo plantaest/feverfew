@@ -39,8 +39,7 @@
     "result": {
       "note": "Đã kiểm tra lúc {time}, {date}, trong {duration} giây",
       "checkLinkTitle": "Liên kết lưu trữ cho lần kiểm tra này",
-      "wikiPageLinkTitle": "Liên kết của trang wiki",
-      "shareTitle": "Chia sẻ",
+      "revisionLinkTitle": "Liên kết của phiên bản được kiểm tra",
       "total": "Tổng",
       "ignored": "Bỏ qua",
       "working": "Hoạt động",

@@ -39,7 +39,7 @@
   border-radius: var(--mantine-radius-md);
   padding-block: var(--mantine-spacing-xs);
   padding-inline: rem(8px);
-  min-height: rem(82px);
+  min-height: rem(85px);
 
   &:hover {
     background-color: light-dark(var(--mantine-color-gray-1), var(--mantine-color-dark-5));

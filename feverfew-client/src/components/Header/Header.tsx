@@ -1,4 +1,4 @@
-import { ActionIcon, Container, Group, Menu, Text } from '@mantine/core';
+import { ActionIcon, Container, Flex, Group, Menu, Text } from '@mantine/core';
 import { IconGridDots } from '@tabler/icons-react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -73,12 +73,8 @@ export function Header() {
           </Menu.Dropdown>
         </Menu>
         {location.pathname !== '/' && (
-          <Text
-            component={Link}
-            to="/"
-            ff="var(--mantine-alt-font-family)"
-            fw={600}
-            fz={20}
+          <Flex
+            justify="center"
             flex={{
               base: 0,
               md: 1,
@@ -87,10 +83,11 @@ export function Header() {
               base: 'xs',
               md: 0,
             }}
-            ta="center"
           >
-            Feverfew
-          </Text>
+            <Text component={Link} to="/" ff="var(--mantine-alt-font-family)" fw={600} fz={20}>
+              Feverfew
+            </Text>
+          </Flex>
         )}
         <Group gap="xs" flex={1} justify="flex-end">
           <ColorSchemeToggle />

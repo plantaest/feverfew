@@ -37,7 +37,7 @@
       "check": "Check"
     },
     "result": {
-      "note": "Checked at {time}, {date}, in {duration} second(s)",
+      "note": "Checked at {time}, {date}; in {duration} second(s)",
       "checkLinkTitle": "Archived link for this check",
       "revisionLinkTitle": "Link of the checked revision",
       "total": "Total",

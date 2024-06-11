@@ -2,6 +2,7 @@ import { Container, Stack } from '@mantine/core';
 import { useSearchParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useDocumentTitle } from '@mantine/hooks';
+import { useTranslation } from 'react-i18next';
 import { CreateCheckResponse } from '@/types/api/Check';
 import { useCreateCheck } from '@/hooks/useCreateCheck';
 import { ResultError } from './ResultError';
@@ -12,6 +13,7 @@ import { ResultIndicators } from '@/pages/ResultPage/ResultIndicators';
 import { ResultItem } from '@/pages/ResultPage/ResultItem';
 
 export function ResultPage() {
+  const { t } = useTranslation();
   const [searchParams] = useSearchParams();
 
   const wikiId = searchParams.get('wiki')?.trim() || null;
@@ -24,7 +26,9 @@ export function ResultPage() {
   const createCheckApi = useCreateCheck();
 
   useDocumentTitle(
-    shouldCheck ? `[${wikiId}] ${response ? response.pageTitle : pageTitle} – Feverfew` : 'Feverfew'
+    shouldCheck
+      ? `[${wikiId}] ${response ? response.pageTitle : pageTitle} – Feverfew`
+      : `${t('core:ui.result.list.title')} – Feverfew`
   );
 
   useEffect(() => {

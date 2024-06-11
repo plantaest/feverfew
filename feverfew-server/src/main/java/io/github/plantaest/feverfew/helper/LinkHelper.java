@@ -161,7 +161,9 @@ public class LinkHelper {
             "currently unavailable",
             "access denied",
             "have been moved or deleted",
-            "no results found"
+            "no results found",
+            "403 forbidden",
+            "can't find that page"
     );
 
     private static final List<String> PAYWALL_WORDS = List.of(
@@ -181,7 +183,6 @@ public class LinkHelper {
 
     private static final List<String> DOMAIN_EXPIRED_WORDS = List.of(
             "expired",
-            "renew",
             "reactivate",
             "new domain"
     );

@@ -27,6 +27,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -305,24 +306,25 @@ public class LinkHelper {
 
             // Call all redirects?
             do {
-                httpClient
+                RawResponse rawResponse = httpClient
                         .get(nextLink.get())
                         .cookie("session_id", UUID.randomUUID().toString())
                         .header("User-Agent", USER_AGENTS.get(random.nextInt(USER_AGENTS.size())))
-                        .thenConsume(rawResponse -> {
-                            nextStatus.set(rawResponse.getStatus());
+                        .asObject(Function.identity())
+                        .getBody();
 
-                            var location = rawResponse.getHeaders().getFirst("Location");
-                            var improvedLocation = improveLocation(location, scheme, host);
-                            nextLink.set(improvedLocation);
+                nextStatus.set(rawResponse.getStatus());
 
-                            responses.add(rawResponse);
+                var location = rawResponse.getHeaders().getFirst("Location");
+                var improvedLocation = improveLocation(location, scheme, host);
+                nextLink.set(improvedLocation);
 
-                            if (locations.contains(improvedLocation)) {
-                                stop.set(true);
-                            }
-                            locations.add(improvedLocation);
-                        });
+                responses.add(rawResponse);
+
+                if (locations.contains(improvedLocation)) {
+                    stop.set(true);
+                }
+                locations.add(improvedLocation);
             } while (List.of(301, 302, 303, 307, 308).contains(nextStatus.get())
                     // Infinite redirect: http://csus-dspace.calstate.edu/handle/10211.3/124990
                     && !stop.get());

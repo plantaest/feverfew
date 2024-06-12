@@ -34,7 +34,7 @@ export function ResultList() {
   return (
     <Container size="xl">
       <Stack my="md" gap="lg">
-        <Title order={2} fw={400} ff="var(--mantine-alt-font-family)">
+        <Title order={2} ff="var(--mantine-alt-font-family)">
           {t('core:ui.result.list.title')}
         </Title>
 

@@ -1,4 +1,30 @@
 {
-  "links": [],
-  "debug": true
+  "links": [
+    "https://iso639-3.sil.org/code/jpn",
+    "http://glottolog.org/resource/languoid/id/nucl1643",
+    "https://www.cia.gov/library/publications/the-world-factbook/geos/ps.html",
+    "http://www2u.biglobe.ne.jp/~massange/cgi-bin/iroiro.cgi/world/belau2.htm",
+    "http://www.spc.int/prism/country/pw/stats/PalauStats/Publication/publications.htm",
+    "https://bachkhoatoanthu.vass.gov.vn/noidung/tudien/Lists/GiaiNghia/View_Detail.aspx?ItemID=7649",
+    "http://www.britannica.com/EBchecked/topic/301146",
+    "http://www.romajidesu.com/",
+    "http://brng.jp/50renshuu.pdf",
+    "https://www.cia.gov/library/publications/the-world-factbook/geos/ch.html",
+    "http://www.bluenomics.com/data#!data/energy/electricity/electricity_production_by_sources/electricity_production_by_sources_annual_of_total%7Cchart/line$countries=china&sorting=list//title",
+    "https://www.imf.org/en/Publications/WEO/weo-database/2021/April/weo-report?c=924,&s=NGDPD,PPPGDP,NGDPDPC,PPPPC,PPPSH,&sy=2015&ey=2026&ssm=0&scsm=1&scc=0&ssd=1&ssc=0&sic=0&sort=country&ds=.&br=1",
+    "https://openknowledge.worldbank.org/handle/10986/33748",
+    "https://www.imf.org/en/Publications/WEO/Issues/2021/03/23/world-economic-outlook-april-2021",
+    "https://www.cia.gov/the-world-factbook/countries/china/",
+    "http://iresearch.worldbank.org/PovcalNet/povDuplicateWB.aspx",
+    "https://openknowledge.worldbank.org/bitstream/handle/10986/33063/China-Economic-Update-December-2019-Cyclical-Risks-and-Structural-Imperatives.pdf",
+    "http://hdr.undp.org/en/indicators/137506",
+    "http://hdr.undp.org/en/indicators/138806",
+    "https://data.worldbank.org/indicator/SL.TLF.TOTL.IN?locations=CN",
+    "https://data.worldbank.org/indicator/SL.EMP.TOTL.SP.NE.ZS?locations=CN&name_desc=false",
+    "https://data.worldbank.org/indicator/SL.SRV.EMPL.ZS?locations=CN",
+    "https://data.worldbank.org/indicator/SL.IND.EMPL.ZS?locations=CN",
+    "https://data.worldbank.org/indicator/SL.AGR.EMPL.ZS?locations=CN",
+    "https://data.worldbank.org/indicator/SL.UEM.1524.ZS?locations=CN"
+  ],
+  "debug": false
 }

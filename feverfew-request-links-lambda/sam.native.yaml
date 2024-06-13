@@ -12,10 +12,12 @@ Resources:
     Properties:
       Handler: not.used.in.provided.runtime
       Runtime: provided.al2023
-      CodeUri: function.zip
+      CodeUri: target/function.zip
       MemorySize: 128
       Policies: AWSLambdaBasicExecutionRole
       Timeout: 30
+      Architectures:
+        - arm64
       Environment:
         Variables:
           DISABLE_SIGNAL_HANDLERS: true

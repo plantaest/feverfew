@@ -21,7 +21,7 @@ import { useGetListCheck } from '@/hooks/useGetListCheck';
 import { ResultError } from '@/pages/ResultPage/ResultError';
 import { ResultListItemsSkeleton } from '@/pages/ResultPage/ResultListItemsSkeleton';
 
-const PAGE_SIZE = 5;
+const PAGE_SIZE = 10;
 
 export function ResultList() {
   const { t } = useTranslation();

@@ -178,10 +178,10 @@ public class LinkHelper {
                     .payload(SdkBytes.fromUtf8String(requestPayload))
                     .build();
             LambdaClient lambdaClient = getLambdaClientFromRegion(selectedRegion);
+
+            Log.infof("Lambda function '%s' invoked for checking %s link(s)", functionName, links.size());
             InvokeResponse invokeResponse = lambdaClient.invoke(invokeRequest);
             String responsePayload = invokeResponse.payload().asUtf8String();
-
-            Log.infof("Lambda function '%s' invoked", functionName);
 
             if (invokeResponse.functionError() != null) {
                 throw new RuntimeException("Lambda function '%s' returned an error response: %s"
@@ -196,8 +196,33 @@ public class LinkHelper {
         }
     }
 
+    public List<RequestResult> requestLinksMocking(List<String> links) {
+        if (links.isEmpty()) {
+            return List.of();
+        }
+
+        try (var httpClient = CloseableUnirest.spawnInstance()) {
+            var requestLinksRequest = RequestLinksRequestBuilder.builder()
+                    .links(links)
+                    .debug(false)
+                    .build();
+            String response = httpClient.post(appConfig.lambda().mockServer())
+                    .body(requestLinksRequest)
+                    .asString()
+                    .getBody();
+            var requestLinksResponse = objectMapper.readValue(response, RequestLinksResponse.class);
+            return requestLinksResponse.requestResults();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public List<RequestResult> requestExternalLinks(List<ExternalLink> links) {
         return requestLinks(links.stream().map(ExternalLink::href).toList());
+    }
+
+    public List<RequestResult> requestExternalLinksMocking(List<ExternalLink> links) {
+        return requestLinksMocking(links.stream().map(ExternalLink::href).toList());
     }
 
     private LambdaClient getLambdaClientFromRegion(Region region) {

@@ -23,5 +23,7 @@ public interface AppConfig {
         List<Region> supportedRegions();
 
         int maxFunctionIndex();
+
+        String mockServer();
     }
 }

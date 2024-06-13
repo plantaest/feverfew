@@ -41,6 +41,7 @@ app:
     supported-regions:
       - "us-west-2"
     max-function-index: 4
+    mock-server: http://localhost:8010
 
 "%dev":
   quarkus:
@@ -60,3 +61,6 @@ app:
       password: 12345
       jdbc:
         url: jdbc:mariadb://localhost:8002/feverfew
+  app:
+    lambda:
+      max-function-index: 1

@@ -6,8 +6,8 @@ import jakarta.inject.Singleton;
 
 import java.io.IOException;
 
-@Singleton
 @Startup
+@Singleton
 public class FeverfewNextModel {
 
     private byte[] instance;

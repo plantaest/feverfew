@@ -25,6 +25,7 @@
         <fastcsv.version>3.1.0</fastcsv.version>
         <onnxruntime.version>1.18.0</onnxruntime.version>
         <quarkus-jdbi.version>1.4.0</quarkus-jdbi.version>
+        <awssdk.version>2.26.1</awssdk.version>
     </properties>
 
     <dependencyManagement>
@@ -153,6 +154,11 @@
             <groupId>com.microsoft.onnxruntime</groupId>
             <artifactId>onnxruntime</artifactId>
             <version>${onnxruntime.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>lambda</artifactId>
+            <version>${awssdk.version}</version>
         </dependency>
     </dependencies>
 

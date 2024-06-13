@@ -32,6 +32,16 @@ quarkus:
     default-model-expand-depth: 10
     default-models-expand-depth: 10
 
+app:
+  current-result-schema-version: 1
+  aws:
+    access-key-id: ${AWS_ACCESS_KEY_ID}
+    secret-access-key: ${AWS_SECRET_ACCESS_KEY}
+  lambda:
+    supported-regions:
+      - "us-west-2"
+    max-function-index: 4
+
 "%dev":
   quarkus:
     log:

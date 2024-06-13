@@ -61,6 +61,8 @@ public class CheckService {
     CompressionHelper compressionHelper;
     @Context
     HttpServerRequest httpServerRequest;
+    @Inject
+    AppConfig appConfig;
 
     public AppResponse<CreateCheckResponse> createCheck(CreateCheckRequest request) {
         Log.infof("Request body of createCheck: %s", request);
@@ -76,11 +78,14 @@ public class CheckService {
 
         // Step 3. Call & collect link information
         List<RequestResult> requestResults = linkHelper.requestExternalLinks(externalLinks);
-        Log.debugf("Sorted durations: %s", requestResults.stream()
-                .mapToDouble(RequestResult::requestDuration)
-                .sorted()
-                .mapToObj(String::valueOf)
-                .collect(Collectors.joining(" ")));
+
+        if (!requestResults.isEmpty()) {
+            Log.debugf("Sorted durations: %s", requestResults.stream()
+                    .mapToDouble(RequestResult::requestDuration)
+                    .sorted()
+                    .mapToObj(String::valueOf)
+                    .collect(Collectors.joining(" ")));
+        }
 
         // Step 4. Categorize links
         List<ClassificationResult> classificationResults = classifier.classify(requestResults);
@@ -133,7 +138,7 @@ public class CheckService {
                 .totalErrorLinks(Math.toIntExact(totalErrorLinks))
                 .totalWorkingLinks(Math.toIntExact(totalWorkingLinks))
                 .totalBrokenLinks(Math.toIntExact(totalBrokenLinks))
-                .resultSchemaVersion(AppConfig.CURRENT_RESULT_SCHEMA_VERSION)
+                .resultSchemaVersion(appConfig.currentResultSchemaVersion())
                 .results(evaluationResults.isEmpty()
                         ? null
                         : compressionHelper.compressJson(compressionHelper.convertToSchema(evaluationResults)))

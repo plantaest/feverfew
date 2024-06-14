@@ -9,9 +9,7 @@ Content-Type: application/json
   "links": [
     "http://nongnghiep.vn/nongnghiepvn/vi-vn/61/158/1/24/24/58851/default.aspx",
     "https://www.cia.gov/library/publications/the-world-factbook/geos/ch.html",
-    "http://iresearch.worldbank.org/PovcalNet/povDuplicateWB.aspx",
-    "http://www.chinadaily.com.cn/china/2015cpcplenarysession/2015-11/03/content_22361998.htm",
-    "https://www.bloomberg.com/news/articles/2020-10-13/china-s-stock-market-tops-10-trillion-for-first-time-since-2015"
+    "http://iresearch.worldbank.org/PovcalNet/povDuplicateWB.aspx"
   ],
-  "debug": true
+  "debug": false
 }

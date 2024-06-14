@@ -1,4 +1,6 @@
 quarkus:
+  banner:
+    enabled: false
   lambda:
     mock-event-server:
       dev-port: 8010

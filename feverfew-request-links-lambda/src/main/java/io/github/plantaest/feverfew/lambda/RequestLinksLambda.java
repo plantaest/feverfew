@@ -5,7 +5,6 @@ import com.amazonaws.services.lambda.runtime.RequestHandler;
 import io.quarkus.logging.Log;
 import jakarta.inject.Inject;
 import kong.unirest.core.RawResponse;
-import kong.unirest.core.Unirest;
 import kong.unirest.core.UnirestInstance;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -21,9 +20,6 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Function;
 
 public class RequestLinksLambda implements RequestHandler<RequestLinksRequest, RequestLinksResponse> {
@@ -31,58 +27,54 @@ public class RequestLinksLambda implements RequestHandler<RequestLinksRequest, R
     @Inject
     AppConfig appConfig;
 
+    @Inject
+    UnirestInstance httpClient;
+
     @Override
     public RequestLinksResponse handleRequest(RequestLinksRequest request, Context context) {
+        Log.info("Starting lambda function...");
         RequestLinksResponse.Debug debug;
 
         if (request.debug()) {
-            try (var httpClient = CloseableUnirest.spawnInstance()) {
-                String serverIp = httpClient.get(appConfig.checkIpServer()).asString().getBody();
-                debug = RequestLinksResponseDebugBuilder.builder()
-                        .serverIp(serverIp)
-                        .build();
-            }
+            String serverIp = httpClient.get(appConfig.checkIpServer()).asString().getBody();
+            debug = RequestLinksResponseDebugBuilder.builder()
+                    .serverIp(serverIp)
+                    .build();
         } else {
             debug = null;
         }
 
+        List<RequestResult> requestResults = requestLinks(request.links());
+
         return RequestLinksResponseBuilder.builder()
-                .requestResults(requestLinks(request.links()))
+                .requestResults(requestResults)
                 .debug(debug)
                 .build();
     }
 
     private List<RequestResult> requestLinks(List<String> links) {
         List<RequestResult> results = new ArrayList<>();
+        Function<String, Callable<RequestResult>> executeLinkFunction = (link) -> () -> executeLink(link);
 
         if (links.isEmpty()) {
             return results;
         }
 
-        try (var httpClient = CloseableUnirest.spawnInstance();
-             var executor = Executors.newVirtualThreadPerTaskExecutor()) {
-            httpClient.config()
-                    .connectTimeout(appConfig.connectTimeout())
-                    .requestTimeout(appConfig.requestTimeout())
-                    .connectionTTL(appConfig.connectionTtl(), TimeUnit.MILLISECONDS)
-                    .followRedirects(false)
-                    .verifySsl(false);
-
-            var tasks = links.stream().<Callable<RequestResult>>map(link -> () -> executeLink(httpClient, link)).toList();
+        try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {
+            var tasks = links.stream().map(executeLinkFunction).toList();
             long startTime = System.nanoTime();
             List<Future<RequestResult>> futures = executor.invokeAll(tasks, 25000, TimeUnit.MILLISECONDS);
 
             for (int i = 0; i < futures.size(); i++) {
                 var future = futures.get(i);
                 var link = links.get(i);
-                AtomicReference<RequestResult> result = new AtomicReference<>();
+                RequestResult result;
 
                 try {
-                    var r = future.get();
-                    result.set(r);
+                    result = future.get();
                 } catch (Exception e) {
                     Log.errorf("Unable to request link: %s", link);
-                    var r = RequestResultBuilder.builder()
+                    result = RequestResultBuilder.builder()
                             .type(RequestResult.Type.ERROR)
                             .requestDuration(TimeHelper.durationInMillis(startTime))
                             .responseStatus(0)
@@ -94,11 +86,12 @@ public class RequestLinksLambda implements RequestHandler<RequestLinksRequest, R
                             .redirects(List.of())
                             .redirectToHomepage(false)
                             .build();
-                    result.set(r);
+                } finally {
+                    future.cancel(true);
                 }
 
-                results.add(result.get());
-                Log.debugf("Added request result of link [%s]: %s", link, result.get());
+                results.add(result);
+                Log.debugf("Added request result of link [%s]: %s", link, result);
             }
         } catch (InterruptedException e) {
             Log.errorf("Cannot invoke all links: %s", e.getMessage());
@@ -107,7 +100,7 @@ public class RequestLinksLambda implements RequestHandler<RequestLinksRequest, R
         return results;
     }
 
-    private RequestResult executeLink(UnirestInstance httpClient, String link) {
+    private RequestResult executeLink(String link) {
         long startTime = System.nanoTime();
 
         try {
@@ -134,35 +127,35 @@ public class RequestLinksLambda implements RequestHandler<RequestLinksRequest, R
 
             List<RawResponse> responses = new ArrayList<>();
             Random random = new Random();
-            AtomicInteger nextStatus = new AtomicInteger();
-            AtomicReference<String> nextLink = new AtomicReference<>(link);
+            int nextStatus;
+            String nextLink = link;
             Set<String> locations = new HashSet<>();
-            AtomicBoolean stop = new AtomicBoolean(false);
+            boolean stop = false;
 
             do {
                 RawResponse rawResponse = httpClient
-                        .get(nextLink.get())
+                        .get(nextLink)
                         .cookie("session_id", UUID.randomUUID().toString())
                         .header("User-Agent", appConfig.userAgents()
                                 .get(random.nextInt(appConfig.userAgents().size())))
                         .asObject(Function.identity())
                         .getBody();
 
-                nextStatus.set(rawResponse.getStatus());
+                nextStatus = rawResponse.getStatus();
 
                 var location = rawResponse.getHeaders().getFirst("Location");
                 var improvedLocation = improveLocation(location, scheme, host);
-                nextLink.set(improvedLocation);
+                nextLink = improvedLocation;
 
                 responses.add(rawResponse);
 
                 if (locations.contains(improvedLocation)) {
-                    stop.set(true);
+                    stop = true;
                 }
                 locations.add(improvedLocation);
-            } while (List.of(301, 302, 303, 307, 308).contains(nextStatus.get())
+            } while (List.of(301, 302, 303, 307, 308).contains(nextStatus)
                     // Infinite redirect: http://csus-dspace.calstate.edu/handle/10211.3/124990
-                    && !stop.get());
+                    && !stop);
 
             var contentType = responses.getLast().getHeaders().getFirst("Content-Type");
             var contentLength = responses.getLast().getHeaders().getFirst("Content-Length");

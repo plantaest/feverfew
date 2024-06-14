@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+./runner -Xmx480m

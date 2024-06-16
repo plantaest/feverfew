@@ -123,7 +123,7 @@ public class CheckService {
                 .filter(r -> r.classificationResult().label() == 1L)
                 .count();
 
-        // Step 6: Create record & return response
+        // Step 6. Create record & return response
         var check = CheckBuilder.builder()
                 .id(tsidFactory.create().toLong())
                 .createdAt(Instant.now())

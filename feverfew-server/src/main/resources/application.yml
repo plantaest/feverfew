@@ -38,10 +38,17 @@ app:
     access-key-id: ${AWS_ACCESS_KEY_ID}
     secret-access-key: ${AWS_SECRET_ACCESS_KEY}
   lambda:
+    mock-server: http://localhost:8010
+    max-consecutive-invocations: 18
+    batch-size: 50
     supported-regions:
       - "us-west-2"
-    max-function-index: 4
-    mock-server: http://localhost:8010
+    function-names:
+      us-west-2:
+        - "FeverfewRequestLinksLambda_Native_us-west-2_1"
+        - "FeverfewRequestLinksLambda_Native_us-west-2_2"
+        - "FeverfewRequestLinksLambda_Native_us-west-2_3"
+        - "FeverfewRequestLinksLambda_Native_us-west-2_4"
 
 "%dev":
   quarkus:
@@ -63,4 +70,6 @@ app:
         url: jdbc:mariadb://localhost:8002/feverfew
   app:
     lambda:
-      max-function-index: 1
+      function-names:
+        us-west-2:
+          - "FeverfewRequestLinksLambda_Native_us-west-2_1"

@@ -13,7 +13,7 @@ public class WikiHelper {
         httpClient.config()
                 .addDefaultHeader("User-Agent", userAgent);
 
-        Runtime.getRuntime().addShutdownHook(new Thread(httpClient::close));
+        Runtime.getRuntime().addShutdownHook(Thread.ofVirtual().unstarted(httpClient::close));
 
         return httpClient;
     }

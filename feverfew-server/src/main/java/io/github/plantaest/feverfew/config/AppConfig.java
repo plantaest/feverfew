@@ -4,6 +4,7 @@ import io.smallrye.config.ConfigMapping;
 import software.amazon.awssdk.regions.Region;
 
 import java.util.List;
+import java.util.Map;
 
 @ConfigMapping(prefix = "app")
 public interface AppConfig {
@@ -13,6 +14,8 @@ public interface AppConfig {
 
     Lambda lambda();
 
+    String toString();
+
     interface Aws {
         String accessKeyId();
 
@@ -20,10 +23,16 @@ public interface AppConfig {
     }
 
     interface Lambda {
+        String mockServer();
+
+        int maxConsecutiveInvocations();
+
+        int batchSize();
+
         List<Region> supportedRegions();
 
-        int maxFunctionIndex();
+        Map<Region, List<String>> functionNames();
 
-        String mockServer();
+        String toString();
     }
 }

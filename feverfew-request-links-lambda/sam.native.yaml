@@ -13,7 +13,7 @@ Resources:
       Handler: not.used.in.provided.runtime
       Runtime: provided.al2023
       CodeUri: target/function.zip
-      MemorySize: 128
+      MemorySize: 512
       Policies: AWSLambdaBasicExecutionRole
       Timeout: 30
       Architectures:

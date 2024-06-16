@@ -70,9 +70,9 @@ HANDLER=io.quarkus.amazon.lambda.runtime.QuarkusStreamHandler::handleRequest
 RUNTIME=java21
 ZIP_FILE=fileb:///Users/dang/Documents/GitHub/plantaest/feverfew/feverfew-request-links-lambda/target/function.zip
 if [ "$1" == "native" ]; then
-  MEMORY_SIZE=128
+  MEMORY_SIZE=512
 else
-  MEMORY_SIZE=256
+  MEMORY_SIZE=512
 fi
 
 function usage() {

@@ -2,12 +2,16 @@ package io.github.plantaest.feverfew.helper;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.plantaest.feverfew.config.AppConfig;
+import io.github.plantaest.feverfew.config.lambda.LambdaFunctionState;
+import io.github.plantaest.feverfew.config.lambda.LambdaFunctionStates;
+import io.github.plantaest.feverfew.dto.lambda.RequestLinksRequest;
 import io.github.plantaest.feverfew.dto.lambda.RequestLinksRequestBuilder;
 import io.github.plantaest.feverfew.dto.lambda.RequestLinksResponse;
 import io.quarkus.logging.Log;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import kong.unirest.core.UnirestInstance;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.validator.routines.DomainValidator;
 import org.apache.commons.validator.routines.InetAddressValidator;
@@ -20,12 +24,18 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.lambda.LambdaClient;
 import software.amazon.awssdk.services.lambda.model.InvokeRequest;
 import software.amazon.awssdk.services.lambda.model.InvokeResponse;
+import software.amazon.awssdk.services.lambda.model.UpdateFunctionConfigurationRequest;
 
 import java.net.URI;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
+import java.util.concurrent.Callable;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -40,7 +50,13 @@ public class LinkHelper {
     LambdaClient lambdaClientUsWest2;
 
     @Inject
+    LambdaFunctionStates lambdaFunctionStates;
+
+    @Inject
     ObjectMapper objectMapper;
+
+    @Inject
+    UnirestInstance httpClient;
 
     public List<ExternalLink> extractExternalLinks(String pageHtmlContent) {
         try {
@@ -160,37 +176,21 @@ public class LinkHelper {
         }
 
         try {
-            Random random = new Random();
-            Region selectedRegion = appConfig.lambda().supportedRegions()
-                    .get(random.nextInt(appConfig.lambda().supportedRegions().size()));
-            int selectedFunctionIndex = random.nextInt(appConfig.lambda().maxFunctionIndex()) + 1;
+            List<List<String>> batches = ListSplitter.splitList(links, appConfig.lambda().batchSize());
+            List<Callable<RequestLinksResponse>> tasks = batches.stream()
+                    .<Callable<RequestLinksResponse>>map((batch) -> () -> invokeLambdaFunction(batch))
+                    .toList();
+            List<RequestResult> requestResults = new ArrayList<>();
 
-            String functionName = "FeverfewRequestLinksLambda_Native_%s_%s"
-                    .formatted(selectedRegion.id(), selectedFunctionIndex);
-            var requestLinksRequest = RequestLinksRequestBuilder.builder()
-                    .links(links)
-                    .debug(false)
-                    .build();
-            String requestPayload = objectMapper.writeValueAsString(requestLinksRequest);
+            try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {
+                List<Future<RequestLinksResponse>> futures = executor.invokeAll(tasks);
 
-            InvokeRequest invokeRequest = InvokeRequest.builder()
-                    .functionName(functionName)
-                    .payload(SdkBytes.fromUtf8String(requestPayload))
-                    .build();
-            LambdaClient lambdaClient = getLambdaClientFromRegion(selectedRegion);
-
-            Log.infof("Lambda function '%s' invoked for checking %s link(s)", functionName, links.size());
-            InvokeResponse invokeResponse = lambdaClient.invoke(invokeRequest);
-            String responsePayload = invokeResponse.payload().asUtf8String();
-
-            if (invokeResponse.functionError() != null) {
-                throw new RuntimeException("Lambda function '%s' returned an error response: %s"
-                        .formatted(functionName, responsePayload));
+                for (var future : futures) {
+                    requestResults.addAll(future.get().requestResults());
+                }
             }
 
-            var requestLinksResponse = objectMapper.readValue(responsePayload, RequestLinksResponse.class);
-
-            return requestLinksResponse.requestResults();
+            return requestResults;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -201,7 +201,7 @@ public class LinkHelper {
             return List.of();
         }
 
-        try (var httpClient = CloseableUnirest.spawnInstance()) {
+        try {
             var requestLinksRequest = RequestLinksRequestBuilder.builder()
                     .links(links)
                     .debug(false)
@@ -230,6 +230,87 @@ public class LinkHelper {
             return lambdaClientUsWest2;
         } else {
             throw new IllegalStateException("Unsupported AWS region: " + region.id());
+        }
+    }
+
+    private void coldStartLambdaFunction(LambdaClient lambdaClient, String functionName) {
+        Log.infof("Cold start lambda function '%s'", functionName);
+
+        UpdateFunctionConfigurationRequest request = UpdateFunctionConfigurationRequest.builder()
+                .functionName(functionName)
+                .description(Instant.now().toString())
+                .build();
+        lambdaClient.updateFunctionConfiguration(request);
+
+        // Callback to invoke lambda
+        LambdaFunctionState state = lambdaFunctionStates.get(functionName);
+        state.isColdStarting().set(false);
+        state.latch().get().countDown();
+    }
+
+    private RequestLinksResponse invokeLambdaFunction(List<String> links) {
+        // Select a function
+        Random random = new Random();
+        Region selectedRegion = appConfig.lambda().supportedRegions()
+                .get(random.nextInt(appConfig.lambda().supportedRegions().size()));
+        List<String> regionFunctionNames = appConfig.lambda().functionNames().get(selectedRegion);
+        String functionName = regionFunctionNames.get(random.nextInt(regionFunctionNames.size()));
+
+        // Manage function states
+        LambdaFunctionState state = lambdaFunctionStates.get(functionName);
+
+        // Increment invocation
+        int currentInvocation = state.invocation().incrementAndGet();
+        if (currentInvocation >= appConfig.lambda().maxConsecutiveInvocations()) {
+            state.invocation().set(0);
+        }
+
+        try {
+            // Wait by semaphore
+            state.semaphore().acquire();
+
+            if (state.isColdStarting().get()) {
+                // Wait by latch
+                state.latch().get().await();
+                state.latch().set(new CountDownLatch(1));
+            }
+
+            // Invoke lambda function & return response
+            RequestLinksRequest requestLinksRequest = RequestLinksRequestBuilder.builder()
+                    .links(links)
+                    .debug(false)
+                    .build();
+            String requestPayload = objectMapper.writeValueAsString(requestLinksRequest);
+
+            InvokeRequest invokeRequest = InvokeRequest.builder()
+                    .functionName(functionName)
+                    .payload(SdkBytes.fromUtf8String(requestPayload))
+                    .build();
+            LambdaClient lambdaClient = getLambdaClientFromRegion(selectedRegion);
+
+            Log.infof("Lambda function '%s' invoked for checking %s link(s)", functionName, links.size());
+
+            InvokeResponse invokeResponse = lambdaClient.invoke(invokeRequest);
+            String responsePayload = invokeResponse.payload().asUtf8String();
+
+            if (invokeResponse.functionError() != null) {
+                throw new RuntimeException("Lambda function '%s' returned an error response: %s"
+                        .formatted(functionName, responsePayload));
+            }
+
+            RequestLinksResponse response = objectMapper.readValue(responsePayload, RequestLinksResponse.class);
+
+            // Callback to cold start lambda
+            if (currentInvocation == appConfig.lambda().maxConsecutiveInvocations()) {
+                state.isColdStarting().set(true);
+                Thread.ofVirtual().start(() -> coldStartLambdaFunction(lambdaClient, functionName));
+            }
+
+            return response;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            state.semaphore().release();
         }
     }
 

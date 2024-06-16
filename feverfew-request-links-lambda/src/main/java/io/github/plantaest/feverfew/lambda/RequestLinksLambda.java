@@ -11,14 +11,15 @@ import org.jsoup.nodes.Document;
 
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
@@ -44,7 +45,7 @@ public class RequestLinksLambda implements RequestHandler<RequestLinksRequest, R
             debug = null;
         }
 
-        List<RequestResult> requestResults = requestLinks(request.links());
+        Map<Integer, RequestResult> requestResults = requestLinks(request.links());
 
         return RequestLinksResponseBuilder.builder()
                 .requestResults(requestResults)
@@ -52,22 +53,24 @@ public class RequestLinksLambda implements RequestHandler<RequestLinksRequest, R
                 .build();
     }
 
-    private List<RequestResult> requestLinks(List<String> links) {
-        List<RequestResult> results = new ArrayList<>();
-        Function<String, Callable<RequestResult>> executeLinkFunction = (link) -> () -> executeLink(link);
+    private Map<Integer, RequestResult> requestLinks(Map<Integer, String> links) {
+        Map<Integer, RequestResult> results = new HashMap<>();
+        List<Map.Entry<Integer, String>> linkList = new ArrayList<>(links.entrySet());
+        Function<Map.Entry<Integer, String>, Callable<RequestResult>> executeLinkFunction = (link)
+                -> () -> executeLink(link.getValue());
 
         if (links.isEmpty()) {
             return results;
         }
 
         try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {
-            var tasks = links.stream().map(executeLinkFunction).toList();
+            var tasks = linkList.stream().map(executeLinkFunction).toList();
             long startTime = System.nanoTime();
-            List<Future<RequestResult>> futures = executor.invokeAll(tasks, 25000, TimeUnit.MILLISECONDS);
+            var futures = executor.invokeAll(tasks, 25000, TimeUnit.MILLISECONDS);
 
             for (int i = 0; i < futures.size(); i++) {
                 var future = futures.get(i);
-                var link = links.get(i);
+                var link = linkList.get(i);
                 RequestResult result;
 
                 try {
@@ -90,7 +93,7 @@ public class RequestLinksLambda implements RequestHandler<RequestLinksRequest, R
                     future.cancel(true);
                 }
 
-                results.add(result);
+                results.put(link.getKey(), result);
                 Log.debugf("Added request result of link [%s]: %s", link, result);
             }
         } catch (InterruptedException e) {
@@ -108,22 +111,6 @@ public class RequestLinksLambda implements RequestHandler<RequestLinksRequest, R
             var scheme = uri.getScheme();
             var host = uri.getHost();
             var path = uri.getPath();
-
-            if (!List.of("http", "https").contains(scheme) ||
-                    appConfig.ignoredHosts().stream().anyMatch(host::contains)) {
-                return RequestResultBuilder.builder()
-                        .type(RequestResult.Type.IGNORED)
-                        .requestDuration(0.0)
-                        .responseStatus(0)
-                        .contentType(null)
-                        .contentLength(0)
-                        .containsPageNotFoundWords(false)
-                        .containsPaywallWords(false)
-                        .containsDomainExpiredWords(false)
-                        .redirects(List.of())
-                        .redirectToHomepage(false)
-                        .build();
-            }
 
             List<RawResponse> responses = new ArrayList<>();
             Random random = new Random();

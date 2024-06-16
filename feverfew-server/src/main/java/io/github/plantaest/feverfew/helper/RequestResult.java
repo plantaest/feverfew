@@ -33,4 +33,17 @@ public record RequestResult(
             int responseStatus
     ) {}
 
+    public static final RequestResult IGNORED = RequestResultBuilder.builder()
+            .type(RequestResult.Type.IGNORED)
+            .requestDuration(0.0)
+            .responseStatus(0)
+            .contentType(null)
+            .contentLength(0)
+            .containsPageNotFoundWords(false)
+            .containsPaywallWords(false)
+            .containsDomainExpiredWords(false)
+            .redirects(List.of())
+            .redirectToHomepage(false)
+            .build();
+
 }

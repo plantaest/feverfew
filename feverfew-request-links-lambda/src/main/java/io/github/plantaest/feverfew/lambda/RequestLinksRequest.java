@@ -1,8 +1,8 @@
 package io.github.plantaest.feverfew.lambda;
 
-import java.util.List;
+import java.util.Map;
 
 public record RequestLinksRequest(
-        List<String> links,
+        Map<Integer, String> links,
         boolean debug
 ) {}

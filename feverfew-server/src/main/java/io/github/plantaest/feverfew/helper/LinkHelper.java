@@ -29,9 +29,12 @@ import software.amazon.awssdk.services.lambda.model.UpdateFunctionConfigurationR
 import java.net.URI;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
+import java.util.TreeMap;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executors;
@@ -171,47 +174,88 @@ public class LinkHelper {
     }
 
     public List<RequestResult> requestLinks(List<String> links) {
-        if (links.isEmpty()) {
-            return List.of();
-        }
-
         try {
-            List<List<String>> batches = ListSplitter.splitList(links, appConfig.lambda().batchSize());
+            if (links.isEmpty()) {
+                return List.of();
+            }
+
+            Map<Integer, String> nonIgnoredLinks = new HashMap<>();
+            Map<Integer, RequestResult> requestResults = new HashMap<>();
+
+            // Collect ignored links
+            for (int i = 0; i < links.size(); i++) {
+                var uri = new URI(links.get(i));
+                var scheme = uri.getScheme();
+                var host = uri.getHost();
+
+                if (!List.of("http", "https").contains(scheme) ||
+                        appConfig.ignoredHosts().stream().anyMatch(host::contains)) {
+                    requestResults.put(i, RequestResult.IGNORED);
+                } else {
+                    nonIgnoredLinks.put(i, links.get(i));
+                }
+            }
+
+            // Split nonIgnoredLinks
+            List<Map<Integer, String>> batches = MapSplitter
+                    .splitMapBalanced(nonIgnoredLinks, appConfig.lambda().batchSize());
             List<Callable<RequestLinksResponse>> tasks = batches.stream()
                     .<Callable<RequestLinksResponse>>map((batch) -> () -> invokeLambdaFunction(batch))
                     .toList();
-            List<RequestResult> requestResults = new ArrayList<>();
 
+            // Invoke lambdas
             try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {
                 List<Future<RequestLinksResponse>> futures = executor.invokeAll(tasks);
 
                 for (var future : futures) {
-                    requestResults.addAll(future.get().requestResults());
+                    requestResults.putAll(future.get().requestResults());
                 }
             }
 
-            return requestResults;
+            Map<Integer, RequestResult> sortedRequestResults = new TreeMap<>(requestResults);
+
+            return sortedRequestResults.values().stream().toList();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
     public List<RequestResult> requestLinksMocking(List<String> links) {
-        if (links.isEmpty()) {
-            return List.of();
-        }
-
         try {
+            if (links.isEmpty()) {
+                return List.of();
+            }
+
+            Map<Integer, String> nonIgnoredLinks = new HashMap<>();
+            Map<Integer, RequestResult> requestResults = new HashMap<>();
+
+            for (int i = 0; i < links.size(); i++) {
+                var uri = new URI(links.get(i));
+                var scheme = uri.getScheme();
+                var host = uri.getHost();
+
+                if (!List.of("http", "https").contains(scheme) ||
+                        appConfig.ignoredHosts().stream().anyMatch(host::contains)) {
+                    requestResults.put(i, RequestResult.IGNORED);
+                } else {
+                    nonIgnoredLinks.put(i, links.get(i));
+                }
+            }
+
             var requestLinksRequest = RequestLinksRequestBuilder.builder()
-                    .links(links)
+                    .links(nonIgnoredLinks)
                     .debug(false)
                     .build();
+
             String response = httpClient.post(appConfig.lambda().mockServer())
                     .body(requestLinksRequest)
                     .asString()
                     .getBody();
+
             var requestLinksResponse = objectMapper.readValue(response, RequestLinksResponse.class);
-            return requestLinksResponse.requestResults();
+            requestResults.putAll(requestLinksResponse.requestResults());
+            Map<Integer, RequestResult> sortedRequestResults = new TreeMap<>(requestResults);
+            return sortedRequestResults.values().stream().toList();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -248,7 +292,7 @@ public class LinkHelper {
         state.latch().get().countDown();
     }
 
-    private RequestLinksResponse invokeLambdaFunction(List<String> links) {
+    private RequestLinksResponse invokeLambdaFunction(Map<Integer, String> links) {
         // Select a function
         Random random = new Random();
         Region selectedRegion = appConfig.lambda().supportedRegions()
@@ -288,7 +332,8 @@ public class LinkHelper {
                     .build();
             LambdaClient lambdaClient = getLambdaClientFromRegion(selectedRegion);
 
-            Log.infof("Lambda function '%s' invoked for checking %s link(s)", functionName, links.size());
+            Log.infof("Lambda function '%s' invoked for checking %s link(s) (invocation %s)",
+                    functionName, links.size(), currentInvocation);
 
             InvokeResponse invokeResponse = lambdaClient.invoke(invokeRequest);
             String responsePayload = invokeResponse.payload().asUtf8String();
@@ -303,7 +348,7 @@ public class LinkHelper {
             // Callback to cold start lambda
             if (currentInvocation == appConfig.lambda().maxConsecutiveInvocations()) {
                 state.isColdStarting().set(true);
-                Thread.ofVirtual().start(() -> coldStartLambdaFunction(lambdaClient, functionName));
+                Thread.startVirtualThread(() -> coldStartLambdaFunction(lambdaClient, functionName));
             }
 
             return response;

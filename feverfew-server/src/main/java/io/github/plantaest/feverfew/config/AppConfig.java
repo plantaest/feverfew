@@ -10,6 +10,8 @@ import java.util.Map;
 public interface AppConfig {
     int currentResultSchemaVersion();
 
+    List<String> ignoredHosts();
+
     Aws aws();
 
     Lambda lambda();

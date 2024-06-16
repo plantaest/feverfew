@@ -53,24 +53,6 @@ app:
     - "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.75.14 (KHTML, like Gecko) Version/7.0.3 Safari/7046A194A"
     - "Mozilla/5.0 (Macintosh; Intel Mac OS X 13_1) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.1 Safari/605.1.15"
     - "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:101.0) Gecko/20100101 Firefox/101.0"
-  ignored-hosts:
-    - "web.archive.org"
-    - "archive.today"
-    - "archive.fo"
-    - "archive.is"
-    - "archive.li"
-    - "archive.md"
-    - "archive.ph"
-    - "archive.vn"
-    - "archive.wikiwix.com"
-    - "ghostarchive.org"
-    - "webcitation.org"
-    - "worldcat.org"
-    - "doi.org"
-    - "ncbi.nlm.nih.gov" # PMC
-    - "pubmed.ncbi.nlm.nih.gov" # PMID
-    - "ui.adsabs.harvard.edu" # Bibcode
-    - "jstor.org"
 
 "%dev":
   quarkus:

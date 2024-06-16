@@ -21,6 +21,4 @@ public interface AppConfig {
     List<String> domainExpiredWords();
 
     List<String> userAgents();
-
-    List<String> ignoredHosts();
 }

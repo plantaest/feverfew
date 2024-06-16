@@ -5,12 +5,12 @@ import io.github.plantaest.feverfew.config.recordbuilder.Builder;
 import io.github.plantaest.feverfew.helper.RequestResult;
 import jakarta.annotation.Nullable;
 
-import java.util.List;
+import java.util.Map;
 
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public record RequestLinksResponse(
-        List<RequestResult> requestResults,
+        Map<Integer, RequestResult> requestResults,
         @Nullable
         Debug debug
 ) {

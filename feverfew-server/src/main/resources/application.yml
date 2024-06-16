@@ -34,6 +34,25 @@ quarkus:
 
 app:
   current-result-schema-version: 1
+  ignored-hosts:
+    - "web.archive.org"
+    - "archive.today"
+    - "archive.fo"
+    - "archive.is"
+    - "archive.li"
+    - "archive.md"
+    - "archive.ph"
+    - "archive.vn"
+    - "archive.wikiwix.com"
+    - "ghostarchive.org"
+    - "webcitation.org"
+    - "worldcat.org"
+    - "doi.org"
+    - "ncbi.nlm.nih.gov" # PMC
+    - "pubmed.ncbi.nlm.nih.gov" # PMID
+    - "ui.adsabs.harvard.edu" # Bibcode
+    - "jstor.org"
+    - "arxiv.org"
   aws:
     access-key-id: ${AWS_ACCESS_KEY_ID}
     secret-access-key: ${AWS_SECRET_ACCESS_KEY}

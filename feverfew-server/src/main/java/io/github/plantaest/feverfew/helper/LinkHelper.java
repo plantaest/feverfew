@@ -39,6 +39,7 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.ThreadFactory;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -204,7 +205,8 @@ public class LinkHelper {
                     .toList();
 
             // Invoke lambdas
-            try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {
+            ThreadFactory factory = Thread.ofVirtual().name("invoke-lambda-", 0L).factory();
+            try (var executor = Executors.newThreadPerTaskExecutor(factory)) {
                 List<Future<RequestLinksResponse>> futures = executor.invokeAll(tasks);
 
                 for (var future : futures) {
@@ -348,7 +350,9 @@ public class LinkHelper {
             // Callback to cold start lambda
             if (currentInvocation == appConfig.lambda().maxConsecutiveInvocations()) {
                 state.isColdStarting().set(true);
-                Thread.startVirtualThread(() -> coldStartLambdaFunction(lambdaClient, functionName));
+                Thread.ofVirtual()
+                        .name("cold-start-lambda-", 0L)
+                        .start(() -> coldStartLambdaFunction(lambdaClient, functionName));
             }
 
             return response;

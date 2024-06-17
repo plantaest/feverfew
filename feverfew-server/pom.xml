@@ -177,12 +177,16 @@
                 <executions>
                     <execution>
                         <goals>
+                            <goal>dev</goal>
                             <goal>build</goal>
                             <goal>generate-code</goal>
                             <goal>generate-code-tests</goal>
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <jvmArgs>-XX:+UseZGC -XX:+ZGenerational</jvmArgs>
+                </configuration>
             </plugin>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>

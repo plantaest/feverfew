@@ -1,8 +1,8 @@
 {
-  "links": [
-    "http://nongnghiep.vn/nongnghiepvn/vi-vn/61/158/1/24/24/58851/default.aspx",
-    "https://www.cia.gov/library/publications/the-world-factbook/geos/ch.html",
-    "http://iresearch.worldbank.org/PovcalNet/povDuplicateWB.aspx"
-  ],
+  "links": {
+    "0": "http://nongnghiep.vn/nongnghiepvn/vi-vn/61/158/1/24/24/58851/default.aspx",
+    "1": "https://www.cia.gov/library/publications/the-world-factbook/geos/ch.html",
+    "2": "http://iresearch.worldbank.org/PovcalNet/povDuplicateWB.aspx"
+  },
   "debug": false
 }

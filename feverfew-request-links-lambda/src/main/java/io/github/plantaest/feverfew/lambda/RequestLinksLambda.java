@@ -20,6 +20,7 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
@@ -63,7 +64,8 @@ public class RequestLinksLambda implements RequestHandler<RequestLinksRequest, R
             return results;
         }
 
-        try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {
+        ThreadFactory factory = Thread.ofVirtual().name("execute-link-", 0L).factory();
+        try (var executor = Executors.newThreadPerTaskExecutor(factory)) {
             var tasks = linkList.stream().map(executeLinkFunction).toList();
             long startTime = System.nanoTime();
             var futures = executor.invokeAll(tasks, 25000, TimeUnit.MILLISECONDS);
@@ -76,7 +78,7 @@ public class RequestLinksLambda implements RequestHandler<RequestLinksRequest, R
                 try {
                     result = future.get();
                 } catch (Exception e) {
-                    Log.errorf("Unable to request link: %s", link);
+                    Log.errorf("Unable to request link: %s", link.getValue());
                     result = RequestResultBuilder.builder()
                             .type(RequestResult.Type.ERROR)
                             .requestDuration(TimeHelper.durationInMillis(startTime))
@@ -94,7 +96,7 @@ public class RequestLinksLambda implements RequestHandler<RequestLinksRequest, R
                 }
 
                 results.put(link.getKey(), result);
-                Log.debugf("Added request result of link [%s]: %s", link, result);
+                Log.debugf("Added request result of link (%s): %s", link.getValue(), result);
             }
         } catch (InterruptedException e) {
             Log.errorf("Cannot invoke all links: %s", e.getMessage());
@@ -196,7 +198,7 @@ public class RequestLinksLambda implements RequestHandler<RequestLinksRequest, R
                     ))
                     .build();
         } catch (Exception e) {
-            Log.errorf("Unable to execute link [%s]: %s", link, e.getMessage());
+            Log.errorf("Unable to execute link (%s): %s", link, e.getMessage());
 
             long endTime = System.nanoTime();
             var requestDurationInMillis = TimeHelper.durationInMillis(startTime, endTime);

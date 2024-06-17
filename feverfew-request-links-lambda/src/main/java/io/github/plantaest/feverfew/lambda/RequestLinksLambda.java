@@ -78,7 +78,7 @@ public class RequestLinksLambda implements RequestHandler<RequestLinksRequest, R
                 try {
                     result = future.get();
                 } catch (Exception e) {
-                    Log.errorf("Unable to request link: %s", link.getValue());
+                    Log.errorf("Unable to request link (%s): %s", link.getValue(), e.toString());
                     result = RequestResultBuilder.builder()
                             .type(RequestResult.Type.ERROR)
                             .requestDuration(TimeHelper.durationInMillis(startTime))
@@ -99,7 +99,7 @@ public class RequestLinksLambda implements RequestHandler<RequestLinksRequest, R
                 Log.debugf("Added request result of link (%s): %s", link.getValue(), result);
             }
         } catch (InterruptedException e) {
-            Log.errorf("Cannot invoke all links: %s", e.getMessage());
+            Log.errorf("Cannot invoke all links: %s", e.toString());
         }
 
         return results;
@@ -198,7 +198,7 @@ public class RequestLinksLambda implements RequestHandler<RequestLinksRequest, R
                     ))
                     .build();
         } catch (Exception e) {
-            Log.errorf("Unable to execute link (%s): %s", link, e.getMessage());
+            Log.errorf("Unable to execute link (%s): %s", link, e.toString());
 
             long endTime = System.nanoTime();
             var requestDurationInMillis = TimeHelper.durationInMillis(startTime, endTime);

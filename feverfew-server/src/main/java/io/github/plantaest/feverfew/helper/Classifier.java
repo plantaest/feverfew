@@ -3,6 +3,7 @@ package io.github.plantaest.feverfew.helper;
 import ai.onnxruntime.OnnxMap;
 import ai.onnxruntime.OnnxTensor;
 import ai.onnxruntime.OrtEnvironment;
+import ai.onnxruntime.OrtException;
 import ai.onnxruntime.OrtSession;
 import io.github.plantaest.feverfew.config.ml.FeverfewNextModel;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -68,7 +69,7 @@ public class Classifier {
             }
 
             return classificationResults;
-        } catch (Exception e) {
+        } catch (OrtException e) {
             throw new RuntimeException(e);
         }
     }

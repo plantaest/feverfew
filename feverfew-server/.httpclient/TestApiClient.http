@@ -1,8 +1,0 @@
-@host = http://localhost:8000
-
-### testExtractExternalLinks
-// @no-log
-// Change to a different English Wikipedia page title for testing
-@pageTitle = DKSH
-GET {{host}}/_test/extract-external-links/{{pageTitle}}
-Content-Type: */*

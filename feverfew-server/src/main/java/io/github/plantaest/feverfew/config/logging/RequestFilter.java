@@ -11,11 +11,17 @@ import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.UriInfo;
 import jakarta.ws.rs.ext.Provider;
+import org.jboss.logging.MDC;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Provider
-public class LoggingFilter implements ContainerRequestFilter, ContainerResponseFilter {
+public class RequestFilter implements ContainerRequestFilter, ContainerResponseFilter {
+
+    private static final String REQUEST_ID_HEADER = "X-Request-Id";
+    private static final String REQUEST_ID_MDC_KEY = "requestId";
 
     @Context
     UriInfo uriInfo;
@@ -29,6 +35,8 @@ public class LoggingFilter implements ContainerRequestFilter, ContainerResponseF
         final String path = uriInfo.getPath();
         final int length = requestContext.getLength();
         final String address = httpServerRequest.remoteAddress().host();
+
+        MDC.put(REQUEST_ID_MDC_KEY, UUID.randomUUID().toString());
 
         Log.infof("Request %s %s (%s bytes) from %s", method, path, length, HashingHelper.hashIP(address));
         Log.debugf("Request Headers: %s", requestContext.getHeaders());
@@ -47,6 +55,11 @@ public class LoggingFilter implements ContainerRequestFilter, ContainerResponseF
         final int status = responseContext.getStatus();
         final String method = requestContext.getMethod();
         final String path = uriInfo.getPath();
+        var requestId = MDC.get(REQUEST_ID_MDC_KEY);
+
+        if (requestId != null) {
+            responseContext.getHeaders().put(REQUEST_ID_HEADER, List.of(requestId));
+        }
 
         Log.infof("Response %s %s %s", status, method, path);
         Log.debugf("Response Headers: %s", responseContext.getHeaders());
@@ -57,6 +70,8 @@ public class LoggingFilter implements ContainerRequestFilter, ContainerResponseF
                         Log.debugf("Response Body: %s", responseContext.getEntity());
                     }
                 });
+
+        MDC.remove(REQUEST_ID_MDC_KEY);
     }
 
 }

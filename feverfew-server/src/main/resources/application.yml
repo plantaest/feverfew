@@ -31,6 +31,18 @@ quarkus:
     show-common-extensions: true
     default-model-expand-depth: 10
     default-models-expand-depth: 10
+  log:
+    console:
+      format: "%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p [%c{3.}] (%t) :%X{requestId}: %s%e%n"
+    file:
+      enable: true
+      path: logs/feverfew.log
+      format: "%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p [%c{3.}] (%t) :%X{requestId}: %s%e%n"
+      rotation:
+        max-file-size: 10M
+        max-backup-index: 50
+        file-suffix: .yyyy-MM-dd.gz
+        rotate-on-boot: true
 
 app:
   current-result-schema-version: 1
@@ -53,6 +65,7 @@ app:
     - "ui.adsabs.harvard.edu" # Bibcode
     - "jstor.org"
     - "arxiv.org"
+  max-non-ignored-links: 1250
   aws:
     access-key-id: ${AWS_ACCESS_KEY_ID}
     secret-access-key: ${AWS_SECRET_ACCESS_KEY}
@@ -81,12 +94,16 @@ app:
           level: DEBUG
         "org.jboss.resteasy.reactive.common.core.AbstractResteasyReactiveContext":
           level: DEBUG
+      file:
+        rotation:
+          rotate-on-boot: false
     datasource:
       db-kind: mariadb
       username: root
       password: 12345
       jdbc:
         url: jdbc:mariadb://localhost:8002/feverfew
+
   app:
     lambda:
       function-names:

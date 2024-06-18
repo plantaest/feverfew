@@ -26,16 +26,15 @@ export function Header() {
   const location = useLocation();
   const { t } = useTranslation();
 
+  const isActiveLink = (link: string) =>
+    link === '/' ? location.pathname === link : location.pathname.startsWith(link);
+
   const items = links.map((link) => (
     <Link
       key={link.label}
       to={link.link}
       className={classes.link}
-      data-active={
-        link.link === '/'
-          ? location.pathname === link.link
-          : location.pathname.startsWith(link.link)
-      }
+      data-active={isActiveLink(link.link)}
     >
       {t(link.label)}
     </Link>
@@ -65,7 +64,7 @@ export function Header() {
                 key={link.label}
                 component={Link}
                 to={link.link}
-                c={location.pathname === link.link ? 'blue' : 'default'}
+                c={isActiveLink(link.link) ? 'blue' : 'default'}
               >
                 {t(link.label)}
               </Menu.Item>

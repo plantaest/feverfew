@@ -26,6 +26,7 @@
         <onnxruntime.version>1.18.0</onnxruntime.version>
         <quarkus-jdbi.version>1.4.0</quarkus-jdbi.version>
         <awssdk.version>2.26.1</awssdk.version>
+        <bucket4j.version>8.10.1</bucket4j.version>
     </properties>
 
     <dependencyManagement>
@@ -164,6 +165,16 @@
             <groupId>software.amazon.awssdk</groupId>
             <artifactId>apache-client</artifactId>
             <version>${awssdk.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.bucket4j</groupId>
+            <artifactId>bucket4j-core</artifactId>
+            <version>${bucket4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.bucket4j</groupId>
+            <artifactId>bucket4j-caffeine</artifactId>
+            <version>${bucket4j.version}</version>
         </dependency>
     </dependencies>
 

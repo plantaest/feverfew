@@ -28,9 +28,14 @@ export function ResultHeader({ response }: ResultHeaderProps): JSX.Element {
           >
             {response.pageTitle}
           </Text>
-          <Text fw={600} ff="var(--mantine-alt-font-monospace)" c="blue">
-            {response.wikiId}
-          </Text>
+          <Group align="baseline" gap="xs" wrap="nowrap">
+            <Text fz="sm" fw={600} ff="var(--mantine-alt-font-monospace)" c="dimmed">
+              {response.pageRevisionId}
+            </Text>
+            <Text fw={600} ff="var(--mantine-alt-font-monospace)" c="blue">
+              {response.wikiId}
+            </Text>
+          </Group>
         </Group>
 
         <Group justify="space-between" gap="xs" mih={28}>

@@ -1,5 +1,6 @@
 package io.github.plantaest.feverfew.helper;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -9,6 +10,7 @@ import jakarta.inject.Inject;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.List;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
@@ -37,7 +39,7 @@ public class CompressionHelper {
         try {
             byte[] raw = objectMapper.writeValueAsBytes(object);
             return compressGzip(raw);
-        } catch (Exception e) {
+        } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
     }
@@ -46,7 +48,7 @@ public class CompressionHelper {
         try {
             byte[] decompressed = decompressGzip(compressedData);
             return objectMapper.readValue(decompressed, typeReference);
-        } catch (Exception e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
@@ -58,7 +60,7 @@ public class CompressionHelper {
             gzipOS.write(data);
             gzipOS.close();
             return bos.toByteArray();
-        } catch (Exception e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
@@ -75,7 +77,7 @@ public class CompressionHelper {
             }
             gzipIS.close();
             return bos.toByteArray();
-        } catch (Exception e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }

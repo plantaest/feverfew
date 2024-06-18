@@ -1,5 +1,6 @@
 package io.github.plantaest.feverfew.resource;
 
+import io.github.plantaest.feverfew.config.bucket4j.RateLimit;
 import io.github.plantaest.feverfew.config.exception.AppError;
 import io.github.plantaest.feverfew.dto.common.AppResponse;
 import io.github.plantaest.feverfew.dto.common.ListResponse;
@@ -50,6 +51,7 @@ public class CheckResource {
             @APIResponse(responseCode = "500", description = "Internal Server Error",
                     content = @Content(schema = @Schema(implementation = AppError.class)))
     })
+    @RateLimit(bucket = "createCheckBucket")
     public AppResponse<CreateCheckResponse> createCheck(@Valid CreateCheckRequest request) {
         return checkService.createCheck(request);
     }

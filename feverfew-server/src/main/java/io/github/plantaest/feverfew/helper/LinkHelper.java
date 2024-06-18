@@ -1,5 +1,6 @@
 package io.github.plantaest.feverfew.helper;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.plantaest.feverfew.config.AppConfig;
 import io.github.plantaest.feverfew.config.lambda.LambdaFunctionState;
@@ -7,6 +8,7 @@ import io.github.plantaest.feverfew.config.lambda.LambdaFunctionStates;
 import io.github.plantaest.feverfew.dto.lambda.RequestLinksRequest;
 import io.github.plantaest.feverfew.dto.lambda.RequestLinksRequestBuilder;
 import io.github.plantaest.feverfew.dto.lambda.RequestLinksResponse;
+import io.github.plantaest.feverfew.exception.TooManyLinksException;
 import io.quarkus.logging.Log;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -27,6 +29,7 @@ import software.amazon.awssdk.services.lambda.model.InvokeResponse;
 import software.amazon.awssdk.services.lambda.model.UpdateFunctionConfigurationRequest;
 
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,6 +40,7 @@ import java.util.Random;
 import java.util.TreeMap;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.ThreadFactory;
@@ -69,7 +73,7 @@ public class LinkHelper {
             // Parsing HTML
             Document document = Jsoup.parse(pageHtmlContent);
 
-            // Remove authority boxes
+            // Remove navigation boxes
             Elements navigationDivs = document.select("div[role='navigation']");
             for (Element navigationDiv : navigationDivs) {
                 navigationDiv.remove();
@@ -130,7 +134,7 @@ public class LinkHelper {
             }
 
             return externalLinks;
-        } catch (Exception e) {
+        } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
     }
@@ -183,7 +187,7 @@ public class LinkHelper {
             Map<Integer, String> nonIgnoredLinks = new HashMap<>();
             Map<Integer, RequestResult> requestResults = new HashMap<>();
 
-            // Collect ignored links
+            // Collect ignored & non-ignored links
             for (int i = 0; i < links.size(); i++) {
                 var uri = new URI(links.get(i));
                 var scheme = uri.getScheme();
@@ -195,6 +199,11 @@ public class LinkHelper {
                 } else {
                     nonIgnoredLinks.put(i, links.get(i));
                 }
+            }
+
+            // Throw exception when the number of non-ignored links exceeds the limit
+            if (nonIgnoredLinks.size() > appConfig.maxNonIgnoredLinks()) {
+                throw new TooManyLinksException();
             }
 
             // Split nonIgnoredLinks
@@ -217,7 +226,7 @@ public class LinkHelper {
             Map<Integer, RequestResult> sortedRequestResults = new TreeMap<>(requestResults);
 
             return sortedRequestResults.values().stream().toList();
-        } catch (Exception e) {
+        } catch (URISyntaxException | ExecutionException | InterruptedException e) {
             throw new RuntimeException(e);
         }
     }
@@ -258,7 +267,7 @@ public class LinkHelper {
             requestResults.putAll(requestLinksResponse.requestResults());
             Map<Integer, RequestResult> sortedRequestResults = new TreeMap<>(requestResults);
             return sortedRequestResults.values().stream().toList();
-        } catch (Exception e) {
+        } catch (URISyntaxException | JsonProcessingException e) {
             throw new RuntimeException(e);
         }
     }
@@ -338,7 +347,10 @@ public class LinkHelper {
                     functionName, links.size(), currentInvocation);
 
             InvokeResponse invokeResponse = lambdaClient.invoke(invokeRequest);
+            String requestId = invokeResponse.responseMetadata().requestId();
             String responsePayload = invokeResponse.payload().asUtf8String();
+
+            Log.infof("Received response from Lambda function '%s' with request id: %s", functionName, requestId);
 
             if (invokeResponse.functionError() != null) {
                 throw new RuntimeException("Lambda function '%s' returned an error response: %s"
@@ -356,7 +368,7 @@ public class LinkHelper {
             }
 
             return response;
-        } catch (Exception e) {
+        } catch (InterruptedException | JsonProcessingException e) {
             throw new RuntimeException(e);
         } finally {
             state.semaphore().release();

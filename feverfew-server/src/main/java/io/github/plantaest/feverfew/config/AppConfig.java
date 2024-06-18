@@ -55,5 +55,7 @@ public interface AppConfig {
         @WithDefault("1H")
         @WithConverter(DurationConverter.class)
         Duration keepAfterRefill();
+
+        String toString();
     }
 }

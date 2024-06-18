@@ -76,21 +76,35 @@ public record EvaluationResultSchemaV1(
             @JsonProperty("l")
             int contentLength,
             @JsonProperty("f")
-            boolean containsPageNotFoundWords,
+            int containsPageNotFoundWords,
             @JsonProperty("p")
-            boolean containsPaywallWords,
+            int containsPaywallWords,
             @JsonProperty("e")
-            boolean containsDomainExpiredWords,
+            int containsDomainExpiredWords,
             @JsonProperty("r")
             List<Redirect> redirects,
             @JsonProperty("h")
-            boolean redirectToHomepage
+            boolean redirectToHomepage,
+            @JsonProperty("i")
+            boolean simpleRedirect,
+            @JsonProperty("o")
+            boolean timeout,
+            @JsonProperty("y")
+            FileType fileType
     ) {
 
         public enum Type {
             SUCCESS,
             ERROR,
             IGNORED
+        }
+
+        public enum FileType {
+            HTML,
+            XML,
+            PDF,
+            UNKNOWN,
+            NONE
         }
 
         @Builder

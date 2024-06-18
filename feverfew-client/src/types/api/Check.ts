@@ -56,17 +56,28 @@ export interface RequestResult {
   responseStatus: number;
   contentType: string | null;
   contentLength: number;
-  containsPageNotFoundWords: boolean;
-  containsPaywallWords: boolean;
-  containsDomainExpiredWords: boolean;
+  containsPageNotFoundWords: number;
+  containsPaywallWords: number;
+  containsDomainExpiredWords: number;
   redirects: Redirect[];
   redirectToHomepage: boolean;
+  simpleRedirect: boolean;
+  timeout: boolean;
+  fileType: FileType;
 }
 
 export enum RequestResultType {
   SUCCESS = 'SUCCESS',
   ERROR = 'ERROR',
   IGNORED = 'IGNORED',
+}
+
+export enum FileType {
+  HTML = 'HTML',
+  XML = 'XML',
+  PDF = 'PDF',
+  UNKNOWN = 'UNKNOWN',
+  NONE = 'NONE',
 }
 
 export interface Redirect {

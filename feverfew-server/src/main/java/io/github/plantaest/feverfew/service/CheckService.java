@@ -170,7 +170,10 @@ public class CheckService {
                 "contains_paywall_words",
                 "contains_domain_expired_words",
                 "number_of_redirects",
-                "redirect_to_homepage"
+                "redirect_to_homepage",
+                "simple_redirect",
+                "timeout",
+                "file_type"
         );
 
         for (int i = 0; i < requestResults.size(); i++) {
@@ -184,8 +187,11 @@ public class CheckService {
                     String.valueOf(result.containsPageNotFoundWords()),
                     String.valueOf(result.containsPaywallWords()),
                     String.valueOf(result.containsDomainExpiredWords()),
-                    String.valueOf(result.redirects().size()),
-                    String.valueOf(result.redirectToHomepage())
+                    String.valueOf(result.type() == RequestResult.Type.SUCCESS ? result.redirects().size() : -1),
+                    String.valueOf(result.redirectToHomepage()),
+                    String.valueOf(result.simpleRedirect()),
+                    String.valueOf(result.timeout()),
+                    result.fileType().toString()
             );
         }
 

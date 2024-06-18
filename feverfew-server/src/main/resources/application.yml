@@ -66,6 +66,7 @@ app:
     - "jstor.org"
     - "arxiv.org"
   max-non-ignored-links: 1250
+  model-file-path: "model/feverfew_next_model_v1.onnx"
   aws:
     access-key-id: ${AWS_ACCESS_KEY_ID}
     secret-access-key: ${AWS_SECRET_ACCESS_KEY}
@@ -95,8 +96,7 @@ app:
         "org.jboss.resteasy.reactive.common.core.AbstractResteasyReactiveContext":
           level: DEBUG
       file:
-        rotation:
-          rotate-on-boot: false
+        enable: false
     datasource:
       db-kind: mariadb
       username: root

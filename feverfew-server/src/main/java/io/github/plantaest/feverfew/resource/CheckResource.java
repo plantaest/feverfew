@@ -10,10 +10,12 @@ import io.github.plantaest.feverfew.dto.response.CreateCheckResponse;
 import io.github.plantaest.feverfew.dto.response.GetListCheckResponse;
 import io.github.plantaest.feverfew.dto.response.GetOneCheckResponse;
 import io.github.plantaest.feverfew.service.CheckService;
+import io.quarkus.runtime.configuration.ConfigUtils;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DefaultValue;
+import jakarta.ws.rs.ForbiddenException;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
@@ -61,8 +63,12 @@ public class CheckResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
     @ResponseStatus(200)
-    @Operation(summary = "Export link features in CSV format")
+    @Operation(summary = "Export link features in CSV format (private API)")
     public String exportFeaturesAsCsv(@Valid ExportFeaturesAsCsvRequest request) {
+        if (ConfigUtils.isProfileActive("prod")) {
+            throw new ForbiddenException("You are not allowed to export features in prod profile");
+        }
+
         return checkService.exportFeaturesAsCsv(request);
     }
 

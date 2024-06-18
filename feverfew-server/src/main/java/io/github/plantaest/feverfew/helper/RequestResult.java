@@ -13,17 +13,28 @@ public record RequestResult(
         @Nullable
         String contentType,
         int contentLength,
-        boolean containsPageNotFoundWords,
-        boolean containsPaywallWords,
-        boolean containsDomainExpiredWords,
+        int containsPageNotFoundWords,
+        int containsPaywallWords,
+        int containsDomainExpiredWords,
         List<Redirect> redirects,
-        boolean redirectToHomepage
+        boolean redirectToHomepage,
+        boolean simpleRedirect,
+        boolean timeout,
+        FileType fileType
 ) {
 
     public enum Type {
         SUCCESS,
         ERROR,
         IGNORED
+    }
+
+    public enum FileType {
+        HTML,
+        XML,
+        PDF,
+        UNKNOWN,
+        NONE
     }
 
     @Builder
@@ -35,15 +46,18 @@ public record RequestResult(
 
     public static final RequestResult IGNORED = RequestResultBuilder.builder()
             .type(RequestResult.Type.IGNORED)
-            .requestDuration(0.0)
-            .responseStatus(0)
+            .requestDuration(-1)
+            .responseStatus(-1)
             .contentType(null)
-            .contentLength(0)
-            .containsPageNotFoundWords(false)
-            .containsPaywallWords(false)
-            .containsDomainExpiredWords(false)
+            .contentLength(-1)
+            .containsPageNotFoundWords(-1)
+            .containsPaywallWords(-1)
+            .containsDomainExpiredWords(-1)
             .redirects(List.of())
             .redirectToHomepage(false)
+            .simpleRedirect(false)
+            .timeout(false)
+            .fileType(RequestResult.FileType.NONE)
             .build();
 
 }

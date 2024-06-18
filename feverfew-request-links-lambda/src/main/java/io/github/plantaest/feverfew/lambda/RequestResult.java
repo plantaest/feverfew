@@ -12,17 +12,28 @@ public record RequestResult(
         @Nullable
         String contentType,
         int contentLength,
-        boolean containsPageNotFoundWords,
-        boolean containsPaywallWords,
-        boolean containsDomainExpiredWords,
+        int containsPageNotFoundWords,
+        int containsPaywallWords,
+        int containsDomainExpiredWords,
         List<Redirect> redirects,
-        boolean redirectToHomepage
+        boolean redirectToHomepage,
+        boolean simpleRedirect,
+        boolean timeout,
+        FileType fileType
 ) {
 
     public enum Type {
         SUCCESS,
         ERROR,
         IGNORED
+    }
+
+    public enum FileType {
+        HTML,
+        XML,
+        PDF,
+        UNKNOWN,
+        NONE
     }
 
     @Builder

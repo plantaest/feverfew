@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Random;
 import java.util.Set;
 import java.util.UUID;
@@ -23,6 +24,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
+import java.util.stream.Stream;
 
 public class RequestLinksLambda implements RequestHandler<RequestLinksRequest, RequestLinksResponse> {
 
@@ -79,17 +81,21 @@ public class RequestLinksLambda implements RequestHandler<RequestLinksRequest, R
                     result = future.get();
                 } catch (Exception e) {
                     Log.errorf("Unable to request link (%s): %s", link.getValue(), e.toString());
+                    double requestDurationInMillis = TimeHelper.durationInMillis(startTime);
                     result = RequestResultBuilder.builder()
                             .type(RequestResult.Type.ERROR)
-                            .requestDuration(TimeHelper.durationInMillis(startTime))
-                            .responseStatus(0)
+                            .requestDuration(requestDurationInMillis)
+                            .responseStatus(-1)
                             .contentType(null)
-                            .contentLength(0)
-                            .containsPageNotFoundWords(false)
-                            .containsPaywallWords(false)
-                            .containsDomainExpiredWords(false)
+                            .contentLength(-1)
+                            .containsPageNotFoundWords(-1)
+                            .containsPaywallWords(-1)
+                            .containsDomainExpiredWords(-1)
                             .redirects(List.of())
                             .redirectToHomepage(false)
+                            .simpleRedirect(false)
+                            .timeout(isTimeout(requestDurationInMillis))
+                            .fileType(RequestResult.FileType.NONE)
                             .build();
                 } finally {
                     future.cancel(true);
@@ -153,7 +159,7 @@ public class RequestLinksLambda implements RequestHandler<RequestLinksRequest, R
             int htmlLength;
             String bodyText;
 
-            if (contentType.contains("text/html")) {
+            if (Stream.of("text/html", "application/xml").anyMatch(contentType::contains)) {
                 String html = responses.getLast().getContentAsString();
                 htmlLength = html.length();
                 Document document = Jsoup.parse(html);
@@ -163,8 +169,7 @@ public class RequestLinksLambda implements RequestHandler<RequestLinksRequest, R
                 bodyText = "";
             }
 
-            long endTime = System.nanoTime();
-            var requestDurationInMillis = TimeHelper.durationInMillis(startTime, endTime);
+            double requestDurationInMillis = TimeHelper.durationInMillis(startTime);
             var redirects = responses.stream()
                     .limit(responses.size() - 1)
                     .map((response) -> RequestResultRedirectBuilder.builder()
@@ -186,9 +191,9 @@ public class RequestLinksLambda implements RequestHandler<RequestLinksRequest, R
                     .contentLength(htmlLength > 0
                             ? htmlLength
                             : contentLength.isBlank() ? 0 : Integer.parseInt(contentLength))
-                    .containsPageNotFoundWords(appConfig.pageNotFoundWords().stream().anyMatch(bodyText::contains))
-                    .containsPaywallWords(appConfig.paywallWords().stream().anyMatch(bodyText::contains))
-                    .containsDomainExpiredWords(appConfig.domainExpiredWords().stream().anyMatch(bodyText::contains))
+                    .containsPageNotFoundWords(countTotalOccurrences(bodyText, appConfig.pageNotFoundWords()))
+                    .containsPaywallWords(countTotalOccurrences(bodyText, appConfig.paywallWords()))
+                    .containsDomainExpiredWords(countTotalOccurrences(bodyText, appConfig.domainExpiredWords()))
                     .redirects(redirects)
                     .redirectToHomepage(isRedirectToHomepage(
                             !redirects.isEmpty(),
@@ -196,24 +201,27 @@ public class RequestLinksLambda implements RequestHandler<RequestLinksRequest, R
                             responses.getLast().getRequestSummary().getUrl(),
                             host
                     ))
+                    .simpleRedirect(isSimpleRedirect(redirects))
+                    .timeout(isTimeout(requestDurationInMillis))
+                    .fileType(getFileType(contentType))
                     .build();
         } catch (Exception e) {
             Log.errorf("Unable to execute link (%s): %s", link, e.toString());
-
-            long endTime = System.nanoTime();
-            var requestDurationInMillis = TimeHelper.durationInMillis(startTime, endTime);
-
+            double requestDurationInMillis = TimeHelper.durationInMillis(startTime);
             return RequestResultBuilder.builder()
                     .type(RequestResult.Type.ERROR)
                     .requestDuration(requestDurationInMillis)
-                    .responseStatus(0)
+                    .responseStatus(-1)
                     .contentType(null)
-                    .contentLength(0)
-                    .containsPageNotFoundWords(false)
-                    .containsPaywallWords(false)
-                    .containsDomainExpiredWords(false)
+                    .contentLength(-1)
+                    .containsPageNotFoundWords(-1)
+                    .containsPaywallWords(-1)
+                    .containsDomainExpiredWords(-1)
                     .redirects(List.of())
                     .redirectToHomepage(false)
+                    .simpleRedirect(false)
+                    .timeout(isTimeout(requestDurationInMillis))
+                    .fileType(RequestResult.FileType.NONE)
                     .build();
         }
     }
@@ -237,6 +245,53 @@ public class RequestLinksLambda implements RequestHandler<RequestLinksRequest, R
                 .replaceAll("http://|https://", "")
                 .replaceAll("/", "")
                 .equalsIgnoreCase(host);
+    }
+
+    private int countTotalOccurrences(String text, List<String> phrases) {
+        interface Haystack {
+            static int countOccurrences(String haystack, String needle) {
+                int count = 0;
+                int index = 0;
+                while ((index = haystack.indexOf(needle, index)) != -1) {
+                    count++;
+                    index += needle.length();
+                }
+                return count;
+            }
+        }
+        return phrases.stream()
+                .mapToInt(phrase -> Haystack.countOccurrences(text, phrase))
+                .sum();
+    }
+
+    private boolean isTimeout(double duration) {
+        return duration >= appConfig.requestTimeout();
+    }
+
+    // Example: http://www.usa.gov/ -> https://www.usa.gov/
+    private boolean isSimpleRedirect(List<RequestResult.Redirect> redirects) {
+        if (redirects.size() == 1) {
+            String requestUrl = redirects.getFirst().requestUrl();
+            String location = redirects.getFirst().location();
+
+            return Objects.equals(
+                    requestUrl.replace("http://", ""),
+                    location.replace("https://", "")
+            );
+        }
+        return false;
+    }
+
+    private RequestResult.FileType getFileType(String contentType) {
+        if (contentType.contains("text/html")) {
+            return RequestResult.FileType.HTML;
+        } else if (contentType.contains("application/xml")) {
+            return RequestResult.FileType.XML;
+        } else if (contentType.contains("application/pdf")) {
+            return RequestResult.FileType.PDF;
+        } else {
+            return RequestResult.FileType.UNKNOWN;
+        }
     }
 
 }

@@ -18,6 +18,8 @@ public interface AppConfig {
 
     int maxNonIgnoredLinks();
 
+    String modelFilePath();
+
     Aws aws();
 
     Lambda lambda();

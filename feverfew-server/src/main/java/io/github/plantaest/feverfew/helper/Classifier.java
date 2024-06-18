@@ -5,7 +5,7 @@ import ai.onnxruntime.OnnxTensor;
 import ai.onnxruntime.OrtEnvironment;
 import ai.onnxruntime.OrtException;
 import ai.onnxruntime.OrtSession;
-import io.github.plantaest.feverfew.config.ml.FeverfewNextModel;
+import io.github.plantaest.feverfew.config.onnx.FeverfewNextModel;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
@@ -75,12 +75,12 @@ public class Classifier {
     }
 
     private float[] convertRequestResultToFeatureArray(RequestResult requestResult) {
-        float[] floats = new float[9];
+        float[] floats = new float[12];
 
         // (1) result_type
         floats[0] = switch (requestResult.type()) {
-            case SUCCESS, IGNORED -> 1; // Actually, the model's dataset does not contain any IGNORED cases.
             case ERROR -> 0;
+            case SUCCESS, IGNORED -> 1; // Actually, the model's dataset does not contain any IGNORED cases.
         };
 
         // (2) request_duration
@@ -90,22 +90,40 @@ public class Classifier {
         // Python:
         // statuses = sorted(set(df['response_status'].to_list()))
         // encoded_labels = LabelEncoder().fit_transform(statuses)
+
+        // floats[2] = switch (requestResult.responseStatus()) {
+        //     case -1 -> 0;
+        //     case 200 -> 1;
+        //     case 301 -> 2;
+        //     case 302 -> 3;
+        //     case 303 -> 4;
+        //     case 307 -> 5;
+        //     case 308 -> 6;
+        //     case 400 -> 7;
+        //     case 401 -> 8;
+        //     case 403 -> 9;
+        //     case 404 -> 10;
+        //     case 410 -> 11;
+        //     case 500 -> 12;
+        //     case 503 -> 13;
+        //     case 504 -> 14;
+        //     default -> 1;
+        // };
+
         floats[2] = switch (requestResult.responseStatus()) {
-            case 0 -> 0;
+            case -1 -> 0;
             case 200 -> 1;
             case 301 -> 2;
             case 302 -> 3;
-            case 303 -> 4;
-            case 307 -> 5;
-            case 308 -> 6;
-            case 400 -> 7;
-            case 401 -> 8;
-            case 403 -> 9;
-            case 404 -> 10;
-            case 410 -> 11;
-            case 500 -> 12;
-            case 503 -> 13;
-            case 504 -> 14;
+            case 400 -> 4;
+            case 401 -> 5;
+            case 403 -> 6;
+            case 404 -> 7;
+            case 406 -> 8;
+            case 410 -> 9;
+            case 429 -> 10;
+            case 500 -> 11;
+            case 503 -> 12;
             default -> 1;
         };
 
@@ -113,19 +131,36 @@ public class Classifier {
         floats[3] = requestResult.contentLength();
 
         // (5) contains_page_not_found_words
-        floats[4] = requestResult.containsPageNotFoundWords() ? 1 : 0;
+        floats[4] = requestResult.containsPageNotFoundWords();
 
         // (6) contains_paywall_words
-        floats[5] = requestResult.containsPaywallWords() ? 1 : 0;
+        floats[5] = requestResult.containsPaywallWords();
 
         // (7) contains_domain_expired_words
-        floats[6] = requestResult.containsDomainExpiredWords() ? 1 : 0;
+        floats[6] = requestResult.containsDomainExpiredWords();
 
         // (8) number_of_redirects
-        floats[7] = requestResult.redirects().size();
+        floats[7] = requestResult.type() == RequestResult.Type.SUCCESS
+                ? requestResult.redirects().size()
+                : -1;
 
         // (9) redirect_to_homepage
         floats[8] = requestResult.redirectToHomepage() ? 1 : 0;
+
+        // (10) simple_redirect
+        floats[9] = requestResult.simpleRedirect() ? 1 : 0;
+
+        // (11) timeout
+        floats[10] = requestResult.timeout() ? 1 : 0;
+
+        // (12) file_type
+        floats[11] = switch (requestResult.fileType()) {
+            case HTML -> 0;
+            case NONE -> 1;
+            case PDF -> 2;
+            case UNKNOWN -> 3;
+            case XML -> 4;
+        };
 
         return floats;
     }

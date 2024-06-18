@@ -8,6 +8,7 @@ import io.github.plantaest.feverfew.exception.TooManyLinksException;
 import io.quarkus.logging.Log;
 import jakarta.inject.Inject;
 import jakarta.validation.ConstraintViolationException;
+import jakarta.ws.rs.ForbiddenException;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.UriInfo;
 import org.jboss.resteasy.reactive.server.ServerExceptionMapper;
@@ -24,6 +25,23 @@ public class ExceptionMappers {
 
     @Inject
     AppConfig appConfig;
+
+    @ServerExceptionMapper
+    public Response forbiddenException(ForbiddenException e, UriInfo uriInfo) {
+        String errorId = UUID.randomUUID().toString();
+        Log.errorf("ErrorID[%s]: %s", errorId, e.toString());
+        return Response.status(Response.Status.FORBIDDEN)
+                .entity(AppError.builder()
+                        .status(Response.Status.FORBIDDEN.getStatusCode())
+                        .type(URI.create("https://feverfew.toolforge.org/problems/forbidden"))
+                        .title("Forbidden")
+                        .detail(e.getMessage())
+                        .instance(URI.create(uriInfo.getPath()))
+                        .code("FORBIDDEN")
+                        .errorId(errorId)
+                        .build())
+                .build();
+    }
 
     @ServerExceptionMapper
     public Response rateLimitException(RateLimitException e, UriInfo uriInfo) {

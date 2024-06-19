@@ -18,8 +18,8 @@ public record ExternalLink(
         String query,
         @Nullable
         String fragment,
-        Boolean isIPv4,
-        Boolean isIPv6,
+        boolean isIPv4,
+        boolean isIPv6,
         @Nullable
         String tld,
         @Nullable

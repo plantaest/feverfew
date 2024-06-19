@@ -2,9 +2,7 @@ package io.github.plantaest.feverfew.helper;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.MapperFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.json.JsonMapper;
+import io.github.plantaest.feverfew.config.jackson.ObjectMappers;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
@@ -19,25 +17,21 @@ import java.util.zip.GZIPOutputStream;
 public class CompressionHelper {
 
     @Inject
-    ObjectMapper objectMapper;
+    ObjectMappers objectMappers;
 
     public List<EvaluationResultSchemaV1> convertToSchema(List<EvaluationResult> evaluationResults) {
-        ObjectMapper mapper = JsonMapper.builder()
-                .configure(MapperFeature.USE_ANNOTATIONS, false)
-                .build();
-        return mapper.convertValue(evaluationResults, new TypeReference<>() {});
+        return objectMappers.getNonUseAnnotationsMapper()
+                .convertValue(evaluationResults, new TypeReference<>() {});
     }
 
     public List<EvaluationResult> schemaToTarget(List<EvaluationResultSchemaV1> evaluationResultSchemaV1s) {
-        ObjectMapper mapper = JsonMapper.builder()
-                .configure(MapperFeature.USE_ANNOTATIONS, false)
-                .build();
-        return mapper.convertValue(evaluationResultSchemaV1s, new TypeReference<>() {});
+        return objectMappers.getNonUseAnnotationsMapper()
+                .convertValue(evaluationResultSchemaV1s, new TypeReference<>() {});
     }
 
     public byte[] compressJson(Object object) {
         try {
-            byte[] raw = objectMapper.writeValueAsBytes(object);
+            byte[] raw = objectMappers.getNumericBooleanMapper().writeValueAsBytes(object);
             return compressGzip(raw);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
@@ -47,7 +41,7 @@ public class CompressionHelper {
     public <T> T decompressJson(byte[] compressedData, TypeReference<T> typeReference) {
         try {
             byte[] decompressed = decompressGzip(compressedData);
-            return objectMapper.readValue(decompressed, typeReference);
+            return objectMappers.getNumericBooleanMapper().readValue(decompressed, typeReference);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

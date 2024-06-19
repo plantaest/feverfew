@@ -42,9 +42,9 @@ public record EvaluationResultSchemaV1(
             @JsonProperty("r")
             String fragment,
             @JsonProperty("4")
-            Boolean isIPv4,
+            boolean isIPv4,
             @JsonProperty("6")
-            Boolean isIPv6,
+            boolean isIPv6,
             @Nullable
             @JsonProperty("l")
             String tld,
@@ -94,16 +94,24 @@ public record EvaluationResultSchemaV1(
     ) {
 
         public enum Type {
+            @JsonProperty("S")
             SUCCESS,
+            @JsonProperty("E")
             ERROR,
+            @JsonProperty("I")
             IGNORED
         }
 
         public enum FileType {
+            @JsonProperty("H")
             HTML,
+            @JsonProperty("X")
             XML,
+            @JsonProperty("P")
             PDF,
+            @JsonProperty("U")
             UNKNOWN,
+            @JsonProperty("N")
             NONE
         }
 

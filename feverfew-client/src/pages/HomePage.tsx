@@ -46,7 +46,7 @@ export function HomePage() {
   });
 
   return (
-    <Container size="xl" mt={75}>
+    <Container size="xl" mt={75} mb={50}>
       <Stack>
         <Title
           fz={{

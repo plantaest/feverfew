@@ -91,7 +91,7 @@ export function ResultItem({ result }: ResultItemProps) {
                       ? result.requestResult.responseStatus
                       : 'ERR'}
                   </Badge>
-                  <Badge tt="none" radius="sm" variant="light">
+                  <Badge tt="none" radius="sm" variant="light" color="grape">
                     {numberFormat.format(result.requestResult.requestDuration)} ms
                   </Badge>
                   <Badge tt="none" radius="sm" variant="light">

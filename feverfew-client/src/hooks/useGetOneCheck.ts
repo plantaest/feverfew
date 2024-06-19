@@ -27,5 +27,6 @@ export function useGetOneCheck(id: string) {
     queryKey: ['check', 'getOne', id],
     queryFn: () => getOneCheck(id),
     placeholderData: keepPreviousData,
+    staleTime: Infinity,
   });
 }

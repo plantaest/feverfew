@@ -13,6 +13,9 @@ import io.github.plantaest.feverfew.service.CheckService;
 import io.quarkus.runtime.configuration.ConfigUtils;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Pattern;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DefaultValue;
 import jakarta.ws.rs.ForbiddenException;
@@ -88,8 +91,12 @@ public class CheckResource {
                     content = @Content(schema = @Schema(implementation = AppError.class)))
     })
     @RateLimit(bucket = "defaultBucket")
-    public AppResponse<GetOneCheckResponse> getOneCheck(@PathParam("id") Long id) {
-        return checkService.getOneCheck(id);
+    public AppResponse<GetOneCheckResponse> getOneCheck(
+            @PathParam("id")
+            @Pattern(regexp = "\\d{19}", message = "id must be an integer and have 19 digits")
+            String id
+    ) {
+        return checkService.getOneCheck(Long.parseLong(id));
     }
 
     @GET
@@ -107,8 +114,8 @@ public class CheckResource {
     })
     @RateLimit(bucket = "defaultBucket")
     public AppResponse<ListResponse<GetListCheckResponse>> getListCheck(
-            @QueryParam("page") @DefaultValue("1") Integer page,
-            @QueryParam("size") @DefaultValue("5") Integer size
+            @QueryParam("page") @DefaultValue("1") @Min(1) @Max(100_000) Integer page,
+            @QueryParam("size") @DefaultValue("5") @Min(5) @Max(10) Integer size
     ) {
         return checkService.getListCheck(page, size);
     }

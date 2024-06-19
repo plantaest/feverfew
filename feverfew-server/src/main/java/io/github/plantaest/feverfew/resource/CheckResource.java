@@ -64,6 +64,7 @@ public class CheckResource {
     @Produces(MediaType.TEXT_PLAIN)
     @ResponseStatus(200)
     @Operation(summary = "Export link features in CSV format (private API)")
+    @RateLimit(bucket = "defaultBucket")
     public String exportFeaturesAsCsv(@Valid ExportFeaturesAsCsvRequest request) {
         if (ConfigUtils.isProfileActive("prod")) {
             throw new ForbiddenException("You are not allowed to export features in prod profile");
@@ -86,6 +87,7 @@ public class CheckResource {
             @APIResponse(responseCode = "500", description = "Internal Server Error",
                     content = @Content(schema = @Schema(implementation = AppError.class)))
     })
+    @RateLimit(bucket = "defaultBucket")
     public AppResponse<GetOneCheckResponse> getOneCheck(@PathParam("id") Long id) {
         return checkService.getOneCheck(id);
     }
@@ -103,6 +105,7 @@ public class CheckResource {
             @APIResponse(responseCode = "500", description = "Internal Server Error",
                     content = @Content(schema = @Schema(implementation = AppError.class)))
     })
+    @RateLimit(bucket = "defaultBucket")
     public AppResponse<ListResponse<GetListCheckResponse>> getListCheck(
             @QueryParam("page") @DefaultValue("1") Integer page,
             @QueryParam("size") @DefaultValue("5") Integer size

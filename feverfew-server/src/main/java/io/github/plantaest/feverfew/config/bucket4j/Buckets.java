@@ -33,12 +33,12 @@ public class Buckets {
         this.proxyManager = this.proxyManager();
     }
 
-    public Bucket getBucket(String name) {
-        BucketConfiguration configuration = Optional.ofNullable(bucketConfigurations.get(name))
+    public Bucket getBucket(String bucketName) {
+        BucketConfiguration configuration = Optional.ofNullable(bucketConfigurations.get(bucketName))
                 .orElseThrow(() -> new IllegalStateException("Unable to retrieve bucket configuration for name '%s'"
-                        .formatted(name)));
+                        .formatted(bucketName)));
         return proxyManager.builder()
-                .build(name + "_" + ipHashResolver.getIdentityKey(), () -> configuration);
+                .build(bucketName + "_" + ipHashResolver.getIdentityKey(), () -> configuration);
     }
 
     @SuppressWarnings({"unchecked", "rawtypes"})

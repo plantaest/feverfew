@@ -82,6 +82,9 @@ app:
         - "FeverfewRequestLinksLambda_Native_us-west-2_2"
         - "FeverfewRequestLinksLambda_Native_us-west-2_3"
         - "FeverfewRequestLinksLambda_Native_us-west-2_4"
+  rate-limiter:
+    max-size: 5000
+    keep-after-refill: 20M
 
 "%dev":
   quarkus:

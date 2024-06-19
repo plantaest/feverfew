@@ -90,26 +90,6 @@ public class Classifier {
         // Python:
         // statuses = sorted(set(df['response_status'].to_list()))
         // encoded_labels = LabelEncoder().fit_transform(statuses)
-
-        // floats[2] = switch (requestResult.responseStatus()) {
-        //     case -1 -> 0;
-        //     case 200 -> 1;
-        //     case 301 -> 2;
-        //     case 302 -> 3;
-        //     case 303 -> 4;
-        //     case 307 -> 5;
-        //     case 308 -> 6;
-        //     case 400 -> 7;
-        //     case 401 -> 8;
-        //     case 403 -> 9;
-        //     case 404 -> 10;
-        //     case 410 -> 11;
-        //     case 500 -> 12;
-        //     case 503 -> 13;
-        //     case 504 -> 14;
-        //     default -> 1;
-        // };
-
         floats[2] = switch (requestResult.responseStatus()) {
             case -1 -> 0;
             case 200 -> 1;

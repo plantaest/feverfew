@@ -65,8 +65,9 @@ app:
     - "ui.adsabs.harvard.edu" # Bibcode
     - "jstor.org"
     - "arxiv.org"
+    - "api.semanticscholar.org"
   max-non-ignored-links: 1250
-  model-file-path: "model/feverfew_next_model_v1.onnx"
+  model-file-path: "model/feverfew_next_model_v1.0.onnx"
   aws:
     access-key-id: ${AWS_ACCESS_KEY_ID}
     secret-access-key: ${AWS_SECRET_ACCESS_KEY}

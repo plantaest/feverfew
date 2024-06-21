@@ -12,7 +12,7 @@ public class IpHashResolver {
     RoutingContext context;
 
     public String getIdentityKey() {
-        return String.valueOf(HashingHelper.hashIP(context.request().remoteAddress().host()));
+        return String.valueOf(HashingHelper.crc32Hash(context.request().remoteAddress().host()));
     }
 
 }

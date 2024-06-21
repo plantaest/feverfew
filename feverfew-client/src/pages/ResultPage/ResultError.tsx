@@ -8,7 +8,7 @@ export function ResultError() {
   return (
     <Stack mt={60} mb="md" c="pink" align="center">
       <IconAlertTriangle size="8rem" stroke={1} />
-      <Text fw={600} fz="xl" ff="var(--mantine-alt-font-family)">
+      <Text fw={600} fz="xl">
         {t('core:ui.result.errorMessage')}
       </Text>
     </Stack>

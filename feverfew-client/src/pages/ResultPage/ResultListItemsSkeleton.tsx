@@ -4,7 +4,7 @@ export function ResultListItemsSkeleton() {
   return (
     <Stack gap="xs">
       <Skeleton height={22} width={110} radius="md" />
-      {Array(5)
+      {Array(7)
         .fill(0)
         .map((_, index) => (
           <Skeleton key={index} height={75} radius="md" />

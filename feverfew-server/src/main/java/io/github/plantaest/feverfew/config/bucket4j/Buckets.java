@@ -23,7 +23,7 @@ public class Buckets {
     AppConfig appConfig;
 
     @Inject
-    IpHashResolver ipHashResolver;
+    CookieResolver cookieResolver;
 
     @Inject
     Map<String, BucketConfiguration> bucketConfigurations;
@@ -38,7 +38,7 @@ public class Buckets {
                 .orElseThrow(() -> new IllegalStateException("Unable to retrieve bucket configuration for name '%s'"
                         .formatted(bucketName)));
         return proxyManager.builder()
-                .build(bucketName + "_" + ipHashResolver.getIdentityKey(), () -> configuration);
+                .build(bucketName + "_" + cookieResolver.getIdentityKey(), () -> configuration);
     }
 
     @SuppressWarnings({"unchecked", "rawtypes"})

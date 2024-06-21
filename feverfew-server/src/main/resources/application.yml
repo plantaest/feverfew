@@ -2,12 +2,11 @@ quarkus:
   analytics:
     disabled: true
   http:
-    port: 8000
+    port: 8001
     cors:
       ~: true
       origins:
         - http://localhost:8020
-        - https://web.postman.co
         - https://feverfew.toolforge.org
   smallrye-openapi:
     info-title: Feverfew API Docs
@@ -33,16 +32,18 @@ quarkus:
     default-models-expand-depth: 10
   log:
     console:
-      format: "%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p [%c{3.}] (%t) :%X{requestId}: %s%e%n"
+      format: "%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p [%c{3.}] (%t) :%X{request_id}: %s%e%n"
     file:
       enable: true
       path: logs/feverfew.log
-      format: "%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p [%c{3.}] (%t) :%X{requestId}: %s%e%n"
+      format: "%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p [%c{3.}] (%t) :%X{request_id}: %s%e%n"
       rotation:
         max-file-size: 10M
         max-backup-index: 50
         file-suffix: .yyyy-MM-dd.gz
         rotate-on-boot: true
+  package:
+    type: uber-jar
 
 app:
   current-result-schema-version: 1
@@ -113,3 +114,12 @@ app:
       function-names:
         us-west-2:
           - "FeverfewRequestLinksLambda_Native_us-west-2_1"
+
+"%prod":
+  quarkus:
+    datasource:
+      db-kind: mariadb
+      username: ${TOOL_TOOLSDB_USER}
+      password: ${TOOL_TOOLSDB_PASSWORD}
+      jdbc:
+        url: jdbc:mariadb://tools.db.svc.wikimedia.cloud:3306/${TOOL_TOOLSDB_USER}__feverfew

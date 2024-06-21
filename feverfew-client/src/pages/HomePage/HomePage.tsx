@@ -1,22 +1,23 @@
-import { Button, Container, Grid, Select, Stack, TextInput, Title } from '@mantine/core';
+import { Button, Center, Container, Grid, Select, Stack, TextInput } from '@mantine/core';
 import { useDocumentTitle, useFocusTrap } from '@mantine/hooks';
 import { useTranslation } from 'react-i18next';
-import { z } from 'zod';
-import { useForm, zodResolver } from '@mantine/form';
+import { useForm } from '@mantine/form';
 import { useNavigate } from 'react-router-dom';
+import * as v from 'valibot';
+import { valibotResolver } from 'mantine-form-valibot-resolver';
 import { errorMessage } from '@/utils/errorMessage';
 import { appState } from '@/states/appState';
 import { wikiIds } from '@/utils/wikiIds';
+import { Logo } from '@/components/Logo/Logo';
+import classes from './HomePage.module.css';
 
 const formSchema = (t: (key: string) => string) =>
-  z.object({
-    wikiId: z
-      .string({ invalid_type_error: t(errorMessage.notEmpty) })
-      .min(1, t(errorMessage.notEmpty)),
-    pageTitle: z.string().trim().min(1, t(errorMessage.notEmpty)),
+  v.object({
+    wikiId: v.pipe(v.string(t(errorMessage.notEmpty)), v.minLength(1, t(errorMessage.notEmpty))),
+    pageTitle: v.pipe(v.string(), v.trim(), v.minLength(1, t(errorMessage.notEmpty))),
   });
 
-type FormValues = z.infer<ReturnType<typeof formSchema>>;
+type FormValues = v.InferOutput<ReturnType<typeof formSchema>>;
 
 export function HomePage() {
   useDocumentTitle('Feverfew');
@@ -32,7 +33,7 @@ export function HomePage() {
 
   const form = useForm({
     initialValues: initialFormValues,
-    validate: zodResolver(formSchema(t)),
+    validate: valibotResolver(formSchema(t)),
   });
 
   form.watch('wikiId', ({ value }) => {
@@ -48,18 +49,9 @@ export function HomePage() {
   return (
     <Container size="xl" mt={75} mb={50}>
       <Stack>
-        <Title
-          fz={{
-            base: 50,
-            sm: 60,
-            md: 80,
-          }}
-          fw={600}
-          ta="center"
-          ff="var(--mantine-alt-font-family)"
-        >
-          Feverfew
-        </Title>
+        <Center className={classes.logo}>
+          <Logo />
+        </Center>
         <form onSubmit={handleFormSubmit}>
           <Grid ref={focusTrapRef} mt={60} gutter="sm">
             <Grid.Col

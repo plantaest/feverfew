@@ -6,6 +6,7 @@ import io.github.plantaest.composite.Wiki;
 import io.github.plantaest.composite.Wikis;
 import io.github.plantaest.composite.type.PageHtmlResult;
 import io.github.plantaest.feverfew.config.AppConfig;
+import io.github.plantaest.feverfew.config.filter.CookieFilter;
 import io.github.plantaest.feverfew.dto.common.AppResponse;
 import io.github.plantaest.feverfew.dto.common.ListResponse;
 import io.github.plantaest.feverfew.dto.request.CreateCheckRequest;
@@ -21,7 +22,6 @@ import io.github.plantaest.feverfew.helper.CompressionHelper;
 import io.github.plantaest.feverfew.helper.EvaluationResult;
 import io.github.plantaest.feverfew.helper.EvaluationResultBuilder;
 import io.github.plantaest.feverfew.helper.ExternalLink;
-import io.github.plantaest.feverfew.helper.HashingHelper;
 import io.github.plantaest.feverfew.helper.LinkHelper;
 import io.github.plantaest.feverfew.helper.Pagination;
 import io.github.plantaest.feverfew.helper.RequestResult;
@@ -34,6 +34,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.NotFoundException;
 import jakarta.ws.rs.core.Context;
+import org.slf4j.MDC;
 
 import java.io.StringWriter;
 import java.time.Instant;
@@ -127,7 +128,7 @@ public class CheckService {
         var check = CheckBuilder.builder()
                 .id(tsidFactory.create().toLong())
                 .createdAt(Instant.now())
-                .createdBy(HashingHelper.hashIP(httpServerRequest.remoteAddress().host()))
+                .createdBy(Long.parseLong(MDC.get(CookieFilter.ACTOR_ID)))
                 .wikiId(request.wikiId())
                 .pageTitle(pageHtmlResult.title())
                 .pageRevisionId(pageHtmlResult.revisionId())

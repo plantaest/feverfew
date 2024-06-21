@@ -1,0 +1,7 @@
+backend: kubernetes
+cpu: 3000m
+mem: 6Gi
+replicas: 2
+type: bookworm
+extra_args:
+  - ./start.sh

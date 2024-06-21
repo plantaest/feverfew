@@ -1,6 +1,5 @@
-package io.github.plantaest.feverfew.config.logging;
+package io.github.plantaest.feverfew.config.filter;
 
-import io.github.plantaest.feverfew.helper.HashingHelper;
 import io.quarkus.logging.Log;
 import io.vertx.core.http.HttpServerRequest;
 import jakarta.ws.rs.container.ContainerRequestContext;
@@ -11,9 +10,8 @@ import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.UriInfo;
 import jakarta.ws.rs.ext.Provider;
-import org.jboss.logging.MDC;
+import org.slf4j.MDC;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -21,7 +19,7 @@ import java.util.UUID;
 public class RequestFilter implements ContainerRequestFilter, ContainerResponseFilter {
 
     private static final String REQUEST_ID_HEADER = "X-Request-Id";
-    private static final String REQUEST_ID_MDC_KEY = "requestId";
+    private static final String REQUEST_ID_MDC_KEY = "request_id";
 
     @Context
     UriInfo uriInfo;
@@ -38,7 +36,7 @@ public class RequestFilter implements ContainerRequestFilter, ContainerResponseF
 
         MDC.put(REQUEST_ID_MDC_KEY, UUID.randomUUID().toString());
 
-        Log.infof("Request %s %s (%s bytes) from %s", method, path, length, HashingHelper.hashIP(address));
+        Log.infof("Request %s %s (%s bytes) from %s", method, path, length, MDC.get(CookieFilter.ACTOR_ID));
         Log.debugf("Request Headers: %s", requestContext.getHeaders());
         Optional.ofNullable(requestContext.getMediaType())
                 .map(MediaType::toString)
@@ -58,7 +56,7 @@ public class RequestFilter implements ContainerRequestFilter, ContainerResponseF
         var requestId = MDC.get(REQUEST_ID_MDC_KEY);
 
         if (requestId != null) {
-            responseContext.getHeaders().put(REQUEST_ID_HEADER, List.of(requestId));
+            responseContext.getHeaders().add(REQUEST_ID_HEADER, requestId);
         }
 
         Log.infof("Response %s %s %s", status, method, path);

@@ -1,9 +1,7 @@
-@import "https://tools-static.wmflabs.org/fontcdn/css?family=Montserrat";
 @import "https://tools-static.wmflabs.org/fontcdn/css?family=JetBrains+Mono";
 
 :root {
   /* Other */
-  --mantine-alt-font-family: 'Montserrat', var(--mantine-font-family);
   --mantine-alt-font-monospace: 'JetBrains Mono', var(--mantine-font-family-monospace);
 }
 

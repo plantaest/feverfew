@@ -4,14 +4,16 @@ import { ListResponse } from '@/types/api/ListResponse';
 import { GetListCheckResponse } from '@/types/api/Check';
 import { apiServerUri } from '@/utils/apiServerUri';
 import { AppError } from '@/types/api/AppError';
+import { appConfig } from '@/config/appConfig';
 
 const getListCheck = async (
   page: number,
   size: number
 ): Promise<AppResponse<ListResponse<GetListCheckResponse>>> => {
   const url = apiServerUri(`check?page=${page}&size=${size}`);
-  const options = {
+  const options: RequestInit = {
     method: 'GET',
+    credentials: appConfig.DEBUG ? 'include' : 'same-origin',
     headers: {
       'Content-Type': 'application/json',
     },

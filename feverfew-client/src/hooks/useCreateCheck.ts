@@ -3,13 +3,15 @@ import { AppResponse } from '@/types/api/AppResponse';
 import { CreateCheckRequest, CreateCheckResponse } from '@/types/api/Check';
 import { AppError } from '@/types/api/AppError';
 import { apiServerUri } from '@/utils/apiServerUri';
+import { appConfig } from '@/config/appConfig';
 
 const createCheck = async (
   request: CreateCheckRequest
 ): Promise<AppResponse<CreateCheckResponse>> => {
   const url = apiServerUri('check/create');
-  const options = {
+  const options: RequestInit = {
     method: 'POST',
+    credentials: appConfig.DEBUG ? 'include' : 'same-origin',
     headers: {
       'Content-Type': 'application/json',
     },

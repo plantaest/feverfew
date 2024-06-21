@@ -6,9 +6,9 @@ import java.util.zip.CRC32;
 
 public class HashingHelper {
 
-    public static long hashIP(@Nullable String ip) {
+    public static long crc32Hash(@Nullable String str) {
         CRC32 crc32 = new CRC32();
-        crc32.update((ip != null ? ip : "").getBytes());
+        crc32.update((str != null ? str : "").getBytes());
         return crc32.getValue();
     }
 

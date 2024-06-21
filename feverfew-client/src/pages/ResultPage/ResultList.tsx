@@ -21,7 +21,7 @@ import { useGetListCheck } from '@/hooks/useGetListCheck';
 import { ResultError } from '@/pages/ResultPage/ResultError';
 import { ResultListItemsSkeleton } from '@/pages/ResultPage/ResultListItemsSkeleton';
 
-const PAGE_SIZE = 8;
+const PAGE_SIZE = 7;
 
 export function ResultList() {
   const { t } = useTranslation();
@@ -34,9 +34,7 @@ export function ResultList() {
   return (
     <Container size="xl">
       <Stack my="md" gap="lg">
-        <Title order={2} ff="var(--mantine-alt-font-family)">
-          {t('core:ui.result.list.title')}
-        </Title>
+        <Title order={2}>{t('core:ui.result.list.title')}</Title>
 
         {isSuccess ? (
           <Stack gap="xs">
@@ -98,7 +96,9 @@ export function ResultList() {
                           </Text>
                         </Group>
                         <Text fw={600} ff="var(--mantine-alt-font-monospace)" c="orange" size="xs">
-                          {numberFormat.format(Number((check.durationInMillis / 1000).toFixed(2)))}{' '}
+                          {numberFormat
+                            .format(Number((check.durationInMillis / 1000).toFixed(2)))
+                            .concat('\u00a0')}
                           s
                         </Text>
                       </Group>

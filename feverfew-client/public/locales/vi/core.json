@@ -37,7 +37,7 @@
       "check": "Kiểm tra"
     },
     "result": {
-      "note": "Đã kiểm tra lúc {time}, {date}; trong {duration} giây",
+      "note": "Đã kiểm tra lúc {time}, {date}; trong {duration}\u00a0s",
       "checkLinkTitle": "Liên kết lưu trữ cho lần kiểm tra này",
       "revisionLinkTitle": "Liên kết của phiên bản được kiểm tra",
       "total": "Tổng",

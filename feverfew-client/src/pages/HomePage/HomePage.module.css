@@ -1,0 +1,17 @@
+.logo {
+  @media (min-width: 62em) {
+    height: rem(120px);
+  }
+
+  & > svg {
+    width: rem(225px);
+
+    @media (min-width: 48em) {
+      width: rem(270px);
+    }
+
+    @media (min-width: 62em) {
+      width: rem(360px);
+    }
+  }
+}

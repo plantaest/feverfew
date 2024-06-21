@@ -24,7 +24,7 @@ services:
     image: redis:6.0.16-alpine # Using the same Redis version as on Toolforge
     restart: unless-stopped
     ports:
-      - '8004:6379'
+      - '8003:6379'
     volumes:
       - feverfew-redis-data:/data
     networks:

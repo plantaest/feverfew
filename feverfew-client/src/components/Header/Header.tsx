@@ -1,4 +1,4 @@
-import { ActionIcon, Container, Flex, Group, Menu, Text } from '@mantine/core';
+import { ActionIcon, Container, Flex, Group, Menu } from '@mantine/core';
 import { IconGridDots } from '@tabler/icons-react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -6,6 +6,7 @@ import classes from './Header.module.css';
 import { ColorSchemeToggle } from '@/components/ColorSchemeToggle/ColorSchemeToggle';
 import { DirectionToggle } from '@/components/DirectionToggle/DirectionToggle';
 import { LanguageToggle } from '@/components/LanguageToggle/LanguageToggle';
+import { Logo } from '@/components/Logo/Logo';
 
 const links = [
   {
@@ -82,10 +83,11 @@ export function Header() {
               base: 'xs',
               md: 0,
             }}
+            h="100%"
           >
-            <Text component={Link} to="/" ff="var(--mantine-alt-font-family)" fw={600} fz={20}>
-              Feverfew
-            </Text>
+            <Flex component={Link} to="/">
+              <Logo />
+            </Flex>
           </Flex>
         )}
         <Group gap="xs" flex={1} justify="flex-end">

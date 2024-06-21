@@ -3,11 +3,13 @@ import { AppResponse } from '@/types/api/AppResponse';
 import { GetOneCheckResponse } from '@/types/api/Check';
 import { apiServerUri } from '@/utils/apiServerUri';
 import { AppError } from '@/types/api/AppError';
+import { appConfig } from '@/config/appConfig';
 
 const getOneCheck = async (id: string): Promise<AppResponse<GetOneCheckResponse>> => {
   const url = apiServerUri(`check/${id}`);
-  const options = {
+  const options: RequestInit = {
     method: 'GET',
+    credentials: appConfig.DEBUG ? 'include' : 'same-origin',
     headers: {
       'Content-Type': 'application/json',
     },

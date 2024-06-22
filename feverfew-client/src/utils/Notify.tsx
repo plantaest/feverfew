@@ -24,7 +24,7 @@ export namespace Notify {
     notifications.show({
       title: i18n.t('core:common.notification'),
       message,
-      autoClose: 10000,
+      autoClose: false,
       icon: <IconX size="1.125rem" />,
       color: 'red',
     });

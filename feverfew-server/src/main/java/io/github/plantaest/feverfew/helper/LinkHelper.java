@@ -206,20 +206,22 @@ public class LinkHelper {
                 throw new TooManyLinksException();
             }
 
-            // Split nonIgnoredLinks
-            List<Map<Integer, String>> batches = MapSplitter
-                    .splitMapBalanced(nonIgnoredLinks, appConfig.lambda().batchSize());
-            List<Callable<RequestLinksResponse>> tasks = batches.stream()
-                    .<Callable<RequestLinksResponse>>map((batch) -> () -> invokeLambdaFunction(batch))
-                    .toList();
+            if (!nonIgnoredLinks.isEmpty()) {
+                // Split nonIgnoredLinks
+                List<Map<Integer, String>> batches = MapSplitter
+                        .splitMapBalanced(nonIgnoredLinks, appConfig.lambda().batchSize());
+                List<Callable<RequestLinksResponse>> tasks = batches.stream()
+                        .<Callable<RequestLinksResponse>>map((batch) -> () -> invokeLambdaFunction(batch))
+                        .toList();
 
-            // Invoke lambdas
-            ThreadFactory factory = Thread.ofVirtual().name("invoke-lambda-", 0L).factory();
-            try (var executor = Executors.newThreadPerTaskExecutor(factory)) {
-                List<Future<RequestLinksResponse>> futures = executor.invokeAll(tasks);
+                // Invoke lambdas
+                ThreadFactory factory = Thread.ofVirtual().name("invoke-lambda-", 0L).factory();
+                try (var executor = Executors.newThreadPerTaskExecutor(factory)) {
+                    List<Future<RequestLinksResponse>> futures = executor.invokeAll(tasks);
 
-                for (var future : futures) {
-                    requestResults.putAll(future.get().requestResults());
+                    for (var future : futures) {
+                        requestResults.putAll(future.get().requestResults());
+                    }
                 }
             }
 

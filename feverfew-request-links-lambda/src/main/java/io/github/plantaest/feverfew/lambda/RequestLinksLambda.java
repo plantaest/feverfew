@@ -121,7 +121,6 @@ public class RequestLinksLambda implements RequestHandler<RequestLinksRequest, R
             var path = uri.getPath();
 
             List<RawResponse> responses = new ArrayList<>();
-            Random random = new Random();
             int nextStatus;
             String nextLink = link;
             Set<String> locations = new HashSet<>();
@@ -131,8 +130,7 @@ public class RequestLinksLambda implements RequestHandler<RequestLinksRequest, R
                 RawResponse rawResponse = httpClient
                         .get(nextLink)
                         .cookie("session_id", UUID.randomUUID().toString())
-                        .header("User-Agent", appConfig.userAgents()
-                                .get(random.nextInt(appConfig.userAgents().size())))
+                        .headers(createHeaders(host))
                         .asObject(Function.identity())
                         .getBody();
 
@@ -291,6 +289,16 @@ public class RequestLinksLambda implements RequestHandler<RequestLinksRequest, R
             return RequestResult.FileType.PDF;
         } else {
             return RequestResult.FileType.UNKNOWN;
+        }
+    }
+
+    private Map<String, String> createHeaders(String host) {
+        // Hard code: Bypass uefa.com
+        if (host.contains("uefa.com")) {
+            return Map.of("User-Agent", "curl/8.6.0");
+        } else {
+            Random random = new Random();
+            return Map.of("User-Agent", appConfig.userAgents().get(random.nextInt(appConfig.userAgents().size())));
         }
     }
 

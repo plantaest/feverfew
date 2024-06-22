@@ -41,7 +41,7 @@ quarkus:
         max-file-size: 10M
         max-backup-index: 50
         file-suffix: .yyyy-MM-dd.gz
-        rotate-on-boot: true
+        rotate-on-boot: false
   package:
     type: uber-jar
 

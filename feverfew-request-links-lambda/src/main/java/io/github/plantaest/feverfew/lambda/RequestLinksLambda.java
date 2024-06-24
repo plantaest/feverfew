@@ -273,8 +273,11 @@ public class RequestLinksLambda implements RequestHandler<RequestLinksRequest, R
             String location = redirects.getFirst().location();
 
             return Objects.equals(
-                    requestUrl.replace("http://", ""),
+                    requestUrl
+                            .replace("http://", "")
+                            .replace("/", ""),
                     location.replace("https://", "")
+                            .replace("/", "")
             );
         }
         return false;

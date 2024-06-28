@@ -49,6 +49,10 @@
       "list": {
         "title": "Lượt kiểm tra gần đây"
       }
+    },
+    "review": {
+      "title": "Duyệt",
+      "select": "Chọn một liên kết"
     }
   },
   "query": {

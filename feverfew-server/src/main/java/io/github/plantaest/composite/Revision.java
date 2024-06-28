@@ -1,39 +1,39 @@
 package io.github.plantaest.composite;
 
-import io.github.plantaest.composite.type.PageHtmlResult;
+import io.github.plantaest.composite.type.RevisionWikitextResult;
 
-public class Page {
+public class Revision {
 
     private final Wiki wiki;
-    private final String title;
+    private final long id;
 
-    public Page(Wiki wiki, String title) {
+    public Revision(Wiki wiki, long id) {
         this.wiki = wiki;
-        this.title = title;
+        this.id = id;
     }
 
-    public String title() {
-        return title;
+    public long id() {
+        return id;
     }
 
-    public PageHtmlResult html() {
+    public RevisionWikitextResult wikitext() {
         var response = wiki.httpClient()
                 .get(wiki.actionApiUri())
                 .queryString("action", "parse")
                 .queryString("format", "json")
                 .queryString("formatversion", 2)
-                .queryString("page", this.title)
-                .queryString("parsoid", true)
+                .queryString("oldid", id)
+                .queryString("prop", "wikitext")
                 .asJson()
                 .getBody()
                 .getObject()
                 .getJSONObject("parse");
 
-        return new PageHtmlResult(
+        return new RevisionWikitextResult(
                 response.getString("title"),
                 response.getLong("pageid"),
                 response.getLong("revid"),
-                response.getString("text")
+                response.getString("wikitext")
         );
     }
 

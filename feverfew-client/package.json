@@ -30,6 +30,7 @@
     "@tanstack/react-query-devtools": "^5.40.1",
     "clsx": "^2.1.1",
     "dayjs": "^1.11.11",
+    "html-entities": "^2.5.2",
     "i18next": "^23.11.5",
     "i18next-browser-languagedetector": "^8.0.0",
     "i18next-http-backend": "^2.5.2",

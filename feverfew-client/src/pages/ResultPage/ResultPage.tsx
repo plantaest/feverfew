@@ -5,12 +5,15 @@ import { useDocumentTitle } from '@mantine/hooks';
 import { useTranslation } from 'react-i18next';
 import { CreateCheckResponse } from '@/types/api/Check';
 import { useCreateCheck } from '@/hooks/useCreateCheck';
-import { ResultError } from './ResultError';
-import { ResultSkeleton } from './ResultSkeleton';
+import { ResultError } from './components/ResultError';
+import { ResultSkeleton } from './components/ResultSkeleton';
 import { ResultList } from './ResultList';
-import { ResultHeader } from '@/pages/ResultPage/ResultHeader';
-import { ResultIndicators } from '@/pages/ResultPage/ResultIndicators';
-import { ResultItem } from '@/pages/ResultPage/ResultItem';
+import { ResultHeader } from '@/pages/ResultPage/components/ResultHeader';
+import { ResultIndicators } from '@/pages/ResultPage/components/ResultIndicators';
+import { ResultItem } from '@/pages/ResultPage/components/ResultItem';
+import { ReviewActionButton } from '@/pages/ResultPage/components/ReviewActionButton';
+import { ReviewPanel } from '@/pages/ResultPage/components/ReviewPanel';
+import { useNavigateResults } from '@/hooks/useNavigateResults';
 
 export function ResultPage() {
   const { t } = useTranslation();
@@ -46,6 +49,8 @@ export function ResultPage() {
     }
   }, [shouldCheck]);
 
+  useNavigateResults();
+
   if (!shouldCheck) {
     return <ResultList />;
   }
@@ -53,17 +58,21 @@ export function ResultPage() {
   return (
     <Container size="xl">
       {createCheckApi.isSuccess && response ? (
-        <Stack my="md" gap="sm">
-          <ResultHeader response={response} />
+        <>
+          <Stack my="md" gap="sm">
+            <ResultHeader response={response} />
 
-          <ResultIndicators response={response} />
+            <ResultIndicators response={response} />
 
-          <Stack gap="xs">
-            {response.results.map((result) => (
-              <ResultItem key={result.link.id} result={result} />
-            ))}
+            <Stack gap="xs">
+              {response.results.map((result) => (
+                <ResultItem key={result.link.id} result={result} />
+              ))}
+            </Stack>
+            <ReviewActionButton />
+            <ReviewPanel wikiId={response.wikiId} revisionId={response.pageRevisionId} />
           </Stack>
-        </Stack>
+        </>
       ) : createCheckApi.isError ? (
         <ResultError />
       ) : (

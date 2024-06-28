@@ -18,16 +18,20 @@ import { useTranslation } from 'react-i18next';
 import classes from './ResultList.module.css';
 import { numberFormat } from '@/utils/numberFormat';
 import { useGetListCheck } from '@/hooks/useGetListCheck';
-import { ResultError } from '@/pages/ResultPage/ResultError';
-import { ResultListItemsSkeleton } from '@/pages/ResultPage/ResultListItemsSkeleton';
-
-const PAGE_SIZE = 7;
+import { ResultError } from '@/pages/ResultPage/components/ResultError';
+import { ResultListItemsSkeleton } from '@/pages/ResultPage/components/ResultListItemsSkeleton';
+import { appConfig } from '@/config/appConfig';
 
 export function ResultList() {
   const { t } = useTranslation();
   const [activePage, setPage] = useState(1);
 
-  const { data: response, isSuccess, isLoading, isError } = useGetListCheck(activePage, PAGE_SIZE);
+  const {
+    data: response,
+    isSuccess,
+    isLoading,
+    isError,
+  } = useGetListCheck(activePage, appConfig.RESULT_LIST_SIZE);
 
   const dates = new Set<string>();
 

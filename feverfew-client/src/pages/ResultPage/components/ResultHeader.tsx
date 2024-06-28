@@ -10,7 +10,7 @@ interface ResultHeaderProps {
   response: GetOneCheckResponse | CreateCheckResponse;
 }
 
-export function ResultHeader({ response }: ResultHeaderProps): JSX.Element {
+export function ResultHeader({ response }: ResultHeaderProps) {
   const { t } = useTranslation();
 
   return (

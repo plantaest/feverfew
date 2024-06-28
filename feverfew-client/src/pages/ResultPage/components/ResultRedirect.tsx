@@ -9,7 +9,7 @@ import {
   UnstyledButton,
   useDirection,
 } from '@mantine/core';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import {
   IconArrowLoopLeft2,
   IconArrowLoopRight2,
@@ -31,6 +31,11 @@ export function ResultRedirect({ redirects }: ResultRedirectProps) {
   const IconArrowLoop = dir === 'rtl' ? IconArrowLoopLeft2 : IconArrowLoopRight2;
   const IconCorner = dir === 'rtl' ? IconCornerDownLeft : IconCornerDownRight;
 
+  const handleClickRedirectButton = (event: React.MouseEvent) => {
+    event.stopPropagation();
+    setOpened(!opened);
+  };
+
   return (
     <Popover
       width={500}
@@ -44,7 +49,7 @@ export function ResultRedirect({ redirects }: ResultRedirectProps) {
       <Popover.Target>
         <UnstyledButton
           className={classes.redirect}
-          onClick={() => setOpened(!opened)}
+          onClick={handleClickRedirectButton}
           data-opened={opened}
           aria-label={t('core:ui.result.redirectTitle', {
             redirectNumber: redirects.length,

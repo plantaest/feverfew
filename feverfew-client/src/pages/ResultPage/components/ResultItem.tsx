@@ -11,11 +11,13 @@ import {
 } from '@mantine/core';
 import { IconArchive, IconBookmark, IconCopy } from '@tabler/icons-react';
 import clsx from 'clsx';
+import { useEffect, useRef } from 'react';
 import classes from '@/pages/ResultPage/ResultPage.module.css';
 import { EvaluationResult, RequestResultType } from '@/types/api/Check';
 import { archiveHosts } from '@/utils/archiveHosts';
 import { numberFormat } from '@/utils/numberFormat';
-import { ResultRedirect } from '@/pages/ResultPage/ResultRedirect';
+import { ResultRedirect } from '@/pages/ResultPage/components/ResultRedirect';
+import { appState } from '@/states/appState';
 
 const responseStatusColor = (status: string): MantineColor =>
   status.startsWith('2') ? 'teal' : status.startsWith('3') ? 'indigo' : 'pink';
@@ -25,8 +27,34 @@ interface ResultItemProps {
 }
 
 export function ResultItem({ result }: ResultItemProps) {
+  const enabledReviewPanel = appState.review.enabled.get();
+  const selectedResult = appState.review.selectedResult.get();
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    appState.review.resultRefs.peek().set(result.index, ref);
+  }, []);
+
+  const handleClickResult = () => {
+    if (enabledReviewPanel) {
+      appState.review.selectedResult.set(result);
+      ref.current?.scrollIntoView({
+        block: 'start',
+        behavior: 'smooth',
+      });
+      setTimeout(() => ref.current?.focus(), 125);
+    }
+  };
+
   return (
-    <UnstyledButton component="div" tabIndex={0} className={classes.result}>
+    <UnstyledButton
+      component="div"
+      tabIndex={0}
+      className={classes.result}
+      onClick={handleClickResult}
+      data-selected={result.index === selectedResult?.index}
+      ref={ref}
+    >
       <Group wrap="nowrap" gap="xs" align="stretch" justify="space-between">
         <Group wrap="nowrap" gap="xs" align="stretch" miw={0}>
           <Flex className={classes.index}>

@@ -33,7 +33,7 @@ public class CompositeMain {
         Page page2 = wikis.getWiki("viwiki").page("A");
         Page page3 = wikis.getWiki("enwiki").page("A");
 
-        System.out.println(page2.text());
-        System.out.println(page3.text());
+        System.out.println(page2.html());
+        System.out.println(page3.html());
     }
 }

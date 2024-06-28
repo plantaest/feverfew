@@ -1,0 +1,34 @@
+.content {
+  border-top: rem(1px) solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
+}
+
+.wikitextBox {
+  flex: 2;
+  border: rem(1px) solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
+  border-radius: var(--mantine-radius-md);
+  overflow: hidden;
+}
+
+.wikitextCard {
+  background-color: light-dark(var(--mantine-color-gray-1), var(--mantine-color-dark-5));
+  font-family: var(--mantine-alt-font-monospace);
+  font-size: var(--mantine-font-size-sm);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  height: 100%;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+.selectedLink {
+  color: white;
+  background-color: light-dark(var(--mantine-color-cyan-6), var(--mantine-color-cyan-8));
+  padding: rem(3px) 0;
+  border-radius: var(--mantine-radius-sm);
+  font-weight: 600;
+  scroll-margin-top: 9.5rem;
+
+  &:first-child {
+    background-color: light-dark(var(--mantine-color-violet-6), var(--mantine-color-violet-8));
+  }
+}

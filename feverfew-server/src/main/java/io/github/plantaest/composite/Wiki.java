@@ -47,4 +47,8 @@ public class Wiki {
         return new Page(this, title);
     }
 
+    public Revision revision(long revisionId) {
+        return new Revision(this, revisionId);
+    }
+
 }

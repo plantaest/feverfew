@@ -49,6 +49,10 @@
       "list": {
         "title": "Latest checks"
       }
+    },
+    "review": {
+      "title": "Review",
+      "select": "Select a link"
     }
   },
   "query": {

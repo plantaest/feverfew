@@ -8,6 +8,10 @@ const langs = [
     label: 'English',
   },
   {
+    value: 'es',
+    label: 'Español',
+  },
+  {
     value: 'vi',
     label: 'Tiếng Việt',
   },

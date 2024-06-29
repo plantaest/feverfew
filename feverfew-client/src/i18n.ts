@@ -18,7 +18,7 @@ i18n
       order: ['localStorage', 'navigator'],
     },
     fallbackLng: 'en',
-    supportedLngs: ['en', 'vi'],
+    supportedLngs: ['en', 'es', 'vi'],
     interpolation: {
       escapeValue: false,
     },

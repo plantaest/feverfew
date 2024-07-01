@@ -18,10 +18,18 @@ public record Pagination(
     }
 
     public static int calculateTotalPages(long totalItems, int itemsPerPage) {
+        if (itemsPerPage <= 0) {
+            throw new IllegalArgumentException("itemsPerPage must be greater than zero");
+        }
+
         return (int) Math.ceil((double) totalItems / itemsPerPage);
     }
 
     public static int calculateCurrentItemCount(int pageIndex, int itemsPerPage, long totalItems) {
+        if (pageIndex < 1 || pageIndex > calculateTotalPages(totalItems, itemsPerPage)) {
+            return 0;
+        }
+
         int startIndex = (pageIndex - 1) * itemsPerPage;
         return (int) Math.min(itemsPerPage, totalItems - startIndex);
     }

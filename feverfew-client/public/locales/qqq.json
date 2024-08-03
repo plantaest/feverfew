@@ -1,0 +1,64 @@
+{
+  "@metadata": {
+    "authors": [
+      "Plantaest"
+    ]
+  },
+  "common": {
+    "create": "{{identical|Create}}",
+    "update": "{{identical|Update}}",
+    "delete": "{{identical|Delete}}",
+    "cancel": "{{identical|Cancel}}",
+    "default": "{{identical|Default}}",
+    "welcome": "{{identical|Welcome}}",
+    "loading": "{{identical|Loading}}",
+    "back": "{{identical|Go back}}",
+    "forward": "{{identical|Go forward}}",
+    "save": "{{identical|Save}}",
+    "confirm": "{{identical|Confirm}}",
+    "select": "{{identical|Select}}",
+    "reset": "{{identical|Reset}}",
+    "add": "{{identical|Add}}",
+    "wiki": "{{identical|Wiki}}",
+    "notification": "{{identical|Notification}}"
+  },
+  "ui": {
+    "header": {
+      "home": "Text of the Home menu",
+      "result": "Text of the Result menu",
+      "stats": "Text of the Stats menu",
+      "changeColorScheme": "Title of the color scheme button",
+      "changeDirection": "Title of the direction button",
+      "changeLanguage": "Title of the language button"
+    },
+    "home": {
+      "selectWiki": "Placeholder text of the wiki selector",
+      "enterPageTitle": "Placeholder text of the page title input",
+      "check": "Label for the button which performs a check"
+    },
+    "result": {
+      "note": "Note line in the check",
+      "checkLinkTitle": "Title for the button that opens the check archive page",
+      "revisionLinkTitle": "Title for the button that opens the checked revision",
+      "total": "Text for the box indicating the total number of checked links",
+      "ignored": "Text for the box indicating the total number of ignored links",
+      "working": "Text for the box indicating the total number of working links",
+      "broken": "Text for the box indicating the total number of broken links",
+      "errorMessage": "Notification text when the website has an error",
+      "redirectTitle": "Title of the redirect button",
+      "list": {
+        "title": "Title of the results list page"
+      }
+    },
+    "review": {
+      "title": "Title of the review button",
+      "select": "Placeholder text of the review panel"
+    }
+  },
+  "query": {
+    "defaultErrorMessage": "Default notification text when the API cannot be called"
+  },
+  "errorMessage": {
+    "notEmpty": "Error message when a required field cannot be empty"
+  }
+}

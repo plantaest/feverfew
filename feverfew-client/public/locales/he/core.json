@@ -1,0 +1,57 @@
+{
+	"@metadata": {
+		"authors": [
+			"YaronSh"
+		]
+	},
+	"common": {
+		"create": "יצירה",
+		"update": "עדכון",
+		"delete": "מחיקה",
+		"cancel": "ביטול",
+		"default": "ברירת מחדל",
+		"welcome": "ברוך בואך",
+		"loading": "טעינה",
+		"back": "חזרה",
+		"forward": "התקדמות",
+		"save": "שמירה",
+		"confirm": "אישור",
+		"select": "בחירה",
+		"reset": "איפוס",
+		"add": "הוספה",
+		"wiki": "ויקי",
+		"notification": "הודעה"
+	},
+	"ui": {
+		"header": {
+			"home": "דף הבית",
+			"result": "תוצאה",
+			"stats": "מצב",
+			"changeColorScheme": "החלפת ערכת צבעים",
+			"changeDirection": "החלפת כיוון",
+			"changeLanguage": "החלפת שפה"
+		},
+		"home": {
+			"selectWiki": "בחירת ויקי",
+			"enterPageTitle": "נא למלא כותרת לדף",
+			"check": "בדיקה"
+		},
+		"result": {
+			"errorMessage": "משהו השתבש",
+			"redirectTitle": "{redirectNumber, plural, =1 {הפנייה אחת} other {# הפניות}}",
+			"list": {
+				"title": "הבדיקות האחרונות"
+			}
+		},
+		"review": {
+			"title": "סקירה",
+			"select": "נא לבחור קישור"
+		}
+	},
+	"query": {
+		"defaultErrorMessage": "לא ניתן לקרוא ל־API"
+	},
+	"errorMessage": {
+		"notEmpty": "השדה הזה לא יכול להישאר ריק"
+	}
+}

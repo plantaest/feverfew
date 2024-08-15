@@ -1,0 +1,48 @@
+{
+	"@metadata": {
+		"authors": [
+			"Saraiki"
+		]
+	},
+	"common": {
+		"create": "بݨاؤ",
+		"update": "اپ ڈیٹ",
+		"delete": "مٹاؤ",
+		"cancel": "منسوخ",
+		"default": "پہلے کنوں طے تھیا ہویا",
+		"welcome": "ست بسم اللہ",
+		"loading": "لوڈ تھین٘دا پئے",
+		"back": "واپس ڄُلو",
+		"forward": "اڳوں تے ون٘ڄو",
+		"save": "سانبھو",
+		"confirm": "تصدیق",
+		"select": "چݨو",
+		"reset": "ولدا ٹھیک کرو",
+		"add": "شامل کرو",
+		"wiki": "وکی",
+		"notification": "اطلاع نامہ"
+	},
+	"ui": {
+		"header": {
+			"home": "گھر",
+			"result": "نتیجہ",
+			"stats": "شماریات",
+			"changeColorScheme": "رنگ سکیم وٹاؤ",
+			"changeLanguage": "زبان وٹاؤ"
+		},
+		"home": {
+			"selectWiki": "وکی چݨو",
+			"check": "پڑتال"
+		},
+		"result": {
+			"total": "کُل",
+			"working": "کم کرݨ آلے",
+			"broken": "ترُٹا ہویا",
+			"errorMessage": "کجھ خراب تھی ڳئے"
+		},
+		"review": {
+			"title": "ولدا ݙیکھو",
+			"select": "ہک لنک چݨو"
+		}
+	}
+}

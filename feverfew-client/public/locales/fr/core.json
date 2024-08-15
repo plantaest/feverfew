@@ -1,0 +1,32 @@
+{
+	"@metadata": {
+		"authors": [
+			"Serieminou"
+		]
+	},
+	"common": {
+		"create": "Créer",
+		"update": "Mettre à jour",
+		"delete": "Supprimer",
+		"cancel": "Annuler",
+		"back": "Retour",
+		"forward": "Avancer",
+		"save": "Enregistrer",
+		"confirm": "Confirmer"
+	},
+	"ui": {
+		"header": {
+			"stats": "Statistiques",
+			"changeColorScheme": "Changer la palette de couleurs",
+			"changeDirection": "Changer la direction",
+			"changeLanguage": "Modifier la langue"
+		},
+		"home": {
+			"selectWiki": "Sélectionner un wiki",
+			"check": "Vérifier"
+		},
+		"result": {
+			"note": "Vérifié à {time}, {date} ; dans {duration} s"
+		}
+	}
+}

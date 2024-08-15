@@ -1,0 +1,64 @@
+{
+	"@metadata": {
+		"authors": [
+			"Siebrand"
+		]
+	},
+	"common": {
+		"create": "Aanmaken",
+		"update": "Bijwerken",
+		"delete": "Verwijderen",
+		"cancel": "Annuleren",
+		"default": "Standaard",
+		"welcome": "Welkom",
+		"loading": "Bezig met laden",
+		"back": "Terug",
+		"forward": "Vooruit",
+		"save": "Opslaan",
+		"confirm": "Bevestigen",
+		"select": "Selecteren",
+		"reset": "Opnieuw instellen",
+		"add": "Toevoegen",
+		"wiki": "Wiki",
+		"notification": "Melding"
+	},
+	"ui": {
+		"header": {
+			"home": "Startpagina",
+			"result": "Resultaat",
+			"stats": "Statistieken",
+			"changeColorScheme": "Kleurschema wijzigen",
+			"changeDirection": "Richting wijzigen",
+			"changeLanguage": "Taal wijzigen"
+		},
+		"home": {
+			"selectWiki": "Selecteer een wiki",
+			"enterPageTitle": "Geef de paginatitel op",
+			"check": "Controleren"
+		},
+		"result": {
+			"note": "Gecontroleerd op {date} om {time}; in {duration} s",
+			"checkLinkTitle": "Gearchiveerde koppeling voor deze controle",
+			"revisionLinkTitle": "Koppeling naar de gecontroleerde versie",
+			"total": "Totaal",
+			"ignored": "Genegeerd",
+			"working": "Werkt",
+			"broken": "Kapot",
+			"errorMessage": "Er is iets misgegaan",
+			"redirectTitle": "{redirectNumber, plural, =1 {1 doorverwijzing} other {# doorverwijzingen}}",
+			"list": {
+				"title": "Laatste controles"
+			}
+		},
+		"review": {
+			"title": "Beoordelen",
+			"select": "Selecteer een koppeling"
+		}
+	},
+	"query": {
+		"defaultErrorMessage": "De API is niet bereikbaar"
+	},
+	"errorMessage": {
+		"notEmpty": "Dit veld mag niet leeg blijven."
+	}
+}

@@ -1,64 +1,64 @@
 {
-  "@metadata": {
-    "authors": [
-      "Plantaest"
-    ]
-  },
-  "common": {
-    "create": "Tạo",
-    "update": "Cập nhật",
-    "delete": "Xóa",
-    "cancel": "Hủy",
-    "default": "Mặc định",
-    "welcome": "Chào mừng",
-    "loading": "Đang tải",
-    "back": "Trở về",
-    "forward": "Kế tiếp",
-    "save": "Lưu",
-    "confirm": "Xác nhận",
-    "select": "Chọn",
-    "reset": "Đặt lại",
-    "add": "Thêm",
-    "wiki": "Wiki",
-    "notification": "Thông báo"
-  },
-  "ui": {
-    "header": {
-      "home": "Trang chủ",
-      "result": "Kết quả",
-      "stats": "Thống kê",
-      "changeColorScheme": "Thay đổi chế độ màu",
-      "changeDirection": "Thay đổi hướng đọc",
-      "changeLanguage": "Thay đổi ngôn ngữ"
-    },
-    "home": {
-      "selectWiki": "Chọn wiki",
-      "enterPageTitle": "Nhập tiêu đề trang",
-      "check": "Kiểm tra"
-    },
-    "result": {
-      "note": "Đã kiểm tra lúc {time}, {date}; trong {duration}\u00a0s",
-      "checkLinkTitle": "Liên kết lưu trữ cho lần kiểm tra này",
-      "revisionLinkTitle": "Liên kết của phiên bản được kiểm tra",
-      "total": "Tổng",
-      "ignored": "Bỏ qua",
-      "working": "Hoạt động",
-      "broken": "Hỏng",
-      "errorMessage": "Đã có lỗi xảy ra",
-      "redirectTitle": "{redirectNumber} lần chuyển hướng",
-      "list": {
-        "title": "Lượt kiểm tra gần đây"
-      }
-    },
-    "review": {
-      "title": "Duyệt",
-      "select": "Chọn một liên kết"
-    }
-  },
-  "query": {
-    "defaultErrorMessage": "Không thể gọi được API"
-  },
-  "errorMessage": {
-    "notEmpty": "Trường này không được để trống"
-  }
+	"@metadata": {
+		"authors": [
+			"Plantaest"
+		]
+	},
+	"common": {
+		"create": "Tạo",
+		"update": "Cập nhật",
+		"delete": "Xóa",
+		"cancel": "Hủy",
+		"default": "Mặc định",
+		"welcome": "Chào mừng",
+		"loading": "Đang tải",
+		"back": "Trở về",
+		"forward": "Kế tiếp",
+		"save": "Lưu",
+		"confirm": "Xác nhận",
+		"select": "Chọn",
+		"reset": "Đặt lại",
+		"add": "Thêm",
+		"wiki": "Wiki",
+		"notification": "Thông báo"
+	},
+	"ui": {
+		"header": {
+			"home": "Trang chủ",
+			"result": "Kết quả",
+			"stats": "Thống kê",
+			"changeColorScheme": "Thay đổi chế độ màu",
+			"changeDirection": "Thay đổi hướng đọc",
+			"changeLanguage": "Thay đổi ngôn ngữ"
+		},
+		"home": {
+			"selectWiki": "Chọn wiki",
+			"enterPageTitle": "Nhập tiêu đề trang",
+			"check": "Kiểm tra"
+		},
+		"result": {
+			"note": "Đã kiểm tra lúc {time}, {date}; trong {duration} s",
+			"checkLinkTitle": "Liên kết lưu trữ cho lần kiểm tra này",
+			"revisionLinkTitle": "Liên kết của phiên bản được kiểm tra",
+			"total": "Tổng",
+			"ignored": "Bỏ qua",
+			"working": "Hoạt động",
+			"broken": "Hỏng",
+			"errorMessage": "Đã có lỗi xảy ra",
+			"redirectTitle": "{redirectNumber} lần chuyển hướng",
+			"list": {
+				"title": "Lượt kiểm tra gần đây"
+			}
+		},
+		"review": {
+			"title": "Duyệt",
+			"select": "Chọn một liên kết"
+		}
+	},
+	"query": {
+		"defaultErrorMessage": "Không thể gọi được API"
+	},
+	"errorMessage": {
+		"notEmpty": "Trường này không được để trống"
+	}
 }

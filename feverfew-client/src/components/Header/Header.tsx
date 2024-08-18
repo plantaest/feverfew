@@ -17,10 +17,10 @@ const links = [
     link: '/check',
     label: 'core:ui.header.result',
   },
-  // {
-  //   link: '/stats',
-  //   label: 'core:ui.header.stats',
-  // },
+  {
+    link: '/stats',
+    label: 'core:ui.header.stats',
+  },
 ];
 
 export function Header() {

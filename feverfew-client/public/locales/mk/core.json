@@ -1,0 +1,64 @@
+{
+	"@metadata": {
+		"authors": [
+			"Bjankuloski06"
+		]
+	},
+	"common": {
+		"create": "Создај",
+		"update": "Поднови",
+		"delete": "Избриши",
+		"cancel": "Откажи",
+		"default": "По основно",
+		"welcome": "Добре дојдовте",
+		"loading": "Вчитувам",
+		"back": "Назад",
+		"forward": "Напред",
+		"save": "Зачувај",
+		"confirm": "Потврди",
+		"select": "Избери",
+		"reset": "Одново",
+		"add": "Додај",
+		"wiki": "Вики",
+		"notification": "Известување"
+	},
+	"ui": {
+		"header": {
+			"home": "Почетна",
+			"result": "Исход",
+			"stats": "Статистика",
+			"changeColorScheme": "Измени боен изглед",
+			"changeDirection": "Смени насока",
+			"changeLanguage": "Смени јазик"
+		},
+		"home": {
+			"selectWiki": "Изберете вики",
+			"enterPageTitle": "Внесете наслов на страницата",
+			"check": "Провери"
+		},
+		"result": {
+			"note": "Проверено во {time} ч. на {date}; за {duration} сек.",
+			"checkLinkTitle": "Архивирана врска за оваа проверка",
+			"revisionLinkTitle": "Врска на проверената преработка",
+			"total": "Вкупно",
+			"ignored": "Занемарени",
+			"working": "Функционални",
+			"broken": "Расипани",
+			"errorMessage": "Нешто не е во ред",
+			"redirectTitle": "{redirectNumber, plural, =1 {1 redirect} other {# redirects}}",
+			"list": {
+				"title": "Најнови проверки"
+			}
+		},
+		"review": {
+			"title": "Прегледај",
+			"select": "Изберете врска"
+		}
+	},
+	"query": {
+		"defaultErrorMessage": "Не можам да го повикам приложникот"
+	},
+	"errorMessage": {
+		"notEmpty": "Ова поле не може да стои празно"
+	}
+}

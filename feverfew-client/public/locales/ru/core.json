@@ -1,0 +1,65 @@
+{
+	"@metadata": {
+		"authors": [
+			"Kareyac",
+			"Okras"
+		]
+	},
+	"common": {
+		"create": "Создать",
+		"update": "Обновить",
+		"delete": "Удалить",
+		"cancel": "Отмена",
+		"default": "По умолчанию",
+		"welcome": "Добро пожаловать",
+		"loading": "Загружается",
+		"back": "Назад",
+		"forward": "Вперёд",
+		"save": "Сохранить",
+		"confirm": "Подтвердить",
+		"select": "Выбрать",
+		"reset": "Сбросить",
+		"add": "Добавить",
+		"wiki": "Вики",
+		"notification": "Уведомление"
+	},
+	"ui": {
+		"header": {
+			"home": "Главная",
+			"result": "Результат",
+			"stats": "Статистика",
+			"changeColorScheme": "Изменить цветовую схему",
+			"changeDirection": "Изменить направление",
+			"changeLanguage": "Изменить язык"
+		},
+		"home": {
+			"selectWiki": "Выбрать вики",
+			"enterPageTitle": "Введите заголовок страницы",
+			"check": "Проверить"
+		},
+		"result": {
+			"note": "Проверено {date} в {time}; за {duration} сек.",
+			"checkLinkTitle": "Архивированная ссылка для этой проверки",
+			"revisionLinkTitle": "Ссылка на проверенную версию",
+			"total": "Всего",
+			"ignored": "Проигнорированы",
+			"working": "Работающие",
+			"broken": "Битые",
+			"errorMessage": "Что-то пошло не так",
+			"redirectTitle": "{redirectNumber, plural, =1 {1 redirect} other {# redirects}}",
+			"list": {
+				"title": "Последние проверки"
+			}
+		},
+		"review": {
+			"title": "Проверить",
+			"select": "Выберите ссылку"
+		}
+	},
+	"query": {
+		"defaultErrorMessage": "Невозможно вызвать API"
+	},
+	"errorMessage": {
+		"notEmpty": "Это поле не должно быть пустым"
+	}
+}

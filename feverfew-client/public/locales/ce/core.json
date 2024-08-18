@@ -1,0 +1,64 @@
+{
+	"@metadata": {
+		"authors": [
+			"Умар"
+		]
+	},
+	"common": {
+		"create": "Кхолла",
+		"update": "Карлайаккха",
+		"delete": "ДӀайаккха",
+		"cancel": "Йухайаккха",
+		"default": "Ӏадйитаран кеп",
+		"welcome": "Марша догӀийла",
+		"loading": "Чуйолуш йу",
+		"back": "Йуханехьа",
+		"forward": "Хьалха",
+		"save": "Ӏалашйан",
+		"confirm": "Бакъдан",
+		"select": "Харжа",
+		"reset": "Кхосса",
+		"add": "ТӀетоха",
+		"wiki": "Вики",
+		"notification": "ДӀахаийтар"
+	},
+	"ui": {
+		"header": {
+			"home": "Коьрта",
+			"result": "Хилам",
+			"stats": "Статистика",
+			"changeColorScheme": "Беснийн схема хийца",
+			"changeDirection": "Хийца некъ-агӀо",
+			"changeLanguage": "Хийца мотт"
+		},
+		"home": {
+			"selectWiki": "Вики хьажа",
+			"enterPageTitle": "АгӀонан цӀе йазйе",
+			"check": "Талла"
+		},
+		"result": {
+			"note": "Теллина {date} {time} чохь; {duration} сек. чохь",
+			"checkLinkTitle": "Архивйина хьажорг йу хӀокху талламна",
+			"revisionLinkTitle": "Хьажог тӀечӀагӀйинчу верси тӀе",
+			"total": "Йерриге",
+			"ignored": "Игнорйина",
+			"working": "Болхбеш",
+			"broken": "Йоьхнарш",
+			"errorMessage": "Цхьа хӀума нийса дац",
+			"redirectTitle": "{redirectNumber, plural, =1 {1 redirect} кхин {# redirects}}",
+			"list": {
+				"title": "ТӀаьххьара таллам"
+			}
+		},
+		"review": {
+			"title": "Талла",
+			"select": "Харжа хьажорг"
+		}
+	},
+	"query": {
+		"defaultErrorMessage": "API кхайкха йиш йац"
+	},
+	"errorMessage": {
+		"notEmpty": "ХӀара меттиг йаьсса хила ца йеза"
+	}
+}

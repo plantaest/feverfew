@@ -1,0 +1,64 @@
+{
+	"@metadata": {
+		"authors": [
+			"Kly"
+		]
+	},
+	"common": {
+		"create": "建立",
+		"update": "更新",
+		"delete": "刪除",
+		"cancel": "取消",
+		"default": "預設",
+		"welcome": "歡迎",
+		"loading": "載入中",
+		"back": "返回",
+		"forward": "向前",
+		"save": "儲存",
+		"confirm": "確認",
+		"select": "選擇",
+		"reset": "重新設定",
+		"add": "新增",
+		"wiki": "Wiki",
+		"notification": "通知"
+	},
+	"ui": {
+		"header": {
+			"home": "首頁",
+			"result": "結果",
+			"stats": "統計",
+			"changeColorScheme": "更改介面配色",
+			"changeDirection": "更改標題方向",
+			"changeLanguage": "更改顯示語言"
+		},
+		"home": {
+			"selectWiki": "選擇 wiki",
+			"enterPageTitle": "輸入頁面標題",
+			"check": "檢查"
+		},
+		"result": {
+			"note": "於 {date} {time} 檢查，花費 {duration} 秒",
+			"checkLinkTitle": "此份檢查的存檔連結",
+			"revisionLinkTitle": "已檢查修訂版本的連結",
+			"total": "總計",
+			"ignored": "忽略",
+			"working": "有效",
+			"broken": "毀損",
+			"errorMessage": "發生錯誤",
+			"redirectTitle": "{redirectNumber, plural, =1 {1 redirect} other {# redirects}}",
+			"list": {
+				"title": "最新檢查"
+			}
+		},
+		"review": {
+			"title": "檢視",
+			"select": "選擇一個連結"
+		}
+	},
+	"query": {
+		"defaultErrorMessage": "無法呼叫 API"
+	},
+	"errorMessage": {
+		"notEmpty": "此欄位不能留空"
+	}
+}

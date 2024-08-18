@@ -1,0 +1,38 @@
+{
+	"@metadata": {
+		"authors": [
+			"Abijeet Patro"
+		]
+	},
+	"common": {
+		"create": "बनाएँ",
+		"update": "अद्यतन",
+		"delete": "हटाएँ",
+		"cancel": "रद्द करें",
+		"default": "डिफ़ॉल्ट",
+		"welcome": "सुस्वागतम्‌",
+		"loading": "लोड हो रहा है…",
+		"back": "वापस जाएँ",
+		"forward": "आगे बढ़ें",
+		"save": "सहेजें",
+		"confirm": "पुष्टि करें",
+		"select": "चुनें",
+		"reset": "रीसेट करें",
+		"add": "जोड़ें",
+		"wiki": "विकि"
+	},
+	"ui": {
+		"header": {
+			"home": "घर",
+			"result": "परिणाम",
+			"stats": "आँकड़े"
+		},
+		"home": {
+			"check": "जाँचें"
+		},
+		"result": {
+			"total": "कुल",
+			"broken": "टूटा हुआ"
+		}
+	}
+}

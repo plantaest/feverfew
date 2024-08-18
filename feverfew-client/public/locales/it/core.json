@@ -1,0 +1,41 @@
+{
+	"@metadata": {
+		"authors": [
+			"Beta16"
+		]
+	},
+	"common": {
+		"create": "Crea",
+		"update": "Aggiorna",
+		"delete": "Cancella",
+		"cancel": "Annulla",
+		"default": "Predefinito",
+		"back": "Torna indietro",
+		"forward": "Vai avanti",
+		"save": "Salva",
+		"confirm": "Conferma",
+		"select": "Seleziona",
+		"reset": "Reimposta",
+		"add": "Aggiungi",
+		"notification": "Notifiche"
+	},
+	"ui": {
+		"header": {
+			"changeLanguage": "Cambia lingua"
+		},
+		"home": {
+			"enterPageTitle": "Inserisci il titolo della pagina",
+			"check": "Controlla"
+		},
+		"result": {
+			"total": "Totale",
+			"ignored": "Ignorato"
+		},
+		"review": {
+			"title": "Revisiona"
+		}
+	},
+	"errorMessage": {
+		"notEmpty": "Questo campo non può essere lasciato vuoto"
+	}
+}

@@ -1,0 +1,38 @@
+{
+	"@metadata": {
+		"authors": [
+			"Volvox"
+		]
+	},
+	"common": {
+		"delete": "Läschen",
+		"cancel": "Ofbriechen",
+		"welcome": "Wëllkomm",
+		"back": "Zréck goen",
+		"save": "Späicheren",
+		"confirm": "Confirméieren",
+		"reset": "Zrécksetzen",
+		"add": "Derbäisetzen",
+		"wiki": "Wiki",
+		"notification": "Notifikatiounen"
+	},
+	"ui": {
+		"header": {
+			"result": "Resultat",
+			"changeColorScheme": "Faarfscheema wiesselen",
+			"changeLanguage": "Sprooch wiesselen"
+		},
+		"home": {
+			"selectWiki": "Wiki eraussichen",
+			"enterPageTitle": "Säitentitel aginn"
+		},
+		"result": {
+			"ignored": "Ignoréiert",
+			"broken": "Futti",
+			"errorMessage": "Et ass eppes schif gaangen"
+		},
+		"review": {
+			"select": "E Link eraussichen"
+		}
+	}
+}

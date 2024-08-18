@@ -1,0 +1,54 @@
+{
+	"@metadata": {
+		"authors": [
+			"MRidhaAJ"
+		]
+	},
+	"common": {
+		"create": "سوي",
+		"update": "تحديث",
+		"delete": "حذف",
+		"cancel": "الغي",
+		"default": "افتراضي",
+		"welcome": "هلا بيك",
+		"loading": "چاي يحمل",
+		"back": "إرجع وره",
+		"forward": "روح لي كدام",
+		"save": "إحفظ",
+		"confirm": "اكد",
+		"select": "اختار",
+		"reset": "رجع كلشي",
+		"add": "ضيف",
+		"wiki": "ويكي",
+		"notification": "اشعار"
+	},
+	"ui": {
+		"header": {
+			"home": "الصفحه الرئيسيه",
+			"result": "النتيجه",
+			"stats": "احصائيات",
+			"changeColorScheme": "غير خطة الالوان",
+			"changeDirection": "غير الاتجاه",
+			"changeLanguage": "غير اللغه"
+		},
+		"home": {
+			"selectWiki": "اختار ويكي",
+			"enterPageTitle": "اكتب عنوان الصفحه",
+			"check": "تأكد"
+		},
+		"result": {
+			"note": "متحقق منه ب {time}، {date}؛ ب{duration} ثانيه",
+			"checkLinkTitle": "الرابط المأرشف لهاذ التحقق",
+			"total": "المجموع",
+			"working": "تشتغل",
+			"broken": "مكسوره",
+			"errorMessage": "صار شي غلط"
+		},
+		"review": {
+			"title": "راجع"
+		}
+	},
+	"errorMessage": {
+		"notEmpty": "هاذ الحقل ما يضل فارغ"
+	}
+}

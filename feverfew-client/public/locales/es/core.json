@@ -1,65 +1,65 @@
 {
-  "@metadata": {
-    "authors": [
-      "Plantaest",
-      "Nacaru"
-    ]
-  },
-  "common": {
-    "create": "Crear",
-    "update": "Actualizar",
-    "delete": "Eliminar",
-    "cancel": "Cancelar",
-    "default": "Por defecto",
-    "welcome": "Bienvenido",
-    "loading": "Cargando",
-    "back": "Volver",
-    "forward": "Avanzar",
-    "save": "Guardar",
-    "confirm": "Confirmar",
-    "select": "Seleccionar",
-    "reset": "Restaurar",
-    "add": "Añadir",
-    "wiki": "Wiki",
-    "notification": "Notificación"
-  },
-  "ui": {
-    "header": {
-      "home": "Home",
-      "result": "Resultados",
-      "stats": "Estadísticas",
-      "changeColorScheme": "Cambiar el tema",
-      "changeDirection": "Cambiar la dirección",
-      "changeLanguage": "Cambiar el idioma"
-    },
-    "home": {
-      "selectWiki": "Seleccionar wiki",
-      "enterPageTitle": "Escribe el nombre de la página",
-      "check": "Analizar"
-    },
-    "result": {
-      "note": "Analizado a las {time}, el {date}; en {duration}\u00a0s",
-      "checkLinkTitle": "Enlace a la versión archivada de este análisis",
-      "revisionLinkTitle": "Enlace a la revisión del análisis",
-      "total": "Total",
-      "ignored": "Ignorados",
-      "working": "Operativos",
-      "broken": "Rotos",
-      "errorMessage": "Se ha producido un error",
-      "redirectTitle": "{redirectNumber, plural, =1 {1 redirección} other {# redirecciones}}",
-      "list": {
-        "title": "Últimos análisis"
-      }
-    },
-    "review": {
-      "title": "Examinar",
-      "select": "Selecciona un enlace"
-    }
-  },
-  "query": {
-    "defaultErrorMessage": "Error en la llamada a la API"
-  },
-  "errorMessage": {
-    "notEmpty": "Este campo no puede quedar vacío"
-  }
+	"@metadata": {
+		"authors": [
+			"Nacaru",
+			"Plantaest"
+		]
+	},
+	"common": {
+		"create": "Crear",
+		"update": "Actualizar",
+		"delete": "Eliminar",
+		"cancel": "Cancelar",
+		"default": "Por defecto",
+		"welcome": "Bienvenido",
+		"loading": "Cargando",
+		"back": "Volver",
+		"forward": "Avanzar",
+		"save": "Guardar",
+		"confirm": "Confirmar",
+		"select": "Seleccionar",
+		"reset": "Restaurar",
+		"add": "Añadir",
+		"wiki": "Wiki",
+		"notification": "Notificación"
+	},
+	"ui": {
+		"header": {
+			"home": "Home",
+			"result": "Resultados",
+			"stats": "Estadísticas",
+			"changeColorScheme": "Cambiar el tema",
+			"changeDirection": "Cambiar la dirección",
+			"changeLanguage": "Cambiar el idioma"
+		},
+		"home": {
+			"selectWiki": "Seleccionar wiki",
+			"enterPageTitle": "Escribe el nombre de la página",
+			"check": "Analizar"
+		},
+		"result": {
+			"note": "Analizado a las {time}, el {date}; en {duration} s",
+			"checkLinkTitle": "Enlace a la versión archivada de este análisis",
+			"revisionLinkTitle": "Enlace a la revisión del análisis",
+			"total": "Total",
+			"ignored": "Ignorados",
+			"working": "Operativos",
+			"broken": "Rotos",
+			"errorMessage": "Se ha producido un error",
+			"redirectTitle": "{redirectNumber, plural, =1 {1 redirección} other {# redirecciones}}",
+			"list": {
+				"title": "Últimos análisis"
+			}
+		},
+		"review": {
+			"title": "Examinar",
+			"select": "Selecciona un enlace"
+		}
+	},
+	"query": {
+		"defaultErrorMessage": "Error en la llamada a la API"
+	},
+	"errorMessage": {
+		"notEmpty": "Este campo no puede quedar vacío"
+	}
 }

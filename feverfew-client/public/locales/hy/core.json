@@ -1,0 +1,44 @@
+{
+	"@metadata": {
+		"authors": [
+			"Kareyac"
+		]
+	},
+	"common": {
+		"delete": "Ջնջել",
+		"cancel": "Չեղարկել",
+		"default": "Լռելյայն",
+		"welcome": "Բարի գալուստ",
+		"loading": "Բեռնվում է",
+		"back": "Հետ գնալ",
+		"save": "Հիշել",
+		"confirm": "Հաստատել",
+		"reset": "Վերակայել",
+		"add": "Ավելացնել",
+		"wiki": "Վիքի",
+		"notification": "Ծանուցում"
+	},
+	"ui": {
+		"header": {
+			"home": "Գլխավոր էջ",
+			"result": "Արդյունք",
+			"stats": "Կարգավիճակ",
+			"changeColorScheme": "Փոխել գունային սխեման",
+			"changeLanguage": "Փոխել լեզուն"
+		},
+		"home": {
+			"selectWiki": "Ընտեք վիքի"
+		},
+		"result": {
+			"working": "Գործող",
+			"errorMessage": "Ինչ-որ սխալ է տեղի ունեցել"
+		},
+		"review": {
+			"title": "Վերանայում",
+			"select": "Ընտրեք հղում"
+		}
+	},
+	"errorMessage": {
+		"notEmpty": "Այս դաշտը չպետք է դատարկ մնա"
+	}
+}

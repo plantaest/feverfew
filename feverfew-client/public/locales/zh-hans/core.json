@@ -1,0 +1,65 @@
+{
+	"@metadata": {
+		"authors": [
+			"HellojoeAoPS",
+			"TFX202X"
+		]
+	},
+	"common": {
+		"create": "创建",
+		"update": "更新",
+		"delete": "删除",
+		"cancel": "取消",
+		"default": "默认值",
+		"welcome": "欢迎",
+		"loading": "正在加载",
+		"back": "返回",
+		"forward": "前进",
+		"save": "保存",
+		"confirm": "确认",
+		"select": "选择",
+		"reset": "重置",
+		"add": "添加",
+		"wiki": "维基",
+		"notification": "通知"
+	},
+	"ui": {
+		"header": {
+			"home": "首页",
+			"result": "结果",
+			"stats": "统计",
+			"changeColorScheme": "更改颜色方案",
+			"changeDirection": "更改方向",
+			"changeLanguage": "更改语言"
+		},
+		"home": {
+			"selectWiki": "选择维基",
+			"enterPageTitle": "输入页面标题",
+			"check": "检查"
+		},
+		"result": {
+			"note": "检查于 {date} {time}，耗时 {duration} 秒",
+			"checkLinkTitle": "此检查的存档链接",
+			"revisionLinkTitle": "已检查修订版本的链接",
+			"total": "总计",
+			"ignored": "已忽略",
+			"working": "有效",
+			"broken": "损坏",
+			"errorMessage": "发生错误",
+			"redirectTitle": "{redirectNumber, plural, =1 {1 redirect} other {# redirects}}",
+			"list": {
+				"title": "最新检查"
+			}
+		},
+		"review": {
+			"title": "审核",
+			"select": "选择一个链接"
+		}
+	},
+	"query": {
+		"defaultErrorMessage": "无法调用 API"
+	},
+	"errorMessage": {
+		"notEmpty": "此字段不能留空"
+	}
+}

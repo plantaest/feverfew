@@ -1,0 +1,64 @@
+{
+	"@metadata": {
+		"authors": [
+			"Mellogabi03"
+		]
+	},
+	"common": {
+		"create": "criar",
+		"update": "atualizar",
+		"delete": "deletar",
+		"cancel": "cancelar",
+		"default": "padrão",
+		"welcome": "bem-vindo",
+		"loading": "carregando",
+		"back": "voltar",
+		"forward": "Avançar",
+		"save": "Salvar",
+		"confirm": "Confirmar",
+		"select": "Selecionar",
+		"reset": "Reiniciar",
+		"add": "adicionar",
+		"wiki": "Wiki",
+		"notification": "Notificação"
+	},
+	"ui": {
+		"header": {
+			"home": "Página principal",
+			"result": "Resultado",
+			"stats": "Estatísticas",
+			"changeColorScheme": "Trocar esquema de cor",
+			"changeDirection": "Alterar direção",
+			"changeLanguage": "Alterar idioma"
+		},
+		"home": {
+			"selectWiki": "Selecionar wiki",
+			"enterPageTitle": "Insira título da página",
+			"check": "Verificar"
+		},
+		"result": {
+			"note": "verificado às{time},{date}, em {duration}s",
+			"checkLinkTitle": "Arquivar link para essa verificação",
+			"revisionLinkTitle": "Link da revisão verificada",
+			"total": "Total",
+			"ignored": "Ignorado",
+			"working": "Trabalhando",
+			"broken": "Quebrado",
+			"errorMessage": "Algo deu errado",
+			"redirectTitle": "{redirect número, plural, =1 {1 redirect} outro {# redirects}}",
+			"list": {
+				"title": "Últimas análises"
+			}
+		},
+		"review": {
+			"title": "Revisar",
+			"select": "Selecione um link"
+		}
+	},
+	"query": {
+		"defaultErrorMessage": "\nInterface de programação de aplicações (API)"
+	},
+	"errorMessage": {
+		"notEmpty": "Esse campo não deve ser deixado vazio"
+	}
+}

@@ -1,0 +1,65 @@
+{
+	"@metadata": {
+		"authors": [
+			"GolyatGeri",
+			"Mirzali"
+		]
+	},
+	"common": {
+		"create": "Vıraze",
+		"update": "Rocane kerê",
+		"delete": "Bıesternê",
+		"cancel": "Bıtexelne",
+		"default": "Hesabiyaye",
+		"welcome": "Xeyr amey",
+		"loading": "Bar beno",
+		"back": "Peyser şo",
+		"forward": "Ver şo",
+		"save": "Qeyd ke",
+		"confirm": "Tesdiq kerê",
+		"select": "Weçine",
+		"reset": "Raçarne",
+		"add": "Dekerê",
+		"wiki": "Wiki",
+		"notification": "Peyhesnayış"
+	},
+	"ui": {
+		"header": {
+			"home": "Çeye",
+			"result": "Netice",
+			"stats": "İstatistiki",
+			"changeColorScheme": "Şemay rengi bıvurne",
+			"changeDirection": "Heta bıvurne",
+			"changeLanguage": "Zıwani bıvurne"
+		},
+		"home": {
+			"selectWiki": "Wiki weçine",
+			"enterPageTitle": "Seriya perla dekere",
+			"check": "Çımberze"
+		},
+		"result": {
+			"note": "{date} de çımerziyayo {time}; de {duration} s",
+			"checkLinkTitle": "Arşivyaye gırey nê çımerzayışi",
+			"revisionLinkTitle": "Çımerziyaye revizyonê ne gıreyi",
+			"total": "Pêro piya",
+			"ignored": "Nêhesabnaye",
+			"working": "Gureyeno",
+			"broken": "Şıkıte",
+			"errorMessage": "Tayê çi ğelet şi",
+			"redirectTitle": "{redirectNumber, plural, =1 {1 redirect} \nbin {# redirects}}",
+			"list": {
+				"title": "Çımerzayışo peyen"
+			}
+		},
+		"review": {
+			"title": "Verasayış",
+			"select": "Gıreyê weçine"
+		}
+	},
+	"query": {
+		"defaultErrorMessage": "Veyndayışê API yo qedexe yo"
+	},
+	"errorMessage": {
+		"notEmpty": "Gani no ca veng memano"
+	}
+}

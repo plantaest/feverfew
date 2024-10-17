@@ -1,0 +1,64 @@
+{
+	"@metadata": {
+		"authors": [
+			"Hedda"
+		]
+	},
+	"common": {
+		"create": "Oluştur",
+		"update": "Güncelle",
+		"delete": "Sil",
+		"cancel": "İptal",
+		"default": "Varsayılan",
+		"welcome": "Hoş geldiniz",
+		"loading": "Yükleniyor",
+		"back": "Geri dön",
+		"forward": "İleri git",
+		"save": "Kaydet",
+		"confirm": "Onayla",
+		"select": "Seç",
+		"reset": "Sıfırla",
+		"add": "Ekle",
+		"wiki": "Viki",
+		"notification": "Bildirim"
+	},
+	"ui": {
+		"header": {
+			"home": "Anasayfa",
+			"result": "Sonuç",
+			"stats": "İstatistikler",
+			"changeColorScheme": "Renk düzenini değiştir",
+			"changeDirection": "Yönü değiştir",
+			"changeLanguage": "Dili değiştir"
+		},
+		"home": {
+			"selectWiki": "Viki seç",
+			"enterPageTitle": "Sayfa başlığı gir",
+			"check": "Kontrol et"
+		},
+		"result": {
+			"note": "{time}, {date} tarihinde kontrol edildi; {duration} saniye içinde",
+			"checkLinkTitle": "Bu kontrol için arşivlenmiş bağlantı",
+			"revisionLinkTitle": "Kontrol edilen revizyonun bağlantısı",
+			"total": "Toplam",
+			"ignored": "Yoksayıldı",
+			"working": "Çalışıyor",
+			"broken": "Kırık",
+			"errorMessage": "Bir şeyler yanlış gitti",
+			"redirectTitle": "{redirectNumber, plural, =1 {1 redirect} diğer {# redirects}}",
+			"list": {
+				"title": "Son kontroller"
+			}
+		},
+		"review": {
+			"title": "İncele",
+			"select": "Bir bağlantı seç"
+		}
+	},
+	"query": {
+		"defaultErrorMessage": "API çağrılamıyor"
+	},
+	"errorMessage": {
+		"notEmpty": "Bu alan boş bırakılmamalıdır"
+	}
+}

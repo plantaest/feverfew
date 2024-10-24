@@ -1,0 +1,64 @@
+{
+	"@metadata": {
+		"authors": [
+			"Oujon"
+		]
+	},
+	"common": {
+		"create": "Vytvoriť",
+		"update": "Aktualizovať",
+		"delete": "Vymazať",
+		"cancel": "Zrušiť",
+		"default": "Predvolené",
+		"welcome": "Vitajte",
+		"loading": "Načítava sa",
+		"back": "Choď späť",
+		"forward": "Choď ďalej.",
+		"save": "Uložiť",
+		"confirm": "Potvrdiť",
+		"select": "Vybrať",
+		"reset": "Obnoviť",
+		"add": "Pridať",
+		"wiki": "Wiki",
+		"notification": "Upozornenie"
+	},
+	"ui": {
+		"header": {
+			"home": "Domov",
+			"result": "Výsledok",
+			"stats": "Štatistiky",
+			"changeColorScheme": "Zmeniť farebnú schému",
+			"changeDirection": "Zmeňte smer",
+			"changeLanguage": "Zmeniť jazyk"
+		},
+		"home": {
+			"selectWiki": "Vybrať wiki",
+			"enterPageTitle": "Zadajte názov stránky",
+			"check": "Skontrolovať"
+		},
+		"result": {
+			"note": "Skontrolované o {time}, {date}; v {duration} s",
+			"checkLinkTitle": "Archivovaný odkaz na túto kontrolu",
+			"revisionLinkTitle": "Odkaz na kontrolovanú revíziu",
+			"total": "Celkom",
+			"ignored": "Ignorované",
+			"working": "Funguje",
+			"broken": "Zlomené",
+			"errorMessage": "Niečo išlo zle",
+			"redirectTitle": "{redirectNumber, plural, =1 {1 redirect} ostatné {# redirect}}",
+			"list": {
+				"title": "Najnovšie kontroly"
+			}
+		},
+		"review": {
+			"title": "recenzia",
+			"select": "Vyberte odkaz"
+		}
+	},
+	"query": {
+		"defaultErrorMessage": "Nedá sa zavolať rozhranie API"
+	},
+	"errorMessage": {
+		"notEmpty": "Toto pole nesmie zostať prázdne"
+	}
+}

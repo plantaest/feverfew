@@ -1,0 +1,63 @@
+{
+	"@metadata": {
+		"authors": [
+			"Nokeoo"
+		]
+	},
+	"common": {
+		"create": "Sukurti",
+		"update": "Atnaujinti",
+		"delete": "Ištrinti",
+		"cancel": "Atšaukti",
+		"default": "Numatytasis",
+		"welcome": "Sveiki atvykę",
+		"loading": "Įkeliama",
+		"back": "Grįžti atgal",
+		"forward": "Eiti į priekį",
+		"save": "Išsaugoti",
+		"confirm": "Patvirtinti",
+		"select": "Pasirinkti",
+		"reset": "Atstatyti",
+		"add": "Pridėti",
+		"wiki": "Viki",
+		"notification": "Pranešimas"
+	},
+	"ui": {
+		"header": {
+			"home": "Pradžia",
+			"result": "Rezultatas",
+			"stats": "Statistika",
+			"changeColorScheme": "Keisti spalvų schemą",
+			"changeDirection": "Keisti kryptį",
+			"changeLanguage": "Keisti kalbą"
+		},
+		"home": {
+			"selectWiki": "Pasirinkti vikį",
+			"enterPageTitle": "Įveskite puslapio pavadinimą",
+			"check": "Tikrinti"
+		},
+		"result": {
+			"note": "Patikrinta {time}, {date}; per {duration} s.",
+			"checkLinkTitle": "Archyvuota šio patikrinimo nuoroda",
+			"revisionLinkTitle": "Patikrintos versijos nuoroda",
+			"total": "Viso",
+			"ignored": "Ignoruota",
+			"working": "Veikia",
+			"broken": "Sugedę",
+			"errorMessage": "Kažkas nutiko ne taip",
+			"list": {
+				"title": "Paskutiniai patikrinimai"
+			}
+		},
+		"review": {
+			"title": "Peržiūrėti",
+			"select": "Pasirinkite nuorodą"
+		}
+	},
+	"query": {
+		"defaultErrorMessage": "Nepavyko iškviesti API"
+	},
+	"errorMessage": {
+		"notEmpty": "Šis laukas negali būti paliktas tuščias"
+	}
+}

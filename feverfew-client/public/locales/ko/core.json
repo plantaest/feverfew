@@ -1,0 +1,65 @@
+{
+	"@metadata": {
+		"authors": [
+			"Suleiman the Magnificent Television",
+			"Ykhwong"
+		]
+	},
+	"common": {
+		"create": "만들기",
+		"update": "업데이트",
+		"delete": "삭제",
+		"cancel": "취소",
+		"default": "기본값",
+		"welcome": "환영합니다",
+		"loading": "불러오는 중",
+		"back": "돌아가기",
+		"forward": "계속하기",
+		"save": "저장",
+		"confirm": "확인",
+		"select": "선택",
+		"reset": "초기화",
+		"add": "추가",
+		"wiki": "위키",
+		"notification": "알림"
+	},
+	"ui": {
+		"header": {
+			"home": "홈",
+			"result": "결과",
+			"stats": "통계",
+			"changeColorScheme": "색상 구성표 변경",
+			"changeDirection": "방향 변경",
+			"changeLanguage": "언어 변경"
+		},
+		"home": {
+			"selectWiki": "위키 선택",
+			"enterPageTitle": "문서 제목을 입력하세요",
+			"check": "검사"
+		},
+		"result": {
+			"note": "{time}, {date}에 확인함. {duration}초 후",
+			"checkLinkTitle": "이 검사의 보관된 링크",
+			"revisionLinkTitle": "검사한 판의 링크",
+			"total": "합계",
+			"ignored": "무시됨",
+			"working": "동작 중",
+			"broken": "깨짐",
+			"errorMessage": "무언가가 잘못되었습니다",
+			"redirectTitle": "{redirectNumber, plural, =1 {넘겨주기 1개} other {넘겨주기 #개}}",
+			"list": {
+				"title": "마지막 검사"
+			}
+		},
+		"review": {
+			"title": "검토",
+			"select": "링크를 선택하세요"
+		}
+	},
+	"query": {
+		"defaultErrorMessage": "API를 호출할 수 없습니다"
+	},
+	"errorMessage": {
+		"notEmpty": "이 필드는 비워 둘 수 없습니다"
+	}
+}

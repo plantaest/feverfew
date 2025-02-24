@@ -1,0 +1,64 @@
+{
+	"@metadata": {
+		"authors": [
+			"Borichèt"
+		]
+	},
+	"common": {
+		"create": "Creé",
+		"update": "Agiorné",
+		"delete": "Eliminé",
+		"cancel": "Anulé",
+		"default": "Për ëstàndard",
+		"welcome": "Bin ëvnù",
+		"loading": "Antramentre ch'as caria",
+		"back": "Torné andré",
+		"forward": "Andé anans",
+		"save": "Argistré",
+		"confirm": "Confirmé",
+		"select": "Selessioné",
+		"reset": "Buté torna coma al prinsipi",
+		"add": "Gionté",
+		"wiki": "Wiki",
+		"notification": "Notìfica"
+	},
+	"ui": {
+		"header": {
+			"home": "Pàgina d'intrada",
+			"result": "Arzultà",
+			"stats": "Statìstiche",
+			"changeColorScheme": "Cangé lë schema ëd color",
+			"changeDirection": "Cangé la diression",
+			"changeLanguage": "Modifiché la lenga"
+		},
+		"home": {
+			"selectWiki": "Selessioné na wiki",
+			"enterPageTitle": "Anserì ël tìtol ëd la pàgina",
+			"check": "Controlé"
+		},
+		"result": {
+			"note": "Controlà a {time}, {date}; an {duration} s",
+			"checkLinkTitle": "Liura archivià për ës contròl",
+			"revisionLinkTitle": "Liura dla revision verificà",
+			"total": "Total",
+			"ignored": "Ignorà",
+			"working": "Fonsionant",
+			"broken": "Rot",
+			"errorMessage": "Cheicòs a l'é andà mal",
+			"redirectTitle": "{redirectNumber, plural, =1 {1 ridiression} other {# ridiression}}",
+			"list": {
+				"title": "Ùltime verìfiche"
+			}
+		},
+		"review": {
+			"title": "Arletura",
+			"select": "Selessioné na liura"
+		}
+	},
+	"query": {
+		"defaultErrorMessage": "Impossìbil ciamé l'API"
+	},
+	"errorMessage": {
+		"notEmpty": "Ës camp a peul nen esse lassà veuid"
+	}
+}

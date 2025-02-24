@@ -1,0 +1,44 @@
+{
+	"@metadata": {
+		"authors": [
+			"WaldiSt"
+		]
+	},
+	"common": {
+		"create": "Utwórz",
+		"update": "Aktualizuj",
+		"delete": "Usuń",
+		"cancel": "Anuluj",
+		"default": "Domyślnie",
+		"welcome": "Witaj",
+		"loading": "Ładuję",
+		"back": "Powrót",
+		"forward": "Idź naprzód",
+		"save": "Zapisz",
+		"confirm": "Potwierdź",
+		"select": "Wybierz",
+		"reset": "Zresetuj",
+		"add": "Dodaj",
+		"wiki": "Wiki",
+		"notification": "Powiadomienia"
+	},
+	"ui": {
+		"header": {
+			"home": "Strona główna",
+			"result": "Wynik",
+			"stats": "Status",
+			"changeColorScheme": "Zmień schemat kolorów",
+			"changeLanguage": "Zmień język"
+		},
+		"home": {
+			"selectWiki": "Wybierz wiki",
+			"enterPageTitle": "Podaj tytuł strony"
+		},
+		"result": {
+			"total": "Łącznie"
+		}
+	},
+	"errorMessage": {
+		"notEmpty": "To pole nie może pozostać puste"
+	}
+}

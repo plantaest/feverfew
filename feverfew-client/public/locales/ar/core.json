@@ -1,0 +1,64 @@
+{
+	"@metadata": {
+		"authors": [
+			"Meno25"
+		]
+	},
+	"common": {
+		"create": "إنشاء",
+		"update": "تحديث",
+		"delete": "حذف",
+		"cancel": "إلغاء",
+		"default": "افتراضي",
+		"welcome": "مرحبا",
+		"loading": "جارٍ التحميل",
+		"back": "رجوع",
+		"forward": "اذهب للأمام",
+		"save": "حفظ",
+		"confirm": "تأكيد",
+		"select": "اختر",
+		"reset": "إعادة ضبط",
+		"add": "إضافة",
+		"wiki": "ويكي",
+		"notification": "إشعار"
+	},
+	"ui": {
+		"header": {
+			"home": "الرئيسية",
+			"result": "النتيجة",
+			"stats": "الإحصائيات",
+			"changeColorScheme": "تغيير مخطط الألوان",
+			"changeDirection": "تغيير الاتجاه",
+			"changeLanguage": "تغيير اللغة"
+		},
+		"home": {
+			"selectWiki": "اختر ويكي",
+			"enterPageTitle": "أدخل عنوان الصفحة",
+			"check": "فحص"
+		},
+		"result": {
+			"note": "تم الفحص في {time}، {date}؛ في {duration} ثانية",
+			"checkLinkTitle": "رابط مؤرشف لهذا الفحص",
+			"revisionLinkTitle": "رابط المراجعة المدققة",
+			"total": "الإجمالي",
+			"ignored": "تم تجاهله",
+			"working": "عمل",
+			"broken": "مكسور",
+			"errorMessage": "حدث خطأ ما",
+			"redirectTitle": "{redirectNumber, plural, =1 {1 تحويلة} other {# تحويلات}}",
+			"list": {
+				"title": "أحدث الفحوصات"
+			}
+		},
+		"review": {
+			"title": "مراجعة",
+			"select": "حدد الرابط"
+		}
+	},
+	"query": {
+		"defaultErrorMessage": "غير قادر على الاتصال بواجهة برمجة التطبيقات"
+	},
+	"errorMessage": {
+		"notEmpty": "لا يجب ترك هذا الحقل فارغا"
+	}
+}

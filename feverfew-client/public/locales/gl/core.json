@@ -1,0 +1,64 @@
+{
+	"@metadata": {
+		"authors": [
+			"Toliño"
+		]
+	},
+	"common": {
+		"create": "Crear",
+		"update": "Actualizar",
+		"delete": "Eliminar",
+		"cancel": "Cancelar",
+		"default": "Por defecto",
+		"welcome": "Benvido",
+		"loading": "Cargando",
+		"back": "Volver",
+		"forward": "Avanzar",
+		"save": "Gardar",
+		"confirm": "Confirmar",
+		"select": "Seleccionar",
+		"reset": "Restablecer",
+		"add": "Engadir",
+		"wiki": "Wiki",
+		"notification": "Notificación"
+	},
+	"ui": {
+		"header": {
+			"home": "Inicio",
+			"result": "Resultado",
+			"stats": "Estatísticas",
+			"changeColorScheme": "Cambiar o esquema de cores",
+			"changeDirection": "Cambiar a dirección",
+			"changeLanguage": "Cambiar a lingua"
+		},
+		"home": {
+			"selectWiki": "Selecciona un wiki",
+			"enterPageTitle": "Escribe o nome da páxina",
+			"check": "Comprobar"
+		},
+		"result": {
+			"note": "Comprobado o {date} ás {time}; en {duration}s",
+			"checkLinkTitle": "Ligazón arquivada para esta comprobación",
+			"revisionLinkTitle": "Ligazón da revisión comprobada",
+			"total": "Total",
+			"ignored": "Ignoradas",
+			"working": "Operativas",
+			"broken": "Rotas",
+			"errorMessage": "Algo foi mal",
+			"redirectTitle": "{redirectNumber, plural, =1 {1 redirección} other {# redireccións}}",
+			"list": {
+				"title": "Últimas comprobacións"
+			}
+		},
+		"review": {
+			"title": "Revisar",
+			"select": "Selecciona unha ligazón"
+		}
+	},
+	"query": {
+		"defaultErrorMessage": "Non se puido chamar á API"
+	},
+	"errorMessage": {
+		"notEmpty": "Este campo non pode quedar baleiro"
+	}
+}

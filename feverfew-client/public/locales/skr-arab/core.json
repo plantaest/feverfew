@@ -28,14 +28,17 @@
 			"result": "نتیجہ",
 			"stats": "شماریات",
 			"changeColorScheme": "رنگ سکیم وٹاؤ",
+			"changeDirection": "سمت وٹاؤ",
 			"changeLanguage": "زبان وٹاؤ"
 		},
 		"home": {
 			"selectWiki": "وکی چݨو",
+			"enterPageTitle": "ورقہ عنوان درج کرو",
 			"check": "پڑتال"
 		},
 		"result": {
 			"total": "کُل",
+			"ignored": "نظر انداز تھیا",
 			"working": "کم کرݨ آلے",
 			"broken": "ترُٹا ہویا",
 			"errorMessage": "کجھ خراب تھی ڳئے"

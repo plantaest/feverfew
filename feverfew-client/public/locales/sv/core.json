@@ -1,0 +1,64 @@
+{
+	"@metadata": {
+		"authors": [
+			"Sabelöga"
+		]
+	},
+	"common": {
+		"create": "Skapa",
+		"update": "Uppdatera",
+		"delete": "Radera",
+		"cancel": "Avbryt",
+		"default": "Standard",
+		"welcome": "Välkommen",
+		"loading": "Läser in",
+		"back": "Gå tillbaka",
+		"forward": "Gå framåt",
+		"save": "Spara",
+		"confirm": "Bekräfta",
+		"select": "Välj",
+		"reset": "Återställ",
+		"add": "Lägg till",
+		"wiki": "Wiki",
+		"notification": "Avisering"
+	},
+	"ui": {
+		"header": {
+			"home": "Hem",
+			"result": "Resultat",
+			"stats": "Statistik",
+			"changeColorScheme": "Ändra färgschema",
+			"changeDirection": "Ändra riktning",
+			"changeLanguage": "Byt språk"
+		},
+		"home": {
+			"selectWiki": "Välj wiki",
+			"enterPageTitle": "Ange sidans titel",
+			"check": "Kontrollera"
+		},
+		"result": {
+			"note": "Kontrollerades kl. {time}, {date}; på {duration} s",
+			"checkLinkTitle": "Arkiverad länk för denna kontroll",
+			"revisionLinkTitle": "Länk till den kontrollerade revisionen",
+			"total": "Totalt",
+			"ignored": "Ignorerad",
+			"working": "Fungerar",
+			"broken": "Trasig",
+			"errorMessage": "Något blev fel",
+			"redirectTitle": "{redirectNumber, plural, =1 {1 omdirigering} annan {# omdirigeringar}}",
+			"list": {
+				"title": "Senaste kontrollerna"
+			}
+		},
+		"review": {
+			"title": "Granska",
+			"select": "Välj en länk"
+		}
+	},
+	"query": {
+		"defaultErrorMessage": "Kunde inte anropa API:t"
+	},
+	"errorMessage": {
+		"notEmpty": "Det här fältet får inte lämnas tomt"
+	}
+}

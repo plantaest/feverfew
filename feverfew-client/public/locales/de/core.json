@@ -1,0 +1,66 @@
+{
+	"@metadata": {
+		"authors": [
+			"Brettchenweber",
+			"Mukeber",
+			"TomatoCake"
+		]
+	},
+	"common": {
+		"create": "Erstellen",
+		"update": "Aktualisieren",
+		"delete": "Löschen",
+		"cancel": "Abbrechen",
+		"default": "Standard",
+		"welcome": "Willkommen",
+		"loading": "Lade …",
+		"back": "Zurück",
+		"forward": "Weiter",
+		"save": "Speichern",
+		"confirm": "Bestätigen",
+		"select": "Auswählen",
+		"reset": "Zurücksetzen",
+		"add": "Hinzufügen",
+		"wiki": "Wiki",
+		"notification": "Benachrichtigung"
+	},
+	"ui": {
+		"header": {
+			"home": "Start",
+			"result": "Ergebnis",
+			"stats": "Statistiken",
+			"changeColorScheme": "Farbschema ändern",
+			"changeDirection": "Richtung ändern",
+			"changeLanguage": "Sprache ändern"
+		},
+		"home": {
+			"selectWiki": "Wiki auswählen",
+			"enterPageTitle": "Seitentitel eingeben",
+			"check": "Prüfen"
+		},
+		"result": {
+			"note": "Überprüft am {date} um {time}; in {duration} s",
+			"checkLinkTitle": "Archivierter Link für diese Prüfung",
+			"revisionLinkTitle": "Link der geprüften Version",
+			"total": "Gesamt",
+			"ignored": "Ignoriert",
+			"working": "Funktionsfähig",
+			"broken": "Fehlerhaft",
+			"errorMessage": "Etwas ist schiefgelaufen",
+			"redirectTitle": "{redirectNumber, plural, =1 {1 Weiterleitung} andere {# Weiterleitungen}}",
+			"list": {
+				"title": "Letzte Überprüfungen"
+			}
+		},
+		"review": {
+			"title": "Überprüfen",
+			"select": "Wähle einen Link"
+		}
+	},
+	"query": {
+		"defaultErrorMessage": "API kann nicht abgerufen werden"
+	},
+	"errorMessage": {
+		"notEmpty": "Dieses Feld darf nicht leer bleiben"
+	}
+}

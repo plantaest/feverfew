@@ -1,6 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
+			"Goombiis",
+			"Mahabarata",
 			"Serieminou"
 		]
 	},
@@ -9,13 +11,23 @@
 		"update": "Mettre à jour",
 		"delete": "Supprimer",
 		"cancel": "Annuler",
+		"default": "Défaut",
+		"welcome": "Bienvenue",
+		"loading": "Chargement",
 		"back": "Retour",
 		"forward": "Avancer",
 		"save": "Enregistrer",
-		"confirm": "Confirmer"
+		"confirm": "Confirmer",
+		"select": "Sélectionner",
+		"reset": "Réinitialiser",
+		"add": "Ajouter",
+		"wiki": "Wiki",
+		"notification": "Notification"
 	},
 	"ui": {
 		"header": {
+			"home": "Accueil",
+			"result": "Résultat",
 			"stats": "Statistiques",
 			"changeColorScheme": "Changer la palette de couleurs",
 			"changeDirection": "Changer la direction",
@@ -23,10 +35,32 @@
 		},
 		"home": {
 			"selectWiki": "Sélectionner un wiki",
+			"enterPageTitle": "Entrer le titre de la page",
 			"check": "Vérifier"
 		},
 		"result": {
-			"note": "Vérifié à {time}, {date} ; dans {duration} s"
+			"note": "Vérifié à {time}, {date} ; dans {duration} s",
+			"checkLinkTitle": "Lien archivé pour ce contrôle",
+			"revisionLinkTitle": "Lien de la révision vérifiée",
+			"total": "Total",
+			"ignored": "Ignoré",
+			"working": "Fonctionnant",
+			"broken": "Cassé",
+			"errorMessage": "Quelque chose s’est mal passé",
+			"redirectTitle": "{redirectNumber\n, plural, =1 {1 redirection} other {# redirections}}",
+			"list": {
+				"title": "Dernières vérifications"
+			}
+		},
+		"review": {
+			"title": "Relecture",
+			"select": "Sélectionnez un lien"
 		}
+	},
+	"query": {
+		"defaultErrorMessage": "Impossible d'appeler l'API"
+	},
+	"errorMessage": {
+		"notEmpty": "Ce champ ne doit pas être laissé vide"
 	}
 }

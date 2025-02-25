@@ -37,6 +37,13 @@
 			"check": "בדיקה"
 		},
 		"result": {
+			"note": "נבדק ב־{time}, {date}; תוך {duration} שנ׳",
+			"checkLinkTitle": "קישור בארכיון לבדיקה הזאת",
+			"revisionLinkTitle": "קישור המהדורה שנבדקה",
+			"total": "סך הכול",
+			"ignored": "נפסחו",
+			"working": "עובדים",
+			"broken": "פגומים",
 			"errorMessage": "משהו השתבש",
 			"redirectTitle": "{redirectNumber, plural, =1 {הפנייה אחת} other {# הפניות}}",
 			"list": {

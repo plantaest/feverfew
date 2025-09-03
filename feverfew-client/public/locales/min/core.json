@@ -1,0 +1,64 @@
+{
+	"@metadata": {
+		"authors": [
+			"Adhmi"
+		]
+	},
+	"common": {
+		"create": "Buek",
+		"update": "Pabarui",
+		"delete": "Hapuih",
+		"cancel": "Batal",
+		"default": "Baku",
+		"welcome": "Salamaik datang",
+		"loading": "Mamuek...",
+		"back": "Baliak",
+		"forward": "Maju kamuko",
+		"save": "Simpan",
+		"confirm": "Tarimo",
+		"select": "Piliah",
+		"reset": "Atur ulang baliak",
+		"add": "Tambah",
+		"wiki": "Wiki",
+		"notification": "Pambaritauan"
+	},
+	"ui": {
+		"header": {
+			"home": "Palanta",
+			"result": "Hasia",
+			"stats": "Kaadaan",
+			"changeColorScheme": "Ubah skema warna",
+			"changeDirection": "Tuka arah",
+			"changeLanguage": "Ganti bahaso"
+		},
+		"home": {
+			"selectWiki": "Piliah wiki",
+			"enterPageTitle": "Masuakkan judul laman",
+			"check": "Pareso"
+		},
+		"result": {
+			"note": "Dipareso pado {time}, {date}; in {duration} s",
+			"checkLinkTitle": "Tautan nan diarsipkan untuak mamareso iko",
+			"revisionLinkTitle": "Tautan dari revisi nan dipareso",
+			"total": "Jumlah",
+			"ignored": "Ditulak",
+			"working": "karajo",
+			"broken": "Rusak",
+			"errorMessage": "Ado nan indak beres",
+			"redirectTitle": "{redirectNumber, plural, =1 {1 redirect} other {# redirects}}",
+			"list": {
+				"title": "Pareso tarakhia"
+			}
+		},
+		"review": {
+			"title": "Caliak",
+			"select": "Piliah tautan"
+		}
+	},
+	"query": {
+		"defaultErrorMessage": "Indak dapek maimbau API"
+	},
+	"errorMessage": {
+		"notEmpty": "Bidang ko indak buliah dibiakan kosong"
+	}
+}

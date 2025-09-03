@@ -1,0 +1,56 @@
+{
+	"@metadata": {
+		"authors": [
+			"Jimkats"
+		]
+	},
+	"common": {
+		"create": "Δημιουργία",
+		"update": "Ενημέρωση",
+		"delete": "Διαγραφή",
+		"cancel": "Ακύρωση",
+		"default": "Προεπιλογή",
+		"welcome": "Καλώς ήρθατε",
+		"loading": "Φόρτωση",
+		"back": "Πηγαίνετε πίσω",
+		"forward": "Πηγαίνετε μπροστά",
+		"save": "Αποθήκευση",
+		"confirm": "Επιβεβαίωση",
+		"select": "Επιλογή",
+		"reset": "Επαναφορά",
+		"add": "Προσθήκη",
+		"notification": "Ειδοποίηση"
+	},
+	"ui": {
+		"header": {
+			"home": "Αρχική",
+			"result": "Αποτέλεσμα",
+			"stats": "Στατιστικά",
+			"changeColorScheme": "Αλλαγή συνδυασμού χρωμάτων",
+			"changeDirection": "Αλλαγή κατεύθυνσης",
+			"changeLanguage": "Αλλαγή γλώσσας"
+		},
+		"home": {
+			"enterPageTitle": "Εισάγετε τίτλο σελίδας",
+			"check": "Έλεγχος"
+		},
+		"result": {
+			"note": "Ελέγχθηκε στις {time}, {date}; σε {duration} δ",
+			"total": "Συνολικά",
+			"errorMessage": "Κάτι πήγε στραβά",
+			"redirectTitle": "{redirectNumber, plural, =1 {1 ανακατεύθυνση} other {# ανακατευθύνσεις}}",
+			"list": {
+				"title": "Τελευταίοι έλεγχοι"
+			}
+		},
+		"review": {
+			"select": "Επιλέξτε έναν σύνδεσμο"
+		}
+	},
+	"query": {
+		"defaultErrorMessage": "Δεν είναι δυνατή η κλήση του API"
+	},
+	"errorMessage": {
+		"notEmpty": "Αυτό το πεδίο δεν πρέπει να μείνει κενό"
+	}
+}

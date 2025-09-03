@@ -1,0 +1,64 @@
+{
+	"@metadata": {
+		"authors": [
+			"Dimitrie569"
+		]
+	},
+	"common": {
+		"create": "Creare",
+		"update": "Actualizează",
+		"delete": "Șterge",
+		"cancel": "Anulează",
+		"default": "Implicit",
+		"welcome": "Bun venit",
+		"loading": "Se încarcă",
+		"back": "Mergeți înapoi",
+		"forward": "Mergeți Înainte",
+		"save": "Salvează",
+		"confirm": "Confirmă",
+		"select": "Selectează",
+		"reset": "Resetează",
+		"add": "Adaugă",
+		"wiki": "Wiki",
+		"notification": "Notificare"
+	},
+	"ui": {
+		"header": {
+			"home": "Acasă",
+			"result": "Rezultat",
+			"stats": "Statistici",
+			"changeColorScheme": "Schimbă schema de culoare",
+			"changeDirection": "Schimbă direcția",
+			"changeLanguage": "Schimbă limba"
+		},
+		"home": {
+			"selectWiki": "Selectează wiki-ul",
+			"enterPageTitle": "Introduceți titlul paginii",
+			"check": "Verifică"
+		},
+		"result": {
+			"note": "Verificat la {time}, {date}; pe o durată de {duration} s",
+			"checkLinkTitle": "Link-ul arhivat pentru această verificare",
+			"revisionLinkTitle": "Link-ul reviziei verificate",
+			"total": "Total",
+			"ignored": "Ignorate",
+			"working": "Funcționale",
+			"broken": "Nefuncționale",
+			"errorMessage": "Ceva nu a funcționat",
+			"redirectTitle": "{redirectNumber, plural, =1 {1 redirect} altele {# redirects}}",
+			"list": {
+				"title": "Cele mai recente verificări"
+			}
+		},
+		"review": {
+			"title": "Revizuire",
+			"select": "Selectați un link"
+		}
+	},
+	"query": {
+		"defaultErrorMessage": "Nu se poate apela API-ul"
+	},
+	"errorMessage": {
+		"notEmpty": "Acest câmp nu trebuie să fie lăsat gol"
+	}
+}

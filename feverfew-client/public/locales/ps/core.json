@@ -1,0 +1,64 @@
+{
+	"@metadata": {
+		"authors": [
+			"شاه زمان پټان"
+		]
+	},
+	"common": {
+		"create": "جوړول",
+		"update": "هم‌مهالول",
+		"delete": "ړنگول",
+		"cancel": "ناگارل",
+		"default": "تلواليز",
+		"welcome": "ښه راغلئ",
+		"loading": "بارېږي",
+		"back": "پر شا تلل",
+		"forward": "مخکې تلل",
+		"save": "خوندي‌کول",
+		"confirm": "تاييدول",
+		"select": "ټاکل",
+		"reset": "له‌سره‌اوڼل",
+		"add": "ورگډول",
+		"wiki": "ويکي",
+		"notification": "خبرتياوې"
+	},
+	"ui": {
+		"header": {
+			"home": "کور",
+			"result": "پايله",
+			"stats": "شمارنې",
+			"changeColorScheme": "رنگ دړه بدلول",
+			"changeDirection": "لوری بدلول",
+			"changeLanguage": "ژبه بدلول"
+		},
+		"home": {
+			"selectWiki": "ويکي ټاکل",
+			"enterPageTitle": "مخ سرليک دننه کړئ",
+			"check": "سم‌کتنه"
+		},
+		"result": {
+			"note": "په  {time}، {date}؛ {duration} موده کې سم‌کتنه ترسره شوه",
+			"checkLinkTitle": "د دې سم‌کتنې خونديځ تړونی",
+			"revisionLinkTitle": "د سم‌کتل‌شوې بياکتنې تړونی",
+			"total": "ټولټال",
+			"ignored": "له پامه غورځول شوی",
+			"working": "کار کول",
+			"broken": "مات شوی",
+			"errorMessage": "يو څه ناسم پېښ شول",
+			"redirectTitle": "{redirectNumber, plural, =1 {1 مخگرځ} نورې {# مخگرڅونې}}",
+			"list": {
+				"title": "وروستۍ سم‌کتنې"
+			}
+		},
+		"review": {
+			"title": "بياکتنه",
+			"select": "تړونی ټاکل"
+		}
+	},
+	"query": {
+		"defaultErrorMessage": "کاريال پروگرامېنگ مخبڼې سره نشي تړل‌کېدو توان نه لري"
+	},
+	"errorMessage": {
+		"notEmpty": "دا ډگر بايد تش پرېنښودل شي"
+	}
+}

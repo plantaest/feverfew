@@ -1,0 +1,64 @@
+{
+	"@metadata": {
+		"authors": [
+			"O andras"
+		]
+	},
+	"common": {
+		"create": "Criar",
+		"update": "Actualizar",
+		"delete": "Eliminar",
+		"cancel": "Cancelar",
+		"default": "Predefinido",
+		"welcome": "Bem-vindo(a)",
+		"loading": "A carregar",
+		"back": "Voltar",
+		"forward": "Avançar",
+		"save": "Guardar",
+		"confirm": "Confirmar",
+		"select": "Sleccionar",
+		"reset": "Repor",
+		"add": "Adicionar",
+		"wiki": "Wiki",
+		"notification": "Notificação"
+	},
+	"ui": {
+		"header": {
+			"home": "Início",
+			"result": "Resultado",
+			"stats": "Estatísticas",
+			"changeColorScheme": "Mudar tema",
+			"changeDirection": "Mudar direcção",
+			"changeLanguage": "Alterar língua"
+		},
+		"home": {
+			"selectWiki": "Seleccionar wiki",
+			"enterPageTitle": "Introduz o título da página",
+			"check": "Verificar"
+		},
+		"result": {
+			"note": "Verificado às {time} de {date}; em {duration} s",
+			"checkLinkTitle": "Ligação arquivada para esta verificação",
+			"revisionLinkTitle": "Ligação da revisão verificada",
+			"total": "Total",
+			"ignored": "Ignoradas",
+			"working": "A funcionar",
+			"broken": "Quebradas",
+			"errorMessage": "Ocorreu um problema",
+			"redirectTitle": "{redirectNumber, plural, =1 {1 redireccionamento} other {# redireccionamentos}}",
+			"list": {
+				"title": "Verificações mais recentes"
+			}
+		},
+		"review": {
+			"title": "Rever",
+			"select": "Seleccionar uma ligação"
+		}
+	},
+	"query": {
+		"defaultErrorMessage": "Não foi possível chamar a API"
+	},
+	"errorMessage": {
+		"notEmpty": "Este campo não pode ficar vazio"
+	}
+}

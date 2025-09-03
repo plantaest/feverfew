@@ -1,0 +1,25 @@
+{
+	"@metadata": {
+		"authors": [
+			"Largestone"
+		]
+	},
+	"common": {
+		"create": "作成",
+		"update": "更新",
+		"delete": "削除",
+		"cancel": "キャンセル",
+		"default": "既定",
+		"welcome": "ようこそ",
+		"loading": "読み込み中",
+		"back": "戻る",
+		"forward": "進む",
+		"save": "保存",
+		"confirm": "確認",
+		"select": "選択",
+		"reset": "リセット",
+		"add": "追加",
+		"wiki": "ウィキ",
+		"notification": "通知"
+	}
+}

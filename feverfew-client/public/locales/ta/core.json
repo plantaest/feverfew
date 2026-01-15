@@ -1,0 +1,34 @@
+{
+	"@metadata": {
+		"authors": [
+			"ElangoRamanujam"
+		]
+	},
+	"common": {
+		"create": "உருவாக்கு",
+		"update": "புதுப்பி",
+		"delete": "நீக்கு",
+		"cancel": "கைவிடுக",
+		"default": "இயல்பிருப்பு",
+		"welcome": "வருக",
+		"loading": "ஏற்றுகிறது",
+		"back": "பின் செல்",
+		"forward": "முன் செல்",
+		"save": "சேமி",
+		"confirm": "உறுதிசெய்",
+		"select": "தேர்க",
+		"reset": "மீட்டமை",
+		"add": "சேர்",
+		"wiki": "விக்கி",
+		"notification": "அறிவிப்பு"
+	},
+	"ui": {
+		"header": {
+			"home": "முகப்பு",
+			"result": "முடிவு"
+		},
+		"result": {
+			"errorMessage": "ஏதோ தவறாகியுள்ளது"
+		}
+	}
+}

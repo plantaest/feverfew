@@ -1,0 +1,64 @@
+{
+	"@metadata": {
+		"authors": [
+			"Bennylin"
+		]
+	},
+	"common": {
+		"create": "ꦒꦮꦺ",
+		"update": "ꦲꦚꦂꦫꦶ",
+		"delete": "ꦧꦸꦱꦏ꧀",
+		"cancel": "ꦮꦸꦫꦸꦁ",
+		"default": "ꦧꦏꦸ",
+		"welcome": "ꦱꦸꦒꦼꦁ​ꦫꦮꦸꦃ",
+		"loading": "ꦔꦩꦺꦴꦠ꧀",
+		"back": "ꦧꦭꦶ",
+		"forward": "ꦩꦗꦸ",
+		"save": "ꦱꦶꦩ꧀ꦥꦼꦤ꧀",
+		"confirm": "ꦏꦺꦴꦤ꧀ꦥ꦳ꦶꦂꦩꦱꦶ",
+		"select": "ꦥꦶꦭꦶꦃ",
+		"reset": "ꦫꦺꦱꦺꦠ꧀",
+		"add": "ꦠꦩ꧀ꦧꦃ",
+		"wiki": "ꦮꦶꦏꦶ",
+		"notification": "ꦥꦩ꧀ꦧꦶꦮꦫ"
+	},
+	"ui": {
+		"header": {
+			"home": "ꦥꦼꦤ꧀ꦝꦥ",
+			"result": "ꦏꦱꦶꦭ꧀",
+			"stats": "ꦱ꧀ꦠꦠꦶꦱ꧀ꦠꦶꦏ꧀",
+			"changeColorScheme": "ꦲꦺꦴꦮꦃ​ꦱ꧀ꦏꦺꦩ​ꦮꦼꦂꦤ",
+			"changeDirection": "ꦲꦺꦴꦮꦃ​ꦲꦫꦃ",
+			"changeLanguage": "ꦲꦺꦴꦮꦃ​ꦧꦱ"
+		},
+		"home": {
+			"selectWiki": "ꦥꦶꦭꦶꦃ​ꦮꦶꦏꦶ",
+			"enterPageTitle": "ꦊꦧꦺꦴꦏ꧀ꦤ​ꦗꦸꦢꦸꦭ꧀ꦏꦕ",
+			"check": "ꦥꦿꦶꦏ꧀ꦱ"
+		},
+		"result": {
+			"note": "ꦢꦶꦥꦿꦶꦏ꧀ꦱ​ꦲꦶꦁ {time}, {date}; ꦲꦶꦁ​{duration}ꦢꦼꦠꦶꦏ꧀",
+			"checkLinkTitle": "Pranala sing diarsipkan kanggo pamriksan iki",
+			"revisionLinkTitle": "Pranala revisi sing wis dicenthang",
+			"total": "ꦠꦺꦴꦠꦭ꧀",
+			"ignored": "ꦢꦶꦭꦶꦂꦮꦏꦏꦺ",
+			"working": "ꦱꦶꦁ​ꦲꦶꦱ",
+			"broken": "ꦱꦶꦁ​ꦲꦺꦴꦫ​ꦲꦶꦱ",
+			"errorMessage": "ꦲꦤ​ꦩꦱꦭꦃ",
+			"redirectTitle": "{redirectNumber, plural, =1 {1 redirect} other {# redirects}}",
+			"list": {
+				"title": "ꦥꦿꦶꦏ꧀ꦱ​ꦏꦺꦫꦶ​ꦝꦺꦮꦺ"
+			}
+		},
+		"review": {
+			"title": "ꦲꦸꦭꦱ꧀ꦱꦤ꧀",
+			"select": "ꦥꦶꦭꦶꦃ​ꦥꦿꦤꦭ"
+		}
+	},
+	"query": {
+		"defaultErrorMessage": "ꦲꦺꦴꦫ​ꦲꦶꦱ​ꦚꦼꦭꦸꦏ꧀​API"
+	},
+	"errorMessage": {
+		"notEmpty": "ꦏꦺꦴꦭꦺꦴꦩ꧀ꦲꦶꦏꦶ​ꦲꦺꦴꦫ​ꦏꦼꦤ​ꦢꦶꦏꦺꦴꦱꦺꦴꦁꦏꦺ"
+	}
+}

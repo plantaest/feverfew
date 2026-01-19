@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"WaldiSt"
+			"WaldiSt",
+			"Woytecr"
 		]
 	},
 	"common": {
@@ -28,15 +29,35 @@
 			"result": "Wynik",
 			"stats": "Status",
 			"changeColorScheme": "Zmień schemat kolorów",
+			"changeDirection": "Zmień kierunek",
 			"changeLanguage": "Zmień język"
 		},
 		"home": {
 			"selectWiki": "Wybierz wiki",
-			"enterPageTitle": "Podaj tytuł strony"
+			"enterPageTitle": "Podaj tytuł strony",
+			"check": "Sprawdź"
 		},
 		"result": {
-			"total": "Łącznie"
+			"note": "Sprawdzono {time}, {date}; w ciągu {duration} s",
+			"checkLinkTitle": "Zarchiwizowany link dla tego sprawdzenia",
+			"revisionLinkTitle": "Link do sprawdzonej wersji",
+			"total": "Łącznie",
+			"ignored": "Zignorowanych",
+			"working": "Działających",
+			"broken": "Niedziałających",
+			"errorMessage": "Coś poszło nie tak",
+			"redirectTitle": "{redirectNumber, plural, =1 {1 przekierowanie} other {# przekierowania}}",
+			"list": {
+				"title": "Ostatnie sprawdzenia"
+			}
+		},
+		"review": {
+			"title": "Przejrzyj",
+			"select": "Wybierz link"
 		}
+	},
+	"query": {
+		"defaultErrorMessage": "Nie udało się wywołać API"
 	},
 	"errorMessage": {
 		"notEmpty": "To pole nie może pozostać puste"

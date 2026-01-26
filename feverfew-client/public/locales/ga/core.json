@@ -1,0 +1,64 @@
+{
+	"@metadata": {
+		"authors": [
+			"Aindriu80"
+		]
+	},
+	"common": {
+		"create": "Cruthaigh",
+		"update": "Nuashonrú",
+		"delete": "Scrios",
+		"cancel": "Cealaigh",
+		"default": "Réamhshocrú",
+		"welcome": "Fáilte",
+		"loading": "Ag luchtú",
+		"back": "Téigh ar ais",
+		"forward": "Téigh ar aghaidh",
+		"save": "Sábháil",
+		"confirm": "Deimhnigh",
+		"select": "Roghnaigh",
+		"reset": "Athshocraigh",
+		"add": "Cuir leis",
+		"wiki": "Vicí",
+		"notification": "Fógra"
+	},
+	"ui": {
+		"header": {
+			"home": "Baile",
+			"result": "Toradh",
+			"stats": "Staitisticí",
+			"changeColorScheme": "Athraigh scéim dathanna",
+			"changeDirection": "Athraigh treo",
+			"changeLanguage": "Athraigh teanga"
+		},
+		"home": {
+			"selectWiki": "Roghnaigh vicí",
+			"enterPageTitle": "Cuir isteach teideal an leathanaigh",
+			"check": "Seiceáil"
+		},
+		"result": {
+			"note": "Seiceáilte ag {time}, {date}; i {duration} soicind",
+			"checkLinkTitle": "Nasc cartlannaithe don seic seo",
+			"revisionLinkTitle": "Nasc an athbhreithnithe seiceáilte",
+			"total": "Iomlán",
+			"ignored": "Neamhaird déanta air",
+			"working": "Ag obair",
+			"broken": "Briste",
+			"errorMessage": "Chuaigh rud éigin mícheart",
+			"redirectTitle": "{redirectNumber, plural, =1 {1 atreorú} other {# athsheoltaí}}",
+			"list": {
+				"title": "Seiceálacha is déanaí"
+			}
+		},
+		"review": {
+			"title": "Athbhreithniú",
+			"select": "Roghnaigh nasc"
+		}
+	},
+	"query": {
+		"defaultErrorMessage": "Ní féidir glaoch ar an API"
+	},
+	"errorMessage": {
+		"notEmpty": "Ní féidir an réimse seo a fhágáil folamh"
+	}
+}

@@ -1,0 +1,38 @@
+{
+	"@metadata": {
+		"authors": [
+			"Bayahiu"
+		]
+	},
+	"common": {
+		"create": "Buat",
+		"update": "Mutakhirkan",
+		"delete": "Hapus",
+		"cancel": "Batalkan",
+		"default": "Bawaan",
+		"loading": "Memuat",
+		"back": "Kembali",
+		"forward": "Maju",
+		"save": "Simpan",
+		"confirm": "Konfirmasikan",
+		"select": "Pilih",
+		"reset": "Atur ulang",
+		"add": "Tambahkan",
+		"notification": "Pemberitahuan"
+	},
+	"ui": {
+		"header": {
+			"home": "Beranda",
+			"result": "Hasil",
+			"stats": "Statistik",
+			"changeColorScheme": "Ubah skema warna",
+			"changeDirection": "Ubah arah",
+			"changeLanguage": "Ubah bahasa"
+		},
+		"home": {
+			"selectWiki": "Pilih wiki",
+			"enterPageTitle": "Masukkan judul halaman",
+			"check": "Periksa"
+		}
+	}
+}

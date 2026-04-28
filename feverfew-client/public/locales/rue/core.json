@@ -1,0 +1,30 @@
+{
+	"@metadata": {
+		"authors": [
+			"Oujon"
+		]
+	},
+	"common": {
+		"create": "Створити",
+		"update": "Обновити",
+		"delete": "Вымазати",
+		"cancel": "Зрушити",
+		"default": "Штандарне",
+		"welcome": "Вітайте",
+		"loading": "начітавать ся...",
+		"back": "Назад",
+		"save": "Уложыти",
+		"confirm": "Підтвердити",
+		"select": "Выбрати",
+		"reset": "Ресетовати",
+		"add": "Придати",
+		"wiki": "Вікі",
+		"notification": "Ознаміня"
+	},
+	"ui": {
+		"header": {
+			"home": "Домів",
+			"result": "Резултат"
+		}
+	}
+}

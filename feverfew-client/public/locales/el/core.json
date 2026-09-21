@@ -19,6 +19,7 @@
 		"select": "Επιλογή",
 		"reset": "Επαναφορά",
 		"add": "Προσθήκη",
+		"wiki": "Wiki",
 		"notification": "Ειδοποίηση"
 	},
 	"ui": {
@@ -31,12 +32,18 @@
 			"changeLanguage": "Αλλαγή γλώσσας"
 		},
 		"home": {
+			"selectWiki": "Επιλέξτε wiki",
 			"enterPageTitle": "Εισάγετε τίτλο σελίδας",
 			"check": "Έλεγχος"
 		},
 		"result": {
 			"note": "Ελέγχθηκε στις {time}, {date}; σε {duration} δ",
+			"checkLinkTitle": "Αρχειοθετημένος σύνδεσμος για αυτόν τον έλεγχο",
+			"revisionLinkTitle": "Σύνδεσμος της ελεγμένης αναθεώρησης",
 			"total": "Συνολικά",
+			"ignored": "Παραβλέφθηκαν",
+			"working": "Λειτουργικοί",
+			"broken": "Σπασμένοι",
 			"errorMessage": "Κάτι πήγε στραβά",
 			"redirectTitle": "{redirectNumber, plural, =1 {1 ανακατεύθυνση} other {# ανακατευθύνσεις}}",
 			"list": {
@@ -44,6 +51,7 @@
 			}
 		},
 		"review": {
+			"title": "Έλεγχος",
 			"select": "Επιλέξτε έναν σύνδεσμο"
 		}
 	},

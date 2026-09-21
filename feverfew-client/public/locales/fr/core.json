@@ -3,6 +3,7 @@
 		"authors": [
 			"Goombiis",
 			"Mahabarata",
+			"NClara",
 			"Serieminou"
 		]
 	},
@@ -39,7 +40,7 @@
 			"check": "Vérifier"
 		},
 		"result": {
-			"note": "Vérifié à {time}, {date} ; dans {duration} s",
+			"note": "Vérifié à {time}, {date} ; en {duration} s",
 			"checkLinkTitle": "Lien archivé pour ce contrôle",
 			"revisionLinkTitle": "Lien de la révision vérifiée",
 			"total": "Total",

@@ -1,0 +1,64 @@
+{
+	"@metadata": {
+		"authors": [
+			"EmeseToth"
+		]
+	},
+	"common": {
+		"create": "Létrehozás",
+		"update": "Frissítés",
+		"delete": "Törlés",
+		"cancel": "Mégse",
+		"default": "Alapértelmezett",
+		"welcome": "Üdvözlünk",
+		"loading": "Betöltés",
+		"back": "Vissza",
+		"forward": "Menj előre",
+		"save": "Mentés",
+		"confirm": "Megerősítés",
+		"select": "Kiválasztás",
+		"reset": "Visszaállítás",
+		"add": "Hozzáad",
+		"wiki": "Wiki",
+		"notification": "Értesítés"
+	},
+	"ui": {
+		"header": {
+			"home": "Kezdőlap",
+			"result": "Eredmény",
+			"stats": "Statisztikák",
+			"changeColorScheme": "Színséma módosítása",
+			"changeDirection": "Irányváltás",
+			"changeLanguage": "Nyelv megváltoztatása"
+		},
+		"home": {
+			"selectWiki": "Wiki kiválasztása",
+			"enterPageTitle": "Írd be a lap címét",
+			"check": "Ellenőrzés"
+		},
+		"result": {
+			"note": "Ellenőrizve: {time}, {date}; {duration} másodperc alatt",
+			"checkLinkTitle": "Archivált hivatkozás ehhez az ellenőrzéshez",
+			"revisionLinkTitle": "Az ellenőrzött változat hivatkozása",
+			"total": "Összesen",
+			"ignored": "Figyelmen kívül hagyva",
+			"working": "Munkavégzés",
+			"broken": "Törött",
+			"errorMessage": "Valami elromlott",
+			"redirectTitle": "{átirányítási szám, többes szám, =1 {1 átirányítás} egyéb {# átirányítások}}",
+			"list": {
+				"title": "Legutóbbi ellenőrzések"
+			}
+		},
+		"review": {
+			"title": "Ellenőrzés",
+			"select": "Egy hivatkozás kiválasztása"
+		}
+	},
+	"query": {
+		"defaultErrorMessage": "Nem sikerült meghívni az API-t"
+	},
+	"errorMessage": {
+		"notEmpty": "Ezt a mezőt nem szabad üresen hagyni"
+	}
+}

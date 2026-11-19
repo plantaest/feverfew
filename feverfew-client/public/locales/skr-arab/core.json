@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Saraiki"
+			"Saraiki",
+			"Tauqeerkhansurani"
 		]
 	},
 	"common": {
@@ -37,15 +38,28 @@
 			"check": "پڑتال"
 		},
 		"result": {
+			"note": "{time} تے {date} کوں چیک تھیا؛ {duration} سیکنڈ وچ",
+			"checkLinkTitle": "ایں چیک دا آرکائیو لنک",
+			"revisionLinkTitle": "چیک شدہ نظرثانی دا لنک",
 			"total": "کُل",
 			"ignored": "نظر انداز تھیا",
 			"working": "کم کرݨ آلے",
 			"broken": "ترُٹا ہویا",
-			"errorMessage": "کجھ خراب تھی ڳئے"
+			"errorMessage": "کجھ خراب تھی ڳئے",
+			"redirectTitle": "{redirectNumber, plural, =1 {1 ریڈائریکٹ} other {# ریڈائریکٹ}}",
+			"list": {
+				"title": "تازہ ترین چیک"
+			}
 		},
 		"review": {
 			"title": "ولدا ݙیکھو",
 			"select": "ہک لنک چݨو"
 		}
+	},
+	"query": {
+		"defaultErrorMessage": "API کوں کال نہیں کر سڳیا"
+	},
+	"errorMessage": {
+		"notEmpty": "ایں کھیت کوں خالی نہیں چھوڑݨا چاہیدا"
 	}
 }
